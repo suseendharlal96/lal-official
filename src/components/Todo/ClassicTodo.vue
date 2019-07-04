@@ -8,7 +8,7 @@
         v-for="(todo, index) in Todos"
         :key="index"
       >
-        <b>Task id:</b><b class="re">{{todo.id}}</b> <b>Task Name:</b><b class="react">{{todo.name | to-upperCase}}</b>
+        <b>Task id:</b><b class="re">{{todo.id}}</b> <b>Task Name:</b><b class="re">{{todo.name | to-upperCase}}</b>
 
         <b-button
           variant="outline-danger"
