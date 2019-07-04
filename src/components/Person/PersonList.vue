@@ -38,11 +38,10 @@
           </tr>
         </thead>
 
-        <tbody
-          v-for="(person, index) in personList"
-          :key="index"
-        >
+        <tbody v-if="personList.length > 0">
           <tr
+            v-for="(person, index) in personList"
+            :key="index"
             class="w3-hover-yellow hover"
             @click="dispOnForm(index)"
           >
@@ -59,6 +58,12 @@
             </td>
           </tr>
         </tbody>
+        <tbody v-else>
+        <tr
+          id="tableEmpty"
+          style="font-size: xx-large"
+        >Click create</tr>
+      </tbody>
         <b-button
           variant="outline-success"
           @click="createPerson()"
@@ -102,8 +107,11 @@ export default {
       this.createPerson();
     },
     deletePersonById(age) {
+      console.log(typeof age);
+      console.log(age);
       if (age.length > 0) {
         let p = this.personList.findIndex(person => person.age === age);
+        console.log(p);
         if (p !== -1) {
           this.$emit("personDelete", p);
           this.createPerson();

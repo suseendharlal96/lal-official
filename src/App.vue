@@ -15,5 +15,11 @@ export default {
   }
 };
 </script>
+<style>
+.container{
+  background-color: lightskyblue;
+  height: 100%;
+}
+</style>
 
 

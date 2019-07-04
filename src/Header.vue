@@ -1,17 +1,30 @@
 <template>
-  <div>
+  <div class="navigation">
     <b-nav pills>
       <b-nav-item>
-        <router-link to="/" active-class="active" exact><a>Home</a></router-link>
+        <router-link
+          to="/"
+          active-class="active"
+          exact
+        ><a>Home</a></router-link>
       </b-nav-item>
       <b-nav-item>
-        <router-link to="/person" exact><a>Person</a></router-link>
+        <router-link
+          to="/person"
+          exact
+        ><a>Person</a></router-link>
       </b-nav-item>
       <b-nav-item>
-        <router-link to="/quote" exact><a>Quote</a></router-link>
+        <router-link
+          to="/quote"
+          exact
+        ><a>Quote</a></router-link>
       </b-nav-item>
       <b-nav-item>
-        <router-link to="/todo" exact><a>Todo</a></router-link>
+        <router-link
+          to="/todo"
+          exact
+        ><a>Todo</a></router-link>
       </b-nav-item>
     </b-nav>
   </div>
@@ -29,3 +42,8 @@
     </li>
   </ul> -->
 </template>
+<style>
+.navigation {
+  background-color: whitesmoke;
+}
+</style>
