@@ -59,12 +59,6 @@
             </td>
           </tr>
         </tbody>
-
-        <!-- <div v-else>
-        <tbody>
-          <td>{{ propB.message }}</td>
-        </tbody>
-      </div> -->
         <b-button
           variant="outline-success"
           @click="createPerson()"
@@ -89,7 +83,6 @@ export default {
 
   data() {
     return {
-      perList: "",
       delData: "",
       rowData: "",
       val: "",
@@ -106,7 +99,7 @@ export default {
       console.log(index);
       this.dispOnForm(index);
       this.$emit("personDelete", index);
-      this.createPerson();  
+      this.createPerson();
     },
     deletePersonById(age) {
       if (age.length > 0) {
@@ -122,10 +115,6 @@ export default {
       }
     },
     createPerson() {
-      //   this.personList.name = "";
-      //   this.personList.age = "";
-      //   this.personList.email = "";
-      //   this.personList.admin = "";
       this.rowData = {
         name: "",
         age: "",
@@ -133,19 +122,14 @@ export default {
         admin: "",
         toCreate: true
       };
-      //   console.log(this.personList);
     },
     addPerson(list) {
-      console.log("pList");
-      // this.perList = list;
       this.$emit("createperson", list);
     },
     updatePerson(updatedList, index) {
       this.$emit("updatePerson", updatedList, index);
     },
     dispOnForm(i) {
-      // console.log(i);
-      // console.log(this.personList[i]);
       this.rowData = {
         name: this.personList[i].name,
         age: this.personList[i].age,

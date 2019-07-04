@@ -40,11 +40,11 @@ export default {
           return alert("Please delete Quotes first!");
         }
         this.quotes.push(quote);
-        console.log(this.quotes);
         let quoteIndex = this.quotes.findIndex(q => q.name === quote);
+        console.log(this.quotes);
         console.log(this.quoteIndex);
       } else {
-        console.log("asdas");
+        this.$toaster.error("creation failed");
       }
     },
     deleteQuote(index) {

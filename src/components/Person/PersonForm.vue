@@ -96,9 +96,6 @@ export default {
   // },
   methods: {
     addPerson(name, age, email, admin) {
-      console.log(name, "", age, email, admin);
-      console.log(this.rowData.toCreate);
-      console.log(Object.keys(this.rowData).length);
       if (this.rowData.toCreate) {
         console.log("create");
         if (name.length && age.length && email.length && admin.length > 0) {
@@ -119,11 +116,7 @@ export default {
         }
       } else {
         console.log("update");
-        console.log(event.target.value);
-        // this.$toaster.error("update currently unavailable :(");
-        // alert("update");
         let newPerson;
-
         newPerson = {
           name: this.rowData.name,
           age: this.rowData.age,

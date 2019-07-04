@@ -23,18 +23,6 @@ export default {
   data() {
     return {
       PersonList: [
-        // {
-        //   name: "Mike",
-        //   age: 12,
-        //   email: "ada@gma",
-        //   admin: true
-        // },
-        // {
-        //   name: "John",
-        //   age: 24,
-        //   email: "ada@gma",
-        //   admin: false
-        // }
       ]
     };
   },
@@ -43,12 +31,9 @@ export default {
       this.PersonList.splice(index, 1);
       this.$toaster.success("Successfully deleted");
       if (this.PersonList.length === 0) {
-        // this.empty = true;
-        // this.msg = "No data to display";
       }
     },
     createPerson(data) {
-      console.log(data);
       const perData = {
         name: data.name,
         age: data.age,
@@ -66,8 +51,6 @@ export default {
       //  this.PersonList.push(data);
     },
     updatePerson(data, index) {
-      console.log(data);
-      console.log(index);
       this.PersonList[index].name = data.name;
       this.PersonList[index].age = data.age;
       this.PersonList[index].email = data.email;
