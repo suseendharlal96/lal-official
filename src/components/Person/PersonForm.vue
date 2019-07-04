@@ -12,7 +12,7 @@
               id="name"
               class="form-control"
               :value="rowData.name"
-              @input="name = $event.target.value"
+              @input="rowData.name = $event.target.value"
             >
           </div>
           <div class="form-group">
@@ -22,7 +22,7 @@
               id="age"
               class="form-control"
               :value="rowData.age"
-              @input="age = $event.target.value"
+              @input="rowData.age = $event.target.value"
             >
             <!-- <p v-if="$v.age.minval">jkadjfka</p> -->
           </div>
@@ -32,8 +32,8 @@
               type="text"
               id="email"
               class="form-control"
-              @input="email = $event.target.value"
               :value="rowData.email"
+              @input="rowData.email = $event.target.value"
             >
             <!-- <p v-if="!$v.email.email">Please provide a valid email-id</p> -->
           </div>
@@ -44,14 +44,14 @@
               id="admin"
               class="form-control"
               :value="rowData.admin"
-              @input="admin = $event.target.value"
+              @input="rowData.admin = $event.target.value"
             >
           </div>
           <div class="row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
               <b-button
                 variant="outline-primary"
-                @click="addPerson(name, age, email, admin)"
+                @click="addPerson(rowData.name, rowData.age, rowData.email, rowData.admin)"
               >Save</b-button>
               <b-button
                 class="danger"
@@ -76,10 +76,11 @@ export default {
     return {
       adminOptions: ["admin", "non-admin"],
       selected: this.rowData.admin,
-      name: null,
-      age: null,
-      email: null,
-      admin: null
+      toCreate: true,
+      name: "",
+      age: "",
+      email: "",
+      admin: ""
     };
   },
   // validations: {
@@ -95,13 +96,44 @@ export default {
   // },
   methods: {
     addPerson(name, age, email, admin) {
-      const newPerson = {
-        name: name,
-        age: age,
-        email: email,
-        admin: admin
-      };
-      this.$emit("added", newPerson);
+      console.log(name, "", age, email, admin);
+      console.log(this.rowData.toCreate);
+      console.log(Object.keys(this.rowData).length);
+      if (this.rowData.toCreate) {
+        console.log("create");
+        if (name.length && age.length && email.length && admin.length > 0) {
+          const newPerson = {
+            name: this.rowData.name,
+            age: this.rowData.age,
+            email: this.rowData.email,
+            admin: this.rowData.admin
+          };
+          this.$emit("added", newPerson);
+          this.rowData.name = "";
+          this.rowData.email = "";
+          this.rowData.age = "";
+          this.rowData.admin = "";
+          this.rowData.toCreate = false;
+        } else {
+          this.$toaster.error("creation failed");
+        }
+      } else {
+        console.log("update");
+        console.log(event.target.value);
+        // this.$toaster.error("update currently unavailable :(");
+        // alert("update");
+        let newPerson;
+
+        newPerson = {
+          name: this.rowData.name,
+          age: this.rowData.age,
+          email: this.rowData.email,
+          admin: this.rowData.admin
+        };
+
+        this.$emit("update", newPerson, this.rowData.index);
+        this.$toaster.success("Successfully updated");
+      }
     },
     clearbox() {}
   }

@@ -6,6 +6,7 @@
       :personList="PersonList"
       @createperson="createPerson"
       @personDelete="deletePerson"
+      @updatePerson="updatePerson"
     ></person>
     <b-button
       @click="home"
@@ -59,10 +60,18 @@ export default {
       this.PersonList.push(data);
       axios
         .post("https://personlist-8be9e.firebaseio.com/persons.json", perData)
-        .then(this.$toaster.success("Successfully added"))
+        .then(this.$toaster.success("Successfully created"))
         .catch(err => console.log(err));
 
       //  this.PersonList.push(data);
+    },
+    updatePerson(data, index) {
+      console.log(data);
+      console.log(index);
+      this.PersonList[index].name = data.name;
+      this.PersonList[index].age = data.age;
+      this.PersonList[index].email = data.email;
+      this.PersonList[index].admin = data.admin;
     },
     home() {
       this.$router.push("/");

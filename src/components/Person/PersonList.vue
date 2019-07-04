@@ -14,11 +14,15 @@
     </ul><span>
       <input
         type="text"
-        :value="rowData"
+        :value="delData"
         @input="val=$event.target.value"
         class="text"
+        placeholder="enter age"
       >
-      <b-button variant="danger" @click="deletePersonById(val)">Del</b-button>
+      <b-button
+        variant="danger"
+        @click="deletePersonById(val)"
+      >Del</b-button>
     </span>
     <div class="w3-container">
       <h2>Person Table</h2>
@@ -69,6 +73,7 @@
       <person-form
         :rowData="rowData"
         @added="addPerson"
+        @update="updatePerson"
       ></person-form>
     </div>
   </div>
@@ -85,6 +90,7 @@ export default {
   data() {
     return {
       perList: "",
+      delData: "",
       rowData: "",
       val: "",
       formData: {
@@ -100,41 +106,65 @@ export default {
       console.log(index);
       this.dispOnForm(index);
       this.$emit("personDelete", index);
+      this.createPerson();
     },
     deletePersonById(age) {
-      let p = this.personList.findIndex(person => person.age === +age);
-      this.$emit("personDelete", p);
+      if (age.length > 0) {
+        let p = this.personList.findIndex(person => person.age === age);
+        if (p !== -1) {
+          this.$emit("personDelete", p);
+          this.createPerson();
+        } else {
+          this.$toaster.error("person doesn't exist");
+        }
+      } else {
+        this.$toaster.warning("unable to delete");
+      }
     },
     createPerson() {
-      this.personList.name = "";
-      this.personList.age = null;
-      this.personList.email = "";
-
-      this.rowData = this.personList;
-      console.log(this.personList);
+      //   this.personList.name = "";
+      //   this.personList.age = "";
+      //   this.personList.email = "";
+      //   this.personList.admin = "";
+      this.rowData = {
+        name: "",
+        age: "",
+        email: "",
+        admin: "",
+        toCreate: true
+      };
+      //   console.log(this.personList);
     },
     addPerson(list) {
       console.log("pList");
       // this.perList = list;
       this.$emit("createperson", list);
     },
+    updatePerson(updatedList, index) {
+      this.$emit("updatePerson", updatedList, index);
+    },
     dispOnForm(i) {
       // console.log(i);
       // console.log(this.personList[i]);
-      this.rowData = this.personList[i];
+      this.rowData = {
+        name: this.personList[i].name,
+        age: this.personList[i].age,
+        email: this.personList[i].email,
+        admin: this.personList[i].admin,
+        toCreate: false,
+        index: i
+      };
     }
   },
-  // created() {
-  //   eventBus.$on("added", list => {
-  //     console.log("dfsdaf");
-  //     console.log(list);
-  //     this.formData.name = list.name;
-  //     this.formData.age = list.age;
-  //     this.formData.admin = list.admin;
-  //     this.sendData();
-  //     eventBus.$emit("addedData", this.formData);
-  //   });
-  // },
+  mounted() {
+    this.rowData = {
+      name: "",
+      age: "",
+      email: "",
+      admin: "",
+      toCreate: true
+    };
+  },
   filters: {
     "to-upperCase"(value) {
       // Or toUpperCase(value) -> Alternative
@@ -159,3 +189,15 @@ export default {
 </style>
 
 
+
+              // created() {
+              //   eventBus.$on("added", list => {
+              //     console.log("dfsdaf");
+              //     console.log(list);
+              //     this.formData.name = list.name;
+              //     this.formData.age = list.age;
+              //     this.formData.admin = list.admin;
+              //     this.sendData();
+              //     eventBus.$emit("addedData", this.formData);
+              //   });
+              // },
