@@ -106,7 +106,7 @@ export default {
       console.log(index);
       this.dispOnForm(index);
       this.$emit("personDelete", index);
-      this.createPerson();
+      this.createPerson();  
     },
     deletePersonById(age) {
       if (age.length > 0) {
