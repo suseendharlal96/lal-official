@@ -1,85 +1,93 @@
 <template>
   <div>
-    <h2>To-do List</h2>
-    <textarea
-      type="text"
-      placeholder="add something..."
-      required
-      v-model="addVal"
-    ></textarea>
-    <span>
-      <b-button
-        variant="outline-success"
-        @click.prevent="add(addVal)"
-      >Add</b-button>
-    </span>
-    <div>
-      <select
-        label="delete"
-        v-model="val"
-      >
-        <option
-          disabled
-          value=""
-        > Select id/name</option>
-        <optgroup label="Task id">
+    <v-container
+      fluid
+      grid-list-md
+    >
 
-          <option
-            v-for="(drop,index) in dropDownArr"
-            :key="index"
-          >
-            {{drop.id}}
-          </option>
-        </optgroup>
-        <optgroup label="Task name">
-          <option
-            v-for="(drop,index) in dropDownArr"
-            :key="index"
-          >
-            {{drop.name}}
-          </option>
-        </optgroup>
-      </select>
+      <h2>To-do List</h2>
+      <v-textarea box
+        type="text"
+        placeholder="add something..."
+        required
+        auto-grow
+        v-model="addVal"
+      ></v-textarea>
       <span>
         <b-button
-          variant="danger"
-          @click="del(val)"
-        >Delete by Id/Name</b-button>
+          variant="outline-success"
+          @click.prevent="add(addVal)"
+        >Add</b-button>
       </span>
-    </div>
-    <h4>Your mode of view(Toggle to change):</h4>
-    <b-button
-      variant="outline-primary"
-      @click="classicMode"
-    >{{btnName}}</b-button>
-    <h3
-      class="br"
-      v-if="todos.length > 0"
-    >You've got {{todos.length}} thing(s) to-do</h3>
-    <h2
-      class="re"
-      v-else
-    >You got everything done!! </h2>
-    <div v-if="classic">
-      <!-- if classic 1st Child component -->
-      <classic-todo
-        :Todos="todos"
-        :buttonname="btnName"
-        @del="del"
-      ></classic-todo>
-    </div>
-    <!-- if Table 2nd Child component -->
-    <div v-else>
-      <table-todo
-        :Todos="todos"
-        :buttonname="btnName"
-        :readOnly="readOnly"
-        @update="update"
-        @del="del"
-        @editable="editable"
-      ></table-todo>
-    </div>
-    <b-button @click="home">Back to Home</b-button>
+      <div>
+        <select
+          label="delete"
+          v-model="val"
+          style="border: ridge"
+        >
+          <option
+            disabled
+            value=""
+          > Select id/name</option>
+          <optgroup label="Task id">
+
+            <option
+              v-for="(drop,index) in dropDownArr"
+              :key="index"
+            >
+              {{drop.id}}
+            </option>
+          </optgroup>
+          <optgroup label="Task name">
+            <option
+              v-for="(drop,index) in dropDownArr"
+              :key="index"
+            >
+              {{drop.name}}
+            </option>
+          </optgroup>
+        </select>
+        <span>
+          <b-button
+            variant="danger"
+            @click="del(val)"
+          >Delete by Id/Name</b-button>
+        </span>
+      </div>
+      <h4>Your mode of view(Toggle to change):</h4>
+      <b-button
+        variant="outline-primary"
+        @click="classicMode"
+      >{{btnName}}</b-button>
+      <h3
+        class="br"
+        v-if="todos.length > 0"
+      >You've got {{todos.length}} thing(s) to-do</h3>
+      <h2
+        class="re"
+        v-else
+      >You got everything done!! </h2>
+      <div v-if="classic">
+        <!-- if classic 1st Child component -->
+        <classic-todo
+          :Todos="todos"
+          :buttonname="btnName"
+          @del="del"
+        ></classic-todo>
+      </div>
+      <!-- if Table 2nd Child component -->
+      <div v-else>
+        <table-todo
+          :Todos="todos"
+          :buttonname="btnName"
+          :readOnly="readOnly"
+          @update="update"
+          @del="del"
+          @editable="editable"
+        ></table-todo>
+      </div>
+      <b-button @click="home">Back to Home</b-button>
+    </v-container>
   </div>
 </template>
 <script>
@@ -102,9 +110,6 @@ export default {
   methods: {
     add(val) {
       if (val.length > 0) {
-        // const min = Math.ceil(this.todos.length + 1);
-        // const max = Math.floor(20);
-        // const newId = Math.floor(Math.random() * (max - min)) + min;
         let ind = this.todos.findIndex(t => t.name === val.toLowerCase());
         if (ind === -1) {
           let newId = this.todos.length + 1;
@@ -159,8 +164,6 @@ export default {
             console.log(delIndex);
             if (delIndex !== -1) {
               this.dropDownArr.splice(dropDownIndex, 1);
-              // this.dropDownArr.splice(dropDownIndex, 1);
-              // this.dropDownArr.splice(this.todos[delIndex].name, 1);
               this.todos.splice(+delIndex, 1);
               this.val = "";
               this.$toaster.success("Successfully deleted");
@@ -169,15 +172,14 @@ export default {
             }
           } else {
             console.log("greater 2");
-            const delIndex = this.todos.findIndex(t => t.name === index);
+            const delIndex = this.todos.findIndex(
+              t => t.name.trim().toLowerCase() === index.trim().toLowerCase()
+            );
             const dropDownIndex = this.dropDownArr.findIndex(
-              d => d.name === index
+              d => d.name.trim().toLowerCase() === index.trim().toLowerCase()
             );
             if (delIndex !== -1) {
               this.dropDownArr.splice(dropDownIndex, 1);
-              // this.dropDownArr.splice(dropDownIndex - 1, 1);/
-              // this.dropDownArr.splice(this.todos[delIndex].name, 1);
-              // this.dropDownArr.splice(this.todos[delIndex].id, 1);
               this.todos.splice(+delIndex, 1);
               this.val = "";
               this.$toaster.success("Successfully deleted");
@@ -191,11 +193,7 @@ export default {
           const dropDownNumIndex = this.dropDownArr.findIndex(
             d => d.id === tobeDel.id
           );
-          // const dropDownNameIndex = this.dropDownArr.findIndex(
-          //   d => d.name === tobeDel.name
-          // );
           this.dropDownArr.splice(dropDownNumIndex, 1);
-          // this.dropDownArr.splice(dropDownNameIndex, 1);
           this.todos.splice(index, 1);
           this.val = "";
           this.$toaster.success("Successfully deleted");
@@ -207,8 +205,8 @@ export default {
     update(newVal, index) {
       if (newVal.length > 0) {
         let updatedValue = newVal.toLowerCase().trim();
-        let updatedItem = this.todos[index];
         let updateIndex = this.todos.findIndex(u => u.name === updatedValue);
+        let updatedItem = this.todos[index];
         let updateDropdownIndex = this.dropDownArr.findIndex(
           u => u.name === updatedItem.name
         );

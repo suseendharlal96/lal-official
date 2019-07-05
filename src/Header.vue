@@ -1,49 +1,104 @@
 <template>
-  <div class="navigation">
-    <b-nav pills>
-      <b-nav-item>
-        <router-link
-          to="/"
-          active-class="active"
-          exact
-        ><a>Home</a></router-link>
-      </b-nav-item>
-      <b-nav-item>
-        <router-link
-          to="/person"
-          exact
-        ><a>Person</a></router-link>
-      </b-nav-item>
-      <b-nav-item>
-        <router-link
-          to="/quote"
-          exact
-        ><a>Quote</a></router-link>
-      </b-nav-item>
-      <b-nav-item>
-        <router-link
-          to="/todo"
-          exact
-        ><a>Todo</a></router-link>
-      </b-nav-item>
-    </b-nav>
+  <div id="header">
+
+    <v-app>
+      <v-navigation-drawer
+        temporary
+        v-model="sideNav"
+      >
+        <v-list>
+          <v-list-tile
+            v-for="item in menuItems"
+            :key="item.title"
+            :to="item.link"
+          >
+            <v-list-tile-action>
+              <!-- <v-icon>{{ item.icon }}</v-icon> -->
+            </v-list-tile-action>
+            <v-list-tile-content>{{ item.title }}</v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-navigation-drawer>
+      <v-toolbar
+        dark
+        class="primary"
+      >
+        <v-toolbar-side-icon
+          @click.stop="sideNav = !sideNav"
+          class="hidden-sm-and-up "
+        ></v-toolbar-side-icon>
+        <v-toolbar-title>
+          <router-link
+            to="/"
+            tag="span"
+            style="cursor: pointer"
+          >Simple App</router-link>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items class="hidden-xs-only">
+          <v-btn
+            flat
+            v-for="item in menuItems"
+            :key="item.title"
+            :to="item.link"
+          >
+            <!-- <v-icon
+            left
+            dark
+          >{{ item.icon }}</v-icon> -->
+            {{ item.title }}
+
+          </v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
+      <!-- <main>
+      <router-view></router-view>
+    </main> -->
+    </v-app>
   </div>
-  <!-- <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <router-link to="/">Home</router-link>
-    </li>
-
-    <li class="nav-item">
-      <router-link to="/person">Person</router-link>
-    </li>
-
-    <li class="nav-item">
-      <router-link to="/quote">Quote</router-link>
-    </li>
-  </ul> -->
 </template>
-<style>
-.navigation {
-  background-color: whitesmoke;
+
+<script>
+export default {
+  data() {
+    return {
+      sideNav: false
+    };
+  },
+  computed: {
+    menuItems() {
+      let menuItems = [
+        { title: "Sign up", link: "/signup" }
+        // {icon: 'lock_open', title: 'Sign in', link: '/signin'}
+      ];
+      if (this.userIsAuthenticated) {
+        menuItems = [
+          { title: "Person", link: "/person" },
+          { title: "Quotes", link: "/quote" },
+          { title: "Todo", link: "/todo" }
+        ];
+      }
+      return menuItems;
+    },
+    userIsAuthenticated() {
+      return (
+        this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+      );
+    }
+  }
+};
+</script>
+
+<style >
+#header {
+  position: fixed;
+  z-index: 1;
+  height: 0%;
+  top: -92%;
+  bottom: -2%;
+  width: 100%;
+  left: 0%;
 }
+/* @import './s\' */
 </style>

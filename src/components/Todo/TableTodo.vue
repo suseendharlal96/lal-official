@@ -22,6 +22,7 @@
         >
           <td>{{ todo.id }}</td>
           <td v-if="readOnly"><input
+          class="form-control"
               type="text"
               v-b-tooltip.hover
               title="click update"
@@ -30,6 +31,7 @@
             ></td>
           <td v-else>
             <input
+            class="form-control"
               :value="todo.name"
               @input="updateVal=$event.target.value"
               readonly

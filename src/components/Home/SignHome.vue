@@ -2,7 +2,7 @@
   <div>
     <h2>Vue-Js</h2>
     <p>Just a simple application </p>
-    <h2>Signup to view other contents!</h2>
+    <h2>Successfully created!</h2>
   </div>
 </template>
 

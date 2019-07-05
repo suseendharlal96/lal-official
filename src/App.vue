@@ -3,7 +3,10 @@
     <app-header></app-header>
     <!-- For the components you have assigned routes will get rendered here -->
     <!-- here the routes are assigned for home, person & quote component -->
-    <router-view></router-view>
+    <div id="contents">
+
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -16,9 +19,15 @@ export default {
 };
 </script>
 <style>
-.container{
-  background-color: lightskyblue;
+body {
   height: 100%;
+  width: 100%;
+  /* background-color: aquamarine; */
+}
+#contents {
+  position: absolute;
+  height: auto;
+  top: 14%;
 }
 </style>
 

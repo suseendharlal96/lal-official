@@ -2,6 +2,9 @@ import Home from './components/Home/Home.vue'
 import Person from './components/Person/PersonHome.vue'
 import Quote from '../src/components/Quotes/QuoteHome.vue'
 import Todo from './components/Todo/Todo.vue'
+import Signup from './components/User/Signup.vue'
+import SignHome from './components/Home/SignHome.vue'
+
 export const routes= [
     {
         path: '', component: Home
@@ -14,5 +17,11 @@ export const routes= [
     },
     {
         path: '/todo', component: Todo
+    },
+    {
+        path:'/signup', component: Signup
+    },
+    {
+        path:'/success', component: SignHome
     }
 ]

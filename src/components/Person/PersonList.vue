@@ -1,79 +1,85 @@
 <template>
-  <div>
-    <input
-      v-model="filterPerson"
-      class="search"
-      placeholder="search persons"
-    >
-    <p>Showing all names</p>
-    <ul>
-      <li
-        v-for="(person, index) in filteredPersons"
-        :key="index"
-      >{{ person.name }}</li>
-    </ul><span>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+
       <input
-        type="text"
-        :value="delData"
-        @input="val=$event.target.value"
-        class="text"
-        placeholder="enter age"
+        v-model="filterPerson"
+        class="search"
+        placeholder="search persons"
       >
-      <b-button
-        variant="danger"
-        @click="deletePersonById(val)"
-      >Del</b-button>
-    </span>
-    <div class="w3-container">
-      <h2>Person Table</h2>
-
-      <table class="w3-table-all w3-hoverable w3-centered">
-        <thead>
-          <tr class="w3-red">
-            <th>Name</th>
-            <th>Age</th>
-            <th>Email</th>
-            <th>Admin</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody v-if="personList.length > 0">
-          <tr
-            v-for="(person, index) in personList"
-            :key="index"
-            class="w3-hover-yellow hover"
-            @click="dispOnForm(index)"
-          >
-            <td>{{ person.name | to-upperCase }}</td>
-            <td>{{ person.age }}</td>
-            <td>{{ person.email }}</td>
-            <td>{{ person.admin }}</td>
-            <td>
-              <b-button
-                variant="outline-danger"
-                id="del"
-                @click="deletePerson(index)"
-              >Del</b-button>
-            </td>
-          </tr>
-        </tbody>
-        <tbody v-else>
-        <tr
-          id="tableEmpty"
-          style="font-size: xx-large"
-        >Click create</tr>
-      </tbody>
+      <p>Showing all names</p>
+      <ul>
+        <li
+          v-for="(person, index) in filteredPersons"
+          :key="index"
+        >{{ person.name }}</li>
+      </ul><span>
+        <input
+          type="text"
+          :value="delData"
+          @input="val=$event.target.value"
+          class="text"
+          placeholder="enter age"
+        >
         <b-button
-          variant="outline-success"
-          @click="createPerson()"
-        >Create</b-button>
-      </table>
-      <person-form
-        :rowData="rowData"
-        @added="addPerson"
-        @update="updatePerson"
-      ></person-form>
+          variant="danger"
+          @click="deletePersonById(val)"
+        >Del</b-button>
+      </span>
+      <div class="w3-container">
+        <h2>Person Table</h2>
+
+        <table
+          class="w3-table-all w3-hoverable w3-centered"
+          style="width: 150%;"
+        >
+          <thead>
+            <tr class="w3-red">
+              <th>Name</th>
+              <th>Age</th>
+              <th>Email</th>
+              <th>Admin</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody v-if="personList.length > 0">
+            <tr
+              v-for="(person, index) in personList"
+              :key="index"
+              class="w3-hover-yellow hover"
+              @click="dispOnForm(index)"
+            >
+              <td>{{ person.name | to-upperCase }}</td>
+              <td>{{ person.age }}</td>
+              <td>{{ person.email }}</td>
+              <td>{{ person.admin }}</td>
+              <td>
+                <b-button
+                  variant="outline-danger"
+                  id="del"
+                  @click="deletePerson(index)"
+                >Del</b-button>
+              </td>
+            </tr>
+          </tbody>
+          <tbody v-else>
+            <tr
+              id="tableEmpty"
+              style="font-size: xx-large"
+            >Click create</tr>
+          </tbody>
+          <b-button
+            variant="outline-success"
+            @click="createPerson()"
+          >Create</b-button>
+        </table>
+        <person-form
+          :rowData="rowData"
+          @added="addPerson"
+          @update="updatePerson"
+        ></person-form>
+      </div>
     </div>
   </div>
 </template>

@@ -22,8 +22,7 @@ import Person from "./PersonList";
 export default {
   data() {
     return {
-      PersonList: [
-      ]
+      PersonList: []
     };
   },
   methods: {
@@ -51,10 +50,22 @@ export default {
       //  this.PersonList.push(data);
     },
     updatePerson(data, index) {
-      this.PersonList[index].name = data.name;
-      this.PersonList[index].age = data.age;
-      this.PersonList[index].email = data.email;
-      this.PersonList[index].admin = data.admin;
+      const perData = {
+        name: (this.PersonList[index].name = data.name),
+        age: (this.PersonList[index].age = data.age),
+        email: (this.PersonList[index].email = data.email),
+        admin: (this.PersonList[index].admin = data.admin)
+      };
+      this.PersonList.push(perData);
+      // axios
+      //   .post("https://personlist-8be9e.firebaseio.com/persons.json", perData)
+      //   .then(this.$toaster.success("Successfully updated"))
+      //   .catch(err => console.log(err));
+
+      // this.PersonList[index].name = data.name;
+      // this.PersonList[index].age = data.age;
+      // this.PersonList[index].email = data.email;
+      // this.PersonList[index].admin = data.admin;
     },
     home() {
       this.$router.push("/");
