@@ -77,8 +77,8 @@ export default {
     return {
       email: "",
       valid: true,
-      text: "<a href='http://localhost:8080/#/signin'>Have an account?</a>",
-      // text: "<a href='https://person-vue.herokuapp.com/#/signin'>Have an account?</a>",
+      // text: "<a href='http://localhost:8080/#/signin'>Have an account?</a>",
+      text: "<a href='https://person-vue.herokuapp.com/#/signin'>Have an account?</a>",
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid'
