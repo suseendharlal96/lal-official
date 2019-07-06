@@ -22,7 +22,8 @@ import Person from "./PersonList";
 export default {
   data() {
     return {
-      PersonList: []
+      PersonList: [],
+      loading: false
     };
   },
   methods: {

@@ -16,7 +16,7 @@
           <v-card>
             <v-card-text>
               <v-container>
-                <form @submit.prevent="onSignup">
+                <form @submit.prevent="onSignIn">
                   <v-layout row>
                     <v-flex xs12>
                       <v-text-field
@@ -37,7 +37,6 @@
                         label="Password"
                         id="password"
                         v-model="password"
-                        placeholder="must be atleast 6 characters"
                         type="password"
                         required
                       ></v-text-field>
@@ -45,20 +44,7 @@
                   </v-layout>
                   <v-layout row>
                     <v-flex xs12>
-                      <v-text-field
-                        name="confirmPassword"
-                        label="Confirm Password"
-                        id="confirmPassword"
-                        v-model="confirmPassword"
-                        type="password"
-                        :rules="[comparePasswords]"
-                      ></v-text-field>
-                    </v-flex>
-                  </v-layout>
-                  <v-layout row>
-                    <v-flex xs12>
-                      <v-btn :disabled="!valid" type="submit">Sign up</v-btn>
-                      <p v-html="text"></p>
+                      <v-btn :disabled="!valid" type="submit">Sign in</v-btn>
                     </v-flex>
                   </v-layout>
                 </form>
@@ -76,15 +62,12 @@ export default {
   data() {
     return {
       email: "",
+      password: "",
       valid: true,
-      text: "<a href='http://localhost:8080/#/signin'>Have an account?</a>",
-      // text: "<a href='https://person-vue.herokuapp.com/#/signin'>Have an account?</a>",
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid'
-      ],
-      password: "",
-      confirmPassword: ""
+      ]
     };
   },
   computed: {
@@ -100,13 +83,13 @@ export default {
   watch: {
     user(value) {
       if (value !== null && value !== undefined) {
-        this.$router.push("/signin");
+        this.$router.push("/success");
       }
     }
   },
   methods: {
-    onSignup() {
-      this.$store.dispatch("signUserUp", {
+    onSignIn() {
+      this.$store.dispatch("signUserIn", {
         email: this.email,
         password: this.password
       });
