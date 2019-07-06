@@ -7,6 +7,21 @@
   >
 
     <v-container>
+      <v-layout
+        row
+        v-if="error"
+      >
+        <v-flex
+          xs12
+          sm6
+          offset-sm3
+        >
+          <app-alert
+            @dismissed="onDismissed"
+            :text="error.message"
+          ></app-alert>
+        </v-flex>
+      </v-layout>
       <v-layout row>
         <v-flex
           xs12
@@ -23,7 +38,7 @@
                         name="email"
                         label="Mail"
                         id="email"
-                         :rules="emailRules"
+                        :rules="emailRules"
                         v-model="email"
                         type="email"
                         required
@@ -57,7 +72,15 @@
                   </v-layout>
                   <v-layout row>
                     <v-flex xs12>
-                      <v-btn :disabled="!valid" type="submit">Sign up</v-btn>
+                      <v-btn
+                        :disabled="loading" :loading="loading"
+                        type="submit"
+                      >Sign up <span
+                          slot="loader"
+                          class="custom-loader"
+                        >
+                          <v-icon light>$$$</v-icon>
+                        </span></v-btn>
                       <p v-html="text"></p>
                     </v-flex>
                   </v-layout>
@@ -80,8 +103,8 @@ export default {
       // text: "<a href='http://localhost:8080/#/signin'>Have an account?</a>",
       text: "<a href='https://person-vue.herokuapp.com/#/signin'>Have an account?</a>",
       emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid'
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
       ],
       password: "",
       confirmPassword: ""
@@ -95,6 +118,12 @@ export default {
     },
     user() {
       return this.$store.getters.user;
+    },
+    error() {
+      return this.$store.getters.error;
+    },
+    loading() {
+      return this.$store.getters.loading;
     }
   },
   watch: {
@@ -110,6 +139,9 @@ export default {
         email: this.email,
         password: this.password
       });
+    },
+    onDismissed() {
+      this.$store.dispatch("clearError");
     }
   }
 };
@@ -118,5 +150,40 @@ export default {
 #form {
   position: relative;
 }
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>
-

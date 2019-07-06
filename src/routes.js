@@ -27,5 +27,8 @@ export const routes= [
     },
     {
         path:'/success', component: SignHome
+    },
+    {
+        path:'/logout', component: Signup
     }
 ]

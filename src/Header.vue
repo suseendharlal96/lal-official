@@ -25,7 +25,7 @@
       >
         <v-toolbar-title>
           <router-link
-            to="/"
+            to="/success"
             tag="span"
             style="cursor: pointer"
           >Simple App</router-link>
@@ -71,7 +71,8 @@ export default {
         menuItems = [
           { title: "Person", link: "/person" },
           { title: "Quotes", link: "/quote" },
-          { title: "Todo", link: "/todo" }
+          { title: "Todo", link: "/todo" },
+          { title: "Logout", link: "/logout" }
         ];
       }
       return menuItems;

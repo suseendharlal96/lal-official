@@ -3,19 +3,20 @@ import Vue from 'vue';
 import * as firebase from 'firebase';
 import App from './App.vue';
 import VueRouter from 'vue-router';
-import Vuetify from 'vuetify'
-import Vuex from 'vuex'
+import Vuetify from 'vuetify';
+import Vuex from 'vuex';
 import BootstrapVue from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import Toaster from 'v-toaster';
 import 'v-toaster/dist/v-toaster.css';
-import 'vuetify/dist/vuetify.min.css'
+import 'vuetify/dist/vuetify.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 // LOCAL IMPORTS
 import { routes } from './routes';
-import {store} from './store'
+import { store } from './store';
+import Alert from './components/Shared/Alert.vue';
 
 // export const eventBus = new Vue()
 Vue.use(Vuelidate);
@@ -24,6 +25,8 @@ Vue.use(Vuetify);
 Vue.use(Vuex);
 Vue.use(Toaster, { timeout: 5000 });
 Vue.use(BootstrapVue);
+
+Vue.component('app-alert', Alert);
 
 const router = new VueRouter({
   routes
