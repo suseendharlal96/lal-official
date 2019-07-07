@@ -2,11 +2,13 @@
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 
-      <input
+      <v-text-field
         v-model="filterPerson"
         class="search"
-        placeholder="search persons"
-      >
+        placeholder="Search..."
+        prepend-inner-icon="search"
+        solo-inverted
+      ></v-text-field>
       <p>Showing all names</p>
       <ul>
         <li
@@ -14,16 +16,14 @@
           :key="index"
         >{{ person.name }}</li>
       </ul><span>
-        <input
-          type="text"
-          :value="delData"
-          @input="val=$event.target.value"
-          class="text"
-          placeholder="enter age"
-        >
+        <v-text-field
+        type="number"
+          v-model.number="delData"
+          placeholder="enter age to del"
+        ></v-text-field>
         <b-button
           variant="danger"
-          @click="deletePersonById(val)"
+          @click="deletePersonById(delData)"
         >Del</b-button>
       </span>
       <div class="w3-container">
@@ -78,6 +78,7 @@
           :rowData="rowData"
           @added="addPerson"
           @update="updatePerson"
+          @cancel="cancel"
         ></person-form>
       </div>
     </div>
@@ -114,9 +115,9 @@ export default {
     },
     deletePersonById(age) {
       console.log(typeof age);
-      console.log(age);
-      if (age.length > 0) {
-        let p = this.personList.findIndex(person => person.age === age);
+      console.log(age.to);
+      if (age.toString().length > 0) {
+        let p = this.personList.findIndex(person => person.age === age.toString());
         console.log(p);
         if (p !== -1) {
           this.$emit("personDelete", p);
@@ -142,6 +143,9 @@ export default {
     },
     updatePerson(updatedList, index) {
       this.$emit("updatePerson", updatedList, index);
+    },
+    cancel(value, index){
+      this.$emit('reset', value, index);
     },
     dispOnForm(i) {
       this.rowData = {

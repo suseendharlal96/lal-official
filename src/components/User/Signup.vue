@@ -48,13 +48,15 @@
                   <v-layout row>
                     <v-flex xs12>
                       <v-text-field
-                        name="password"
-                        label="Password"
-                        id="password"
                         v-model="password"
-                        placeholder="must be atleast 6 characters"
-                        type="password"
-                        required
+                        :append-icon="show ? 'visibility' : 'visibility_off'"
+                        :rules="[rules.required, rules.min]"
+                        :type="show ? 'text' : 'password'"
+                        name="input-10-1"
+                        label="Password"
+                        hint="At least 8 characters"
+                        counter
+                        @click:append="show = !show"
                       ></v-text-field>
                     </v-flex>
                   </v-layout>
@@ -73,14 +75,16 @@
                   <v-layout row>
                     <v-flex xs12>
                       <v-btn
-                        :disabled="loading" :loading="loading"
+                        :disabled="loading"
+                        :loading="loading"
                         type="submit"
-                      >Sign up <span
-                          slot="loader"
-                          class="custom-loader"
-                        >
-                          <v-icon light>$$$</v-icon>
-                        </span></v-btn>
+                        color="info"
+                        @click="loader = 'loading'"
+                      >Sign up <template v-slot:loader>
+                          <span class="custom-loader">
+                            <v-icon light>cached</v-icon>
+                          </span>
+                        </template></v-btn>
                       <p v-html="text"></p>
                     </v-flex>
                   </v-layout>
@@ -100,8 +104,13 @@ export default {
     return {
       email: "",
       valid: true,
-      // text: "<a href='http://localhost:8080/#/signin'>Have an account?</a>",
-      text: "<a href='https://person-vue.herokuapp.com/#/signin'>Have an account?</a>",
+      show:false,
+      rules: {
+        required: value => !!value || "Required.",
+        min: v => v.length >= 8 || "Min 8 characters"
+      },
+      text: "<a href='http://localhost:8080/#/signin'>Have an account?</a>",
+      // text: "<a href='https://person-vue.herokuapp.com/#/signin'>Have an account?</a>",
       emailRules: [
         v => !!v || "E-mail is required",
         v => /.+@.+/.test(v) || "E-mail must be valid"

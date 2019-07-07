@@ -7,6 +7,7 @@
       @createperson="createPerson"
       @personDelete="deletePerson"
       @updatePerson="updatePerson"
+      @reset="resetPerson"
     ></person>
     <b-button
       @click="home"
@@ -51,13 +52,12 @@ export default {
       //  this.PersonList.push(data);
     },
     updatePerson(data, index) {
-      const perData = {
-        name: (this.PersonList[index].name = data.name),
-        age: (this.PersonList[index].age = data.age),
-        email: (this.PersonList[index].email = data.email),
-        admin: (this.PersonList[index].admin = data.admin)
-      };
-      this.PersonList.push(perData);
+      this.PersonList[index].name = data.name;
+      this.PersonList[index].age = data.age;
+      this.PersonList[index].email = data.email;
+      this.PersonList[index].admin = data.admin;
+
+      // this.PersonList.push(perData);
       // axios
       //   .post("https://personlist-8be9e.firebaseio.com/persons.json", perData)
       //   .then(this.$toaster.success("Successfully updated"))
@@ -68,6 +68,14 @@ export default {
       // this.PersonList[index].email = data.email;
       // this.PersonList[index].admin = data.admin;
     },
+    resetPerson(data, index) {
+      console.log(index);
+      this.PersonList[index].name = data.name;
+      this.PersonList[index].age = data.age;
+      this.PersonList[index].email = data.email;
+      this.PersonList[index].admin = data.admin;
+    },
+
     home() {
       this.$router.push("/");
     }

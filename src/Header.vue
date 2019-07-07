@@ -38,18 +38,15 @@
             :key="item.title"
             :to="item.link"
           >
-            <!-- <v-icon
-            left
-            dark
-          >{{ item.icon }}</v-icon> -->
+              <!-- <v-icon
+              left
+              dark
+            >{{ item.icon }}</v-icon> -->
             {{ item.title }}
 
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
-      <!-- <main>
-      <router-view></router-view>
-    </main> -->
     </v-app>
   </div>
 </template>
@@ -58,9 +55,16 @@
 export default {
   data() {
     return {
-      sideNav: false
+      sideNav: false,
     };
   },
+  // methods:{
+  //   logout(){
+  //     console.log('sdfs');
+  //     this.$store.getters.user = null;
+  //     this.$router.push('/logout');
+  //   }
+  // },
   computed: {
     menuItems() {
       let menuItems = [

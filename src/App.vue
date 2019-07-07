@@ -22,7 +22,7 @@ export default {
 body {
   height: 100%;
   width: 100%;
-  /* background-color: aquamarine; */
+  background-color: bisque;
 }
 #contents {
   position: absolute;

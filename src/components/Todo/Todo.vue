@@ -6,13 +6,13 @@
     >
 
       <h2>To-do List</h2>
-      <v-textarea box
+      <v-text-field box
         type="text"
         placeholder="add something..."
         required
         auto-grow
         v-model="addVal"
-      ></v-textarea>
+      ></v-text-field>
       <span>
         <b-button
           variant="outline-success"
@@ -203,9 +203,11 @@ export default {
       }
     },
     update(newVal, index) {
+      console.log(newVal);
       if (newVal.length > 0) {
         let updatedValue = newVal.toLowerCase().trim();
         let updateIndex = this.todos.findIndex(u => u.name === updatedValue);
+        console.log(updateIndex)
         let updatedItem = this.todos[index];
         let updateDropdownIndex = this.dropDownArr.findIndex(
           u => u.name === updatedItem.name
