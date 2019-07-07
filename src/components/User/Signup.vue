@@ -109,8 +109,8 @@ export default {
         required: value => !!value || "Required.",
         min: v => v.length >= 8 || "Min 8 characters"
       },
-      text: "<a href='http://localhost:8080/#/signin'>Have an account?</a>",
-      // text: "<a href='https://person-vue.herokuapp.com/#/signin'>Have an account?</a>",
+      // text: "<a href='http://localhost:8080/#/signin'>Have an account?</a>",
+      text: "<a href='https://person-vue.herokuapp.com/#/signin'>Have an account?</a>",
       emailRules: [
         v => !!v || "E-mail is required",
         v => /.+@.+/.test(v) || "E-mail must be valid"
