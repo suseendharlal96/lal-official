@@ -136,7 +136,7 @@ export default {
       console.log(age.to);
       if (age.toString().length > 0) {
         let p = this.personList.findIndex(
-          person => person.age === age.toString()
+          person => person.age === age
         );
         console.log(p);
         if (p !== -1) {
