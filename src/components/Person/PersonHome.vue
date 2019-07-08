@@ -4,6 +4,7 @@
     <!-- from child to parent means '@'(this component is parent) -->
     <person
       :personList="PersonList"
+      :loading="loading"
       @createperson="createPerson"
       @personDelete="deletePerson"
       @updatePerson="updatePerson"
@@ -81,6 +82,7 @@ export default {
     }
   },
   created() {
+    this.loading = true;
     axios
       .get("https://personlist-8be9e.firebaseio.com/persons.json")
       .then(res =>
@@ -90,8 +92,13 @@ export default {
           const person = res.data[key];
           console.log(person);
           this.PersonList.push(person);
+          this.loading = false;
         })
-      );
+      )
+      .catch(err => {
+        this.loading = true;
+        console.log(err);
+      });
     // this.persons = { ...this.PersonList };
   },
   components: {

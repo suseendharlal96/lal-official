@@ -94,7 +94,7 @@ export default {
       password: "",
       valid: true,
       show: false,
-      // text: "<a href='http://localhost:8080/#/signup'>New user?s</a>",
+      // text: "<a href='http://localhost:8080/#/signup'>New user?</a>",
       text: "<a href='https://person-vue.herokuapp.com/#/signup'>New user?</a>",
       rules: {
         required: value => !!value || "Required.",
