@@ -28,7 +28,7 @@
     </v-navigation-drawer>
     <v-toolbar
       dark
-      class="primary"
+      class="red"
       style="position: fixed;
     z-index: 1;
     margin-top: 0px;
