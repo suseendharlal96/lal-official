@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
 
     <h2>You've currently selected <h2 class="re">{{buttonname}}</h2>
     </h2>
@@ -22,7 +22,7 @@
         style="font-size: xx-large"
       >Completed Tasks</li>
     </ol>
-  </div>
+  </v-container>
 </template>
 <script>
 export default {

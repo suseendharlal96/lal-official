@@ -1,11 +1,9 @@
 <template>
-  <div>
+  <v-container>
+    
     <h2>To-do List</h2>
     <div>
-      <div
-        v-if="loading"
-        class="row"
-      >
+      <div v-if="loading">
         <div class="text-xs-center">
           <v-progress-circular
             :size="50"
@@ -25,7 +23,7 @@
             type="text"
             placeholder="add something..."
             required
-            auto-grow
+            
             v-model="addVal"
           ></v-text-field>
           <span>
@@ -105,7 +103,7 @@
         </v-container>
       </div>
     </div>
-  </div>
+  </v-container>
 </template>
 <script>
 import axios from "axios";

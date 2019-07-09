@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <!-- from parent to child means ':' -->
     <!-- from child to parent means '@'(this component is parent) -->
     <person
@@ -14,7 +14,7 @@
       @click="home"
       class="home-btn"
     >Back to Home</b-button>
-  </div>
+  </v-container>
 </template>
 
 <script>

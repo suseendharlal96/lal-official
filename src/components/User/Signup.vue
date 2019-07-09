@@ -1,11 +1,4 @@
 <template>
-  <div
-    id="form "
-    style="position: fixed;
-    top: 11%;
-    width: 86%;"
-  >
-
     <v-container>
       <v-layout
         row
@@ -95,7 +88,6 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </div>
 </template>
 
 <script>

@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <v-container>
+
     <h2>You've currently selected <span></span>
       <h2 class="re">{{buttonname}}</h2>
     </h2>
@@ -57,7 +58,7 @@
         >Completed Tasks</tr>
       </tbody>
     </table>
-  </div>
+  </v-container>
 </template>
 <script>
 export default {

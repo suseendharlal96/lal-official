@@ -1,13 +1,10 @@
 <template>
-  <div>
-    <div
-      v-if="loading"
-      class="row"
-    >
+  <v-container>
+    <div v-if="loading">
       <div class="text-xs-center">
         <v-progress-circular
-        :size="50"
-        :width="4"
+          :size="50"
+          :width="4"
           indeterminate
           color="primary"
         ></v-progress-circular>
@@ -43,12 +40,13 @@
             @click="deletePersonById(delData)"
           >Del</b-button>
         </span>
+        <!-- <v-containe></v-containe> -->
         <div class="w3-container">
           <h2>Person Table</h2>
 
           <table
             class="w3-table-all w3-hoverable w3-centered"
-            style="width: 150%;"
+            
           >
             <thead>
               <tr class="w3-red">
@@ -100,7 +98,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -135,9 +133,7 @@ export default {
       console.log(typeof age);
       console.log(age.to);
       if (age.toString().length > 0) {
-        let p = this.personList.findIndex(
-          person => person.age === age
-        );
+        let p = this.personList.findIndex(person => person.age === age);
         console.log(p);
         if (p !== -1) {
           this.$emit("personDelete", p);

@@ -1,57 +1,66 @@
 <template>
-  <v-form v-model="valid">
-    <v-text-field
-      label="Name"
-      id="name"
-      :rules="nameRules"
-      :counter="15"
-      v-model.lazy.trim="rowData.name"
-    ></v-text-field>
-    <v-spacer></v-spacer>
-    <v-text-field
-      type="number"
-      label="Age"
-      id="age"
-      v-model.number="rowData.age"
-    ></v-text-field>
+  <v-container>
+    <v-form v-model="valid">
+      <v-layout row>
+        <v-flex xs6>
+          <v-text-field
+            label="Name"
+            id="name"
+            :rules="nameRules"
+            :counter="15"
+            v-model.lazy.trim="rowData.name"
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+      <v-spacer></v-spacer>
+      <v-layout row>
+        <v-flex xs6>
+          <v-text-field
+            type="number"
+            label="Age"
+            id="age"
+            v-model.number="rowData.age"
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex xs6>
+          <v-text-field
+            id="email"
+            label="Email"
+            :rules="emailRules"
+            :counter="40"
+            v-model.trim="rowData.email"
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex xs3>
+          <v-overflow-btn
+            :items="adminOptions"
+            label="Admin"
+            v-model.trim="rowData.admin"
+          ></v-overflow-btn>
+        </v-flex>
+      </v-layout>
 
-    <v-text-field
-      id="email"
-      label="Email"
-      :rules="emailRules"
-      :counter="40"
-      v-model.trim="rowData.email"
-    ></v-text-field>
-    <v-flex
-      xs12
-      sm6
-      d-flex
-    >
-      <v-overflow-btn
-        :items="adminOptions"
-        label="Admin"
-        v-model.trim="rowData.admin"
-      ></v-overflow-btn>
-    </v-flex>
+      <v-layout row>
+        <v-flex xs12>
+          <v-btn
+            depressed
+            color="primary"
+            @click="addPerson(rowData.name, rowData.age, rowData.email, rowData.admin)"
+          >Save</v-btn>
 
-    <v-layout row>
-      <v-flex xs12>
-        <v-btn
-          depressed
-          color="primary"
-          @click="addPerson(rowData.name, rowData.age, rowData.email, rowData.admin)"
-        >Save</v-btn>
-
-        <v-btn
-          depressed
-          color="error"
-          @click="clearbox"
-        >Cancel</v-btn>
-      </v-flex>
-    </v-layout>
-  </v-form>
-  <!-- </div> -->
-
+          <v-btn
+            depressed
+            color="error"
+            @click="clearbox"
+          >Cancel</v-btn>
+        </v-flex>
+      </v-layout>
+    </v-form>
+  </v-container>
 </template>
 
 <script>
@@ -126,7 +135,7 @@ export default {
       }
     },
     clearbox() {
-    //  this.$emit('cancel', this.rowData, this.rowData.index);
+      //  this.$emit('cancel', this.rowData, this.rowData.index);
     }
   }
 };

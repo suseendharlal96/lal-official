@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <v-container>
+
     <template v-if="showQuotes">
       <quote-header
         :quoteCount="quotes.length"
@@ -17,7 +18,7 @@
       </div>
     </template>
     <b-button @click="home">Back to Home</b-button>
-  </div>
+  </v-container>
 </template>
 
 <script>

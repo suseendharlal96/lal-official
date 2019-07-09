@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <v-container>
+
     <h2>Vue-Js</h2>
     <p>Just a simple application </p>
-    <h2>Signup to view other contents!</h2>
-  </div>
+  </v-container>
 </template>
 
 <script>
