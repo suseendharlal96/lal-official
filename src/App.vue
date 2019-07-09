@@ -105,7 +105,7 @@ export default {
         menuItems = [
           { icon: "person", title: "Person", link: "/person" },
           { icon: "face", title: "Quotes", link: "/quote" },
-          { icon: "face", title: "Todo", link: "/todo" }
+          { icon: "calendar_today", title: "Todo", link: "/todo" }
           // { icon: "lock", title: "Logout", link: "/logout" }
         ];
       }

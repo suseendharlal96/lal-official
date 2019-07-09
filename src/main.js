@@ -1,6 +1,6 @@
 // FROM VUE PACKAGE
 import Vue from 'vue';
-import { VuetifyIcon, VuetifyIcons } from 'vuetify'
+import { VuetifyIcon, VuetifyIcons } from 'vuetify';
 import * as firebase from 'firebase';
 import App from './App.vue';
 import VueRouter from 'vue-router';
@@ -15,7 +15,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 // LOCAL IMPORTS
-import { routes } from './routes';
+import { routes } from './router/routes';
 import { store } from './store';
 import Alert from './components/Shared/Alert.vue';
 
@@ -47,6 +47,11 @@ new Vue({
       storageBucket: 'personlist-8be9e.appspot.com',
       messagingSenderId: '146959222232',
       appId: '1:146959222232:web:1905680734b9ec51'
+    });
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch('autoSignIn', user);
+      }
     });
   }
 });
