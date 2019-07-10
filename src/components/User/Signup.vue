@@ -79,8 +79,10 @@
                           </span>
                         </template></v-btn>
                       <p v-html="text"></p>
+                      <p>(OR)</p>
                     </v-flex>
                   </v-layout>
+                  <v-icon class="fa-google"></v-icon><v-btn @click="googleSignIn()">Continue with google</v-btn>
                 </form>
               </v-container>
             </v-card-text>
@@ -91,6 +93,7 @@
 </template>
 
 <script>
+import * as firebase from "firebase";
 export default {
   data() {
     return {
@@ -130,7 +133,7 @@ export default {
   watch: {
     user(value) {
       if (value !== null && value !== undefined) {
-        this.$router.push("/signin");
+        this.$router.push("/success");
       }
     }
   },
@@ -143,6 +146,14 @@ export default {
     },
     onDismissed() {
       this.$store.dispatch("clearError");
+    },
+     googleSignIn() {
+      const base_provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(base_provider)
+        .then(result => console.log(result))
+        .catch(err => console.log(err));
     }
   }
 };

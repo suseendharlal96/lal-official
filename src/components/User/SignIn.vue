@@ -1,84 +1,87 @@
 <template>
-    <v-container>
-      <v-layout
-        row
-        v-if="error"
+  <v-container>
+    <v-layout
+      row
+      v-if="error"
+    >
+      <v-flex
+        xs12
+        sm6
+        offset-sm3
       >
-        <v-flex
-          xs12
-          sm6
-          offset-sm3
-        >
-          <app-alert
-            @dismissed="onDismissed"
-            :text="error.message"
-          ></app-alert>
-        </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex
-          xs12
-          sm6
-          offset-sm3
-        >
-          <v-card>
-            <v-card-text>
-              <v-container>
-                <form @submit.prevent="onSignIn">
-                  <v-layout row>
-                    <v-flex xs12>
-                      <v-text-field
-                        name="email"
-                        label="Mail"
-                        id="email"
-                        :rules="emailRules"
-                        v-model="email"
-                        type="email"
-                        required
-                      ></v-text-field>
-                    </v-flex>
-                  </v-layout>
-                  <v-layout row>
-                    <v-flex xs12>
-                      <v-text-field
-                        v-model="password"
-                        :append-icon="show ? 'visibility' : 'visibility_off'"
-                        :rules="[rules.required, rules.min]"
-                        :type="show ? 'text' : 'password'"
-                        name="input-10-1"
-                        label="Password"
-                        hint="At least 8 characters"
-                        counter
-                        @click:append="show = !show"
-                      ></v-text-field>
-                    </v-flex>
-                  </v-layout>
-                  <v-layout row>
-                    <v-flex xs12>
-                      <v-btn
-                        :disabled="loading"
-                        :loading="loading"
-                        type="submit"
-                        color="info"
-                        @click="loader = 'loading'"
-                      >Sign in <template v-slot:loader>
-                          <span class="custom-loader">
-                            <v-icon light>cached</v-icon>
-                          </span>
-                        </template></v-btn>
-                        <p v-html="text"></p>
-                    </v-flex>
-                  </v-layout>
-                </form>
-              </v-container>
-            </v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
+        <app-alert
+          @dismissed="onDismissed"
+          :text="error.message"
+        ></app-alert>
+      </v-flex>
+    </v-layout>
+    <v-layout row>
+      <v-flex
+        xs12
+        sm6
+        offset-sm3
+      >
+        <v-card>
+          <v-card-text>
+            <v-container>
+              <form @submit.prevent="onSignIn">
+                <v-layout row>
+                  <v-flex xs12>
+                    <v-text-field
+                      name="email"
+                      label="Mail"
+                      id="email"
+                      :rules="emailRules"
+                      v-model="email"
+                      type="email"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+                <v-layout row>
+                  <v-flex xs12>
+                    <v-text-field
+                      v-model="password"
+                      :append-icon="show ? 'visibility' : 'visibility_off'"
+                      :rules="[rules.required, rules.min]"
+                      :type="show ? 'text' : 'password'"
+                      name="input-10-1"
+                      label="Password"
+                      hint="At least 8 characters"
+                      counter
+                      @click:append="show = !show"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+                <v-layout row>
+                  <v-flex xs12>
+                    <v-btn
+                      :disabled="loading"
+                      :loading="loading"
+                      type="submit"
+                      color="info"
+                      @click="loader = 'loading'"
+                    >Sign in <template v-slot:loader>
+                        <span class="custom-loader">
+                          <v-icon light>cached</v-icon>
+                        </span>
+                      </template></v-btn>
+                    <p v-html="text"></p>
+                    <p>(OR)</p>
+                  </v-flex>
+                </v-layout>
+                <v-icon class="fa-google"></v-icon><v-btn @click="googleSignIn()">Continue with google</v-btn>
+              </form>
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
+import * as firebase from "firebase";
 export default {
   data() {
     return {
@@ -120,14 +123,14 @@ export default {
         this.$router.push("/success");
       }
     },
-    loader () {
-        const l = this.loader
-        this[l] = !this[l]
+    loader() {
+      const l = this.loader;
+      this[l] = !this[l];
 
-        setTimeout(() => (this[l] = false), 3000)
+      setTimeout(() => (this[l] = false), 3000);
 
-        this.loader = null
-      }
+      this.loader = null;
+    }
   },
   methods: {
     onSignIn() {
@@ -138,6 +141,14 @@ export default {
     },
     onDismissed() {
       this.$store.dispatch("clearError");
+    },
+    googleSignIn() {
+      const base_provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(base_provider)
+        .then(result => console.log(result))
+        .catch(err => console.log(err));
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form v-model="valid">
+    <v-form v-model="valid" style="width:200%">
       <v-layout row>
         <v-flex xs6>
           <v-text-field
