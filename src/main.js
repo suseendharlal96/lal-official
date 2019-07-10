@@ -22,9 +22,7 @@ import Alert from './components/Shared/Alert.vue';
 // export const eventBus = new Vue()
 Vue.use(Vuelidate);
 Vue.use(VueRouter);
-Vue.use(Vuetify, {
-  iconfont: 'fa'
-});
+Vue.use(Vuetify);
 Vue.use(Vuex);
 Vue.use(Toaster, { timeout: 5000 });
 Vue.use(BootstrapVue);

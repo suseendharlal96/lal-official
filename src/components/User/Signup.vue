@@ -82,13 +82,13 @@
                       <p>(OR)</p>
                     </v-flex>
                   </v-layout>
-                  <v-icon class="fa-google"></v-icon><v-btn @click="googleSignIn()">Continue with google</v-btn>
                 </form>
               </v-container>
             </v-card-text>
           </v-card>
         </v-flex>
       </v-layout>
+                  <v-icon class="fa-google"></v-icon><v-btn @click="googleSignIn()">Continue with google</v-btn>
     </v-container>
 </template>
 
