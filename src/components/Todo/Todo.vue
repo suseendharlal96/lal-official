@@ -67,7 +67,7 @@
               >Delete by Id/Name</b-button>
             </span>
           </div>
-          <h4>Your mode of view(Toggle to change):</h4>
+          <h4>Your mode of view(click to Toggle):</h4>
           <b-button
             variant="outline-primary"
             @click="classicMode"
