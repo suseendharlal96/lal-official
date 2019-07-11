@@ -68,6 +68,7 @@
                       </template></v-btn>
                     <p v-html="text"></p>
                     <p>(OR)</p>
+                <v-icon class="fa-google"></v-icon><v-btn @click="googleSignIn()">Continue with google</v-btn>
                   </v-flex>
                 </v-layout>
               </form>
@@ -76,7 +77,6 @@
         </v-card>
       </v-flex>
     </v-layout>
-                <v-icon class="fa-google"></v-icon><v-btn @click="googleSignIn()">Continue with google</v-btn>
   </v-container>
 </template>
 
