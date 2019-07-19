@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    
     <h2>To-do List</h2>
     <div>
       <div v-if="loading">
@@ -13,73 +12,60 @@
           ></v-progress-circular>
         </div>
       </div>
-      <div v-if=!loading>
-        <v-container
-          fluid
-          grid-list-md
-        >
+      <div v-if="!loading">
+        <v-container fluid grid-list-md>
           <v-text-field
             box
             type="text"
             placeholder="add something..."
             required
-            
             v-model="addVal"
           ></v-text-field>
           <span>
-            <b-button
-              variant="outline-success"
-              @click.prevent="add(addVal)"
-            >Add</b-button>
+            <b-button variant="outline-success" @click.prevent="add(addVal)"
+              >Add</b-button
+            >
           </span>
           <div>
-            <select
-              label="delete"
-              v-model="val"
-              style="border: ridge"
-            >
-              <option
-                disabled
-                value=""
-              > Select id/name</option>
-              <optgroup label="Task id">
-
-                <option
-                  v-for="(drop,index) in dropDownArr"
-                  :key="index"
-                >
-                  {{drop.id}}
+            <select label="delete" v-model="val" style="border: ridge">
+              <option disabled value=""> Select task name</option>
+              <!-- <optgroup label="Task name"> -->
+                <option v-for="(drop, index) in dropDownArr" :key="index">
+                  {{ drop }}
                 </option>
-              </optgroup>
-              <optgroup label="Task name">
-                <option
-                  v-for="(drop,index) in dropDownArr"
-                  :key="index"
-                >
-                  {{drop.name}}
-                </option>
-              </optgroup>
+              <!-- </optgroup> -->
             </select>
             <span>
-              <b-button
-                variant="danger"
-                @click="del(val)"
-              >Delete by Id/Name</b-button>
+              <b-button variant="danger" @click="del(val)"
+                >Delete by Name</b-button
+              >
             </span>
           </div>
-          <h4>Your mode of view(click to Toggle):</h4>
-          <b-button
-            variant="outline-primary"
-            @click="classicMode"
-          >{{btnName}}</b-button>
-          <h3
-            class="br"
-            v-if="todos.length > 0"
-          >You've got {{todos.length}} thing(s) to-do</h3>
-          <h2
-            class="re"
-            v-else
-          >You got everything done!! </h2>
+          <!-- Image upload -->
+          <!-- <v-layout row>
+            <v-flex xs12d sm6 offset-sm3>
+              <v-text-field
+                name="imgUrl"
+                label="Image URL"
+                id="image-url"
+                v-model="imgUrl"
+                required
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <img :src="imgUrl" height="150" />
+            </v-flex>
+          </v-layout>
+          <h4>Your mode of view(click to Toggle):</h4> -->
+          <b-button variant="outline-primary" @click="classicMode">{{
+            btnName
+          }}</b-button>
+          <h3 class="br" v-if="todos.length > 0">
+            You've got {{ todos.length }} thing(s) to-do
+          </h3>
+          <h2 class="re" v-else>You got everything done!!</h2>
           <div v-if="classic">
             <!-- if classic 1st Child component -->
             <classic-todo
@@ -116,7 +102,8 @@ export default {
       todos: [], // values will be fetched from DB firebase
       val: "",
       addVal: "",
-      readOnly: false,
+      readOnly: '',
+      imgUrl: "",
       classic: true,
       btnName: "Classic",
       dropDownArr: [],
@@ -126,40 +113,21 @@ export default {
   methods: {
     add(val) {
       if (val.length > 0) {
-        let ind = this.todos.findIndex(t => t.name === val.toLowerCase());
-        if (ind === -1) {
-          let newId = this.todos.length + 1;
-          let newTodo = {
-            id: newId,
-            name: val.toLowerCase()
-          };
-          let newIndex = this.todos.findIndex(ele => ele.id === newId);
-          if (newIndex === -1) {
-            this.todos.push(newTodo);
-            this.dropDownArr.push(newTodo.id, newTodo.name);
-            // Firebase backend
-            axios
-              .post("https://todolist-7be14.firebaseio.com/tasks.json", newTodo)
-              .then(this.$toaster.success("Successfully added"))
-              .catch(err => console.log(err));
+        let newTodo = {
+          val: val.toLowerCase()
+        };
+        console.log(newTodo);
+        let newIndex = this.todos.findIndex(ele => ele === val.toLowerCase());
+        if (newIndex === -1) {
+          this.todos.push(val);
+          this.dropDownArr.push(val);
+          // Firebase backend
+          axios
+            .post("https://todolist-7be14.firebaseio.com/tasks.json", newTodo)
+            .then(this.$toaster.success("Successfully added"))
+            .catch(err => console.log(err));
 
-            this.val = "";
-          } else {
-            newId = this.todos.length + 3;
-            newTodo = {
-              id: newId,
-              name: val.toLowerCase()
-            };
-            this.todos.push(newTodo);
-            this.dropDownArr.push(newTodo.id, newTodo.name);
-            // Firebase backend
-            axios
-              .post("https://todolist-7be14.firebaseio.com/tasks.json", newTodo)
-              .then(this.$toaster.success("Successfully added"))
-              .catch(err => console.log(err));
-
-            this.val = "";
-          }
+          this.val = "";
         } else {
           this.$toaster.error("Task already exists");
         }
@@ -167,14 +135,14 @@ export default {
         this.$toaster.error("should not be empty");
       }
     },
-    del(index) {
+    del(tobeDeleted) {
       if (this.todos.length > 0) {
-        if (typeof index === "string" && index.length !== 0) {
-          if (index.length <= 2) {
+        if (typeof tobeDeleted === "string" && tobeDeleted.length !== 0) {
+          // if (index.length <= 2) {
             console.log("inside string 2");
-            const delIndex = this.todos.findIndex(t => t.id === +index);
+            const delIndex = this.todos.findIndex(t => t === tobeDeleted);
             const dropDownIndex = this.dropDownArr.findIndex(
-              d => d.id === +index
+              d => d === tobeDeleted
             );
             console.log(dropDownIndex);
             console.log(delIndex);
@@ -186,56 +154,41 @@ export default {
             } else {
               this.$toaster.error("failed deletion");
             }
-          } else {
-            console.log("greater 2");
-            const delIndex = this.todos.findIndex(
-              t => t.name.trim().toLowerCase() === index.trim().toLowerCase()
-            );
-            const dropDownIndex = this.dropDownArr.findIndex(
-              d => d.name.trim().toLowerCase() === index.trim().toLowerCase()
-            );
-            if (delIndex !== -1) {
-              this.dropDownArr.splice(dropDownIndex, 1);
-              this.todos.splice(+delIndex, 1);
-              this.val = "";
-              this.$toaster.success("Successfully deleted");
-            } else {
-              this.$toaster.error("failed deletion");
-            }
-          }
-        } else if (typeof index === "number") {
+        } else if (typeof tobeDeleted === "number") {
           console.log("inside num");
-          const tobeDel = this.todos[index];
-          const dropDownNumIndex = this.dropDownArr.findIndex(
-            d => d.id === tobeDel.id
-          );
-          this.dropDownArr.splice(dropDownNumIndex, 1);
-          this.todos.splice(index, 1);
+          console.log(tobeDeleted);
+          // const tobeDel = this.todos[index];
+          // const dropDownNumIndex = this.dropDownArr.findIndex(
+          //   d => d.id === tobeDel.id
+          // );
+          this.dropDownArr.splice(tobeDeleted, 1);
+          this.todos.splice(tobeDeleted, 1);
           this.val = "";
           this.$toaster.success("Successfully deleted");
+        } else {
+          this.$toaster.error("no more items to delete");
         }
-      } else {
-        this.$toaster.error("no more items to delete");
       }
     },
     update(newVal, index) {
       console.log(newVal);
       if (newVal.length > 0) {
         let updatedValue = newVal.toLowerCase().trim();
-        let updateIndex = this.todos.findIndex(u => u.name === updatedValue);
+        let updateIndex = this.todos.findIndex(u => u === updatedValue);
         console.log(updateIndex);
         let updatedItem = this.todos[index];
         let updateDropdownIndex = this.dropDownArr.findIndex(
-          u => u.name === updatedItem.name
+          u => u === updatedItem
         );
         console.log(updateDropdownIndex);
         if (updateIndex === -1) {
-          this.todos[index].name = updatedValue;
-          this.dropDownArr[updateDropdownIndex].name = updatedValue;
-          this.readOnly = false;
+          this.todos[index] = updatedValue;
+          this.dropDownArr[updateDropdownIndex] = updatedValue;
+          this.readOnly = true;
           this.$toaster.info("Successfully updated");
-          this.$toaster.info("Read Mode");
+          this.readOnly = false;
         } else {
+          this.readOnly = true;
           this.$toaster.error("Task already exists");
         }
       } else {
@@ -250,16 +203,11 @@ export default {
       this.btnName = this.classic ? "Classic" : "Table";
     },
     editable() {
-      this.readOnly = !this.readOnly;
+      this.readOnly = true;
       if (this.readOnly) {
         this.$toaster.info("Edit Mode");
       } else {
         this.$toaster.info("Read Mode");
-      }
-    },
-    editMode() {
-      if (this.readOnly) {
-        this.readOnly = false;
       }
     },
     home() {
@@ -283,12 +231,11 @@ export default {
           const task = res.data[key];
           console.log(task);
           const dropDownObj = {
-            id: task.id,
-            name: task.name
+            name: task.val
           };
-          this.dropDownArr.push(dropDownObj);
+          this.dropDownArr.push(dropDownObj.name);
           console.log(this.dropDownArr);
-          this.todos.push(task);
+          this.todos.push(task.val);
           this.loading = false;
         })
       )

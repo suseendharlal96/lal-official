@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import firebase from 'firebase';
+import axios from 'axios';
+import * as toaster from 'v-toaster';
 
 Vue.use(Vuex);
 
@@ -24,6 +26,7 @@ export const store = new Vuex.Store({
     //     description: 'It\'s Paris!'
     //   }
     // ],
+    personList: [{}],
     user: null,
     loading: false,
     error: null
@@ -43,6 +46,13 @@ export const store = new Vuex.Store({
     },
     clearError(state) {
       state.error = null;
+    },
+    setPersons(state, payload) {
+      // state.personList.age = payload.age;
+      // state.personList.name = payload.name;
+      // state.personList.email = payload.email;
+      // state.personList.admin = payload.admin;
+      state.personList.push(payload);
     }
   },
   actions: {
@@ -95,6 +105,20 @@ export const store = new Vuex.Store({
     },
     autoSignIn({ commit }, payload) {
       commit('setUser', { id: payload.uid });
+    },
+    createPerson({ commit }, payload) {
+      console.log(payload);
+      commit('setPersons', {
+        // name: payload.name,
+        // age: payload.age,
+        // email: payload.email,
+        // admin: payload.admin
+        payload
+      });
+      axios
+        .post('https://personlist-8be9e.firebaseio.com/persons.json', payload)
+        .then(toaster.success('Successfully created'))
+        .catch(commit('setError', error));
     }
   },
   getters: {
@@ -106,6 +130,9 @@ export const store = new Vuex.Store({
     },
     error(state) {
       return state.error;
+    },
+    persons(state) {
+      return state.personList;
     }
   }
 });

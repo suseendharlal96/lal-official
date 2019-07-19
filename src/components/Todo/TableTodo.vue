@@ -1,8 +1,8 @@
 <template>
   <v-container>
-
-    <h2>You've currently selected <span></span>
-      <h2 class="re">{{buttonname}}</h2>
+    <h2>
+      You've currently selected <span></span>
+      <h2 class="re">{{ buttonname }}</h2>
     </h2>
     <table class="w3-table-all w3-hoverable w3-centered">
       <thead>
@@ -13,50 +13,67 @@
         </tr>
       </thead>
       <tbody v-if="Todos.length > 0">
-        <tr
-          v-for="(todo, index) in Todos"
-          :key="index"
-          @dblclick="editable()"
-          style="cursor: pointer"
-          v-b-tooltip.hover
-          title="double click to edit"
-        >
-          <td>{{ todo.id }}</td>
-          <td v-if="readOnly"><input
-              style="border: groove;"
-              type="text"
-              v-b-tooltip.hover
-              title="click update"
-              :value="todo.name"
-              @input="updateVal=$event.target.value"
-            ></td>
-          <td v-else>
-            <input
-              type="text"
-              style="border: groove;"
-              :value="todo.name"
-              @input="updateVal=$event.target.value"
-              readonly
-            >
-          </td>
-          <td>
-            <b-button
-              variant="outline-primary"
-              @click="update(updateVal, index)"
-            >Update</b-button>
-            <b-button
-              variant="outline-danger"
-              @click="del(index)"
-            >Delete</b-button>
-          </td>
+        <tr v-for="(todo, index) in Todos" :key="index" style="cursor: pointer">
+          <template v-if="updateIndex != index">
+            <td>{{ index + 1 }}</td>
+            <td>{{ todo }}</td>
+            <td>
+              <i
+                class="material-icons"
+                v-b-tooltip.hover
+                title="click to edit"
+                @click="editMode(index)"
+                >create</i
+              >
+              <i
+                class="material-icons"
+                v-b-tooltip.hover
+                title="click to delete"
+                @click="del(index)"
+                >delete</i
+              >
+            </td>
+          </template>
+          <template v-else>
+            <template v-if="readOnly">
+              <td>{{ index + 1 }}</td>
+              <td>
+                <input
+                  class="form-control"
+                  type="text"
+                  :value="todo"
+                  @input="updateVal = $event.target.value"
+                />
+              </td>
+              <td>
+                <i
+                  class="material-icons"
+                  v-b-tooltip.hover
+                  title="click to save"
+                  @click="save(updateVal, index)"
+                  >save</i
+                >
+                <i
+                  class="material-icons"
+                  v-b-tooltip.hover
+                  title="click to cancel"
+                  @click="cancel(index)"
+                  >cancel</i
+                >
+              </td>
+            </template>
+          </template>
         </tr>
       </tbody>
-      <tbody v-else>
-        <tr
-          id="tableEmpty"
-          style="font-size: xx-large"
-        >Completed Tasks</tr>
-      </tbody>
+      <template v-else>
+        <tbody>
+          <tr id="tableEmpty">
+            <td colspan="3">
+              Completed Tasks.
+            </td>
+          </tr>
+        </tbody>
+      </template>
     </table>
   </v-container>
 </template>
@@ -65,18 +82,25 @@ export default {
   props: ["Todos", "buttonname", "readOnly"],
   data() {
     return {
-      updateVal: ""
+      updateVal: "",
+      updateIndex: -1
+      // editMode: false
     };
   },
   methods: {
     del(index) {
       this.$emit("del", index);
     },
-    update(val, index) {
+    save(val, index) {
       this.$emit("update", val, index);
+      this.updateIndex = -1;
     },
-    editable() {
+    editMode(index) {
+      this.updateIndex = index;
       this.$emit("editable");
+    },
+    cancel() {
+      this.updateIndex = -1;
     }
   }
 };

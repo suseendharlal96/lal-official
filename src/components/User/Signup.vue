@@ -82,7 +82,10 @@
                     <p>(OR)</p>
                     <v-icon class="fa-google"></v-icon>
                     <v-btn @click="googleSignIn()">Continue with google</v-btn>
-                    <v-btn color="info" @click="facebookLogin()">Continue with facebook</v-btn>
+                    <v-btn
+                      color="info"
+                      @click="facebookLogin()"
+                    >Continue with facebook</v-btn>
                   </v-flex>
                 </v-layout>
               </form>
@@ -96,12 +99,15 @@
 
 <script>
 import * as firebase from "firebase";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       email: "",
       valid: true,
       show: false,
+      password: "",
+      confirmPassword: "",
       rules: {
         required: value => !!value || "Required.",
         min: v => v.length >= 8 || "Min 8 characters"
@@ -112,9 +118,7 @@ export default {
       emailRules: [
         v => !!v || "E-mail is required",
         v => /.+@.+/.test(v) || "E-mail must be valid"
-      ],
-      password: "",
-      confirmPassword: ""
+      ]
     };
   },
   computed: {
@@ -123,15 +127,7 @@ export default {
         ? "Passwords do not match"
         : true;
     },
-    user() {
-      return this.$store.getters.user;
-    },
-    error() {
-      return this.$store.getters.error;
-    },
-    loading() {
-      return this.$store.getters.loading;
-    }
+    ...mapGetters(['user', 'loading', 'error']) // bundles all getters from store
   },
   watch: {
     user(value) {

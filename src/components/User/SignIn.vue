@@ -70,7 +70,10 @@
                     <p>(OR)</p>
                     <v-icon class="fa-google"></v-icon>
                     <v-btn @click="googleSignIn()">Continue with google</v-btn>
-                    <v-btn color="info" @click="facebookLogin()">Continue with facebook</v-btn>
+                    <v-btn
+                      color="info"
+                      @click="facebookLogin()"
+                    >Continue with facebook</v-btn>
                   </v-flex>
                 </v-layout>
               </form>
@@ -84,6 +87,7 @@
 
 <script>
 import * as firebase from "firebase";
+import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
@@ -109,15 +113,11 @@ export default {
         ? "Passwords do not match"
         : true;
     },
-    user() {
-      return this.$store.getters.user;
-    },
-    error() {
-      return this.$store.getters.error;
-    },
-    loading() {
-      return this.$store.getters.loading;
-    }
+   ...mapGetters({
+     user : 'user',
+     error: 'error',
+     loading: 'loading'
+   })
   },
   watch: {
     user(value) {

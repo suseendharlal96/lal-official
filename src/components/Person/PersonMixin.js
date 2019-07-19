@@ -7,7 +7,7 @@ export const PersonMixin = {
   computed: {
     filteredPersons() {
       return this.personList.filter(element => {
-        return element.name.replace(" ","").toLowerCase().match(this.filterPerson.toLowerCase().replace(" ",""))
+        return element.name.toLowerCase().match(this.filterPerson.toLowerCase())
       })
     }
   }

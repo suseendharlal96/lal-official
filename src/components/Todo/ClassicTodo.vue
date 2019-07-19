@@ -1,26 +1,18 @@
 <template>
   <v-container>
-
-    <h2>You've currently selected <h2 class="re">{{buttonname}}</h2>
+    <h2>
+      You've currently selected
+      <h2 class="re">{{ buttonname }}</h2>
     </h2>
     <ol v-if="Todos.length > 0">
-      <li
-        v-for="(todo, index) in Todos"
-        :key="index"
-      >
-        <b>Task id:</b><b class="re">{{todo.id}}</b> <b>Task Name:</b><b class="re">{{todo.name | to-upperCase}}</b>
+      <li v-for="(todo, index) in Todos" :key="index">
+        <b>Task Name:</b><b class="re">{{ todo | to-upperCase }}</b>
 
-        <b-button
-          variant="outline-danger"
-          @click="del(index)"
-        >Delete</b-button>
+        <b-button variant="outline-danger" @click="del(index)">Delete</b-button>
       </li>
     </ol>
     <ol v-else>
-      <li
-        id="tableEmpty"
-        style="font-size: xx-large"
-      >Completed Tasks</li>
+      <li id="tableEmpty" style="font-size: xx-large">Completed Tasks</li>
     </ol>
   </v-container>
 </template>

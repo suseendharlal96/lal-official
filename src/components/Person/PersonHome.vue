@@ -48,7 +48,7 @@ export default {
       axios
         .post("https://personlist-8be9e.firebaseio.com/persons.json", perData)
         .then(this.$toaster.success("Successfully created"))
-        .catch(err => console.log(err));
+        .catch(err => console.log(err));  
 
       //  this.PersonList.push(data);
     },
@@ -58,16 +58,6 @@ export default {
       this.PersonList[index].email = data.email;
       this.PersonList[index].admin = data.admin;
 
-      // this.PersonList.push(perData);
-      // axios
-      //   .post("https://personlist-8be9e.firebaseio.com/persons.json", perData)
-      //   .then(this.$toaster.success("Successfully updated"))
-      //   .catch(err => console.log(err));
-
-      // this.PersonList[index].name = data.name;
-      // this.PersonList[index].age = data.age;
-      // this.PersonList[index].email = data.email;
-      // this.PersonList[index].admin = data.admin;
     },
     resetPerson(data, index) {
       console.log(index);
