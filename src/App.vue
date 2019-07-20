@@ -1,9 +1,6 @@
 <template>
   <v-app class="h">
-    <v-navigation-drawer
-      temporary
-      v-model="sideNav"
-    >
+    <v-navigation-drawer temporary v-model="sideNav">
       <v-list>
         <v-list-tile
           v-for="item in menuItems"
@@ -15,10 +12,7 @@
           </v-list-tile-action>
           <v-list-tile-content>{{ item.title }}</v-list-tile-content>
         </v-list-tile>
-        <v-list-tile
-          v-if="userIsAuthenticated"
-          @click="onLogout"
-        >
+        <v-list-tile v-if="userIsAuthenticated" @click="onLogout">
           <v-list-tile-action>
             <v-icon>exit_to_app</v-icon>
           </v-list-tile-action>
@@ -41,38 +35,19 @@
         class="hidden-sm-and-up "
       ></v-toolbar-side-icon>
       <v-toolbar-title>
-        <router-link
-          to="/"
-          tag="span"
-          style="cursor: pointer"
-        >Simple App</router-link>
+        <router-link to="/" tag="span" style="cursor: pointer"
+          >Simple App</router-link
+        >
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn
-          flat
-          v-for="item in menuItems"
-          :key="item.title"
-          :to="item.link"
-        >
-          <v-icon
-            left
-            dark
-          >{{ item.icon }}</v-icon>
+        <v-btn flat v-for="item in menuItems" :key="item.title" :to="item.link">
+          <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
-
         </v-btn>
-        <v-btn
-          v-if="userIsAuthenticated"
-          flat
-          @click="onLogout"
-        >
-          <v-icon
-            left
-            dark
-          >exit_to_app</v-icon>
+        <v-btn v-if="userIsAuthenticated" flat @click="onLogout">
+          <v-icon left dark>exit_to_app</v-icon>
           Logout
-
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -92,7 +67,7 @@ export default {
   methods: {
     onLogout() {
       this.$store.dispatch("logout");
-      this.$router.push('/logout');
+      this.$router.push("/logout");
     }
   },
   computed: {
@@ -127,6 +102,8 @@ export default {
   width: auto;
 }
 .main {
+  display: flex;
+  flex-direction:column;
   position: absolute;
   width: 260%;
   top: 8%;
@@ -137,6 +114,11 @@ body {
   width: 100%;
   display: block;
   position: relative;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 /* @import './s\' */
 </style>
