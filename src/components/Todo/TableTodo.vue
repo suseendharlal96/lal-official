@@ -15,7 +15,7 @@
       <tbody v-if="Todos.length > 0">
         <tr v-for="(todo, index) in Todos" :key="index" style="cursor: pointer">
           <template v-if="updateIndex != index">
-            <td>{{ index + 1 }}</td>
+            <td>{{ index + 1 }}.</td>
             <td>{{ todo }}</td>
             <td>
               <i

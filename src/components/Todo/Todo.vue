@@ -28,16 +28,26 @@
           </span>
           <div>
             <select label="delete" v-model="val" style="border: ridge">
-              <option disabled value=""> Select task name</option>
+              <option class="form-control" disabled value="">
+                Select task name</option
+              >
               <!-- <optgroup label="Task name"> -->
-                <option v-for="(drop, index) in dropDownArr" :key="index">
-                  {{ drop }}
-                </option>
+              <option
+                class="form-control"
+                v-for="(drop, index) in dropDownArr"
+                :key="index"
+              >
+                {{ drop }}
+              </option>
               <!-- </optgroup> -->
             </select>
-            <span>
-              <b-button variant="danger" @click="del(val)"
-                >Delete by Name</b-button
+            <span style="position: absolute;cursor:pointer">
+              <i
+                class="material-icons"
+                v-b-tooltip.hover
+                title="click to delete"
+                @click="del(val)"
+                >delete</i
               >
             </span>
           </div>
@@ -59,7 +69,7 @@
             </v-flex>
           </v-layout>
           <h4>Your mode of view(click to Toggle):</h4> -->
-          <b-button variant="outline-primary" @click="classicMode">{{
+          <b-button variant="outline-primary" @click="classicMode">Switch to {{
             btnName
           }}</b-button>
           <h3 class="br" v-if="todos.length > 0">
@@ -70,7 +80,7 @@
             <!-- if classic 1st Child component -->
             <classic-todo
               :Todos="todos"
-              :buttonname="btnName"
+              :buttonname="dispName"
               @del="del"
             ></classic-todo>
           </div>
@@ -78,7 +88,7 @@
           <div v-else>
             <table-todo
               :Todos="todos"
-              :buttonname="btnName"
+              :buttonname="dispName"
               :readOnly="readOnly"
               @update="update"
               @del="del"
@@ -102,10 +112,11 @@ export default {
       todos: [], // values will be fetched from DB firebase
       val: "",
       addVal: "",
-      readOnly: '',
+      readOnly: "",
       imgUrl: "",
-      classic: true,
+      classic: false,
       btnName: "Classic",
+      dispName: "Table",
       dropDownArr: [],
       loading: false
     };
@@ -136,38 +147,36 @@ export default {
       }
     },
     del(tobeDeleted) {
-      if (this.todos.length > 0) {
-        if (typeof tobeDeleted === "string" && tobeDeleted.length !== 0) {
-          // if (index.length <= 2) {
-            console.log("inside string 2");
-            const delIndex = this.todos.findIndex(t => t === tobeDeleted);
-            const dropDownIndex = this.dropDownArr.findIndex(
-              d => d === tobeDeleted
-            );
-            console.log(dropDownIndex);
-            console.log(delIndex);
-            if (delIndex !== -1) {
-              this.dropDownArr.splice(dropDownIndex, 1);
-              this.todos.splice(+delIndex, 1);
-              this.val = "";
-              this.$toaster.success("Successfully deleted");
-            } else {
-              this.$toaster.error("failed deletion");
-            }
-        } else if (typeof tobeDeleted === "number") {
-          console.log("inside num");
-          console.log(tobeDeleted);
-          // const tobeDel = this.todos[index];
-          // const dropDownNumIndex = this.dropDownArr.findIndex(
-          //   d => d.id === tobeDel.id
-          // );
-          this.dropDownArr.splice(tobeDeleted, 1);
-          this.todos.splice(tobeDeleted, 1);
+      if (typeof tobeDeleted === "string" && tobeDeleted.length !== 0) {
+        // if (index.length <= 2) {
+        console.log("inside string 2");
+        const delIndex = this.todos.findIndex(t => t === tobeDeleted);
+        const dropDownIndex = this.dropDownArr.findIndex(
+          d => d === tobeDeleted
+        );
+        console.log(dropDownIndex);
+        console.log(delIndex);
+        if (delIndex !== -1) {
+          this.dropDownArr.splice(dropDownIndex, 1);
+          this.todos.splice(+delIndex, 1);
           this.val = "";
           this.$toaster.success("Successfully deleted");
         } else {
-          this.$toaster.error("no more items to delete");
+          this.$toaster.error("failed deletion");
         }
+      } else if (typeof tobeDeleted === "number") {
+        console.log("inside num");
+        console.log(tobeDeleted);
+        // const tobeDel = this.todos[index];
+        // const dropDownNumIndex = this.dropDownArr.findIndex(
+        //   d => d.id === tobeDel.id
+        // );
+        this.dropDownArr.splice(tobeDeleted, 1);
+        this.todos.splice(tobeDeleted, 1);
+        this.val = "";
+        this.$toaster.success("Successfully deleted");
+      } else {
+        this.$toaster.error("Select a task name");
       }
     },
     update(newVal, index) {
@@ -200,7 +209,8 @@ export default {
         this.readOnly = false;
       }
       this.classic = !this.classic;
-      this.btnName = this.classic ? "Classic" : "Table";
+      this.btnName = this.classic ? "Table" : "Classic";
+      this.dispName = this.classic ? "Classic" : "Table";
     },
     editable() {
       this.readOnly = true;
