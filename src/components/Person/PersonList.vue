@@ -57,7 +57,7 @@
               class="w3-hover-yellow hover"
               @click="dispOnForm(index)"
             >
-              <td>{{ person.name | (to - upperCase) }}</td>
+              <td>{{ person.name | to - upperCase }}</td>
               <td>{{ person.age }}</td>
               <td>{{ person.email }}</td>
               <td>{{ person.admin }}</td>

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid grid-list-md>
     <!-- from parent to child means ':' -->
     <!-- from child to parent means '@'(this component is parent) -->
     <person
