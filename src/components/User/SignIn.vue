@@ -198,5 +198,11 @@ export default {
       rgba(15, 181, 199, 0.87)
     );
 }
+a{
+  color: brown;
+}
+a:hover{
+  color: yellowgreen;
+}
 </style>
 
