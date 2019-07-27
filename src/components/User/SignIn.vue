@@ -198,8 +198,9 @@ export default {
       rgba(15, 181, 199, 0.87)
     );
 }
-a{
+a:link{
   color: brown;
+  text-decoration: none;
 }
 a:hover{
   color: yellowgreen;

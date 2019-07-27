@@ -205,4 +205,19 @@ export default {
     transform: rotate(360deg);
   }
 }
+#signcard {
+  border-radius: 18px;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(2, 29, 32, 0.87),
+      rgba(15, 181, 199, 0.87)
+    );
+}
+a:link{
+  color: brown;
+  text-decoration: none;
+}
+a:hover{
+  color: yellowgreen;
+}
 </style>
