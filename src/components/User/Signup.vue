@@ -213,7 +213,7 @@ export default {
       rgba(15, 181, 199, 0.87)
     );
 }
-a:link{
+a:link,a:visited{
   color: brown;
   text-decoration: none;
 }
