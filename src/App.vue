@@ -104,10 +104,13 @@ body {
 }
 #appbg {
   background-image: linear-gradient(
-    to right bottom,
-    rgba(126, 213, 111, 0.801),
-    rgba(40, 180, 133, 0.801)
-  ),url(assets/img/nat-4.jpg);
+      to right bottom,
+      rgba(126, 213, 111, 0.801),
+      rgba(40, 180, 133, 0.801)
+    ),
+    url(assets/img/nat-4.jpg);
+  background-size: cover;
+  background-position: top;
   height: 100%;
 }
 .red {
