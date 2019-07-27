@@ -45,6 +45,9 @@
     <!-- <div class="container"> -->
     <router-view></router-view>
     <!-- </div> -->
+    <footer class="footer">
+      <p>Copyright © 2019 built by Suseendhar LaL</p>
+    </footer>
   </v-app>
 </template>
 
@@ -96,6 +99,7 @@ export default {
   box-sizing: border-box;
 }
 body {
+  font-family: sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.7;
@@ -122,6 +126,16 @@ body {
     rgba(226, 66, 3, 0.801)
   );
 }
+.footer {
+  position: absolute;
+  background: linear-gradient(to left , rgba(19, 18, 18, 0.76),rgba(73, 72, 72, 0.76));
+  height: 25px;
+  bottom: 0%;
+  width: 100%;
+  text-align: end;
+  color: #728872;
+}
+
 .container {
   position: relative;
   bottom: 8%;
