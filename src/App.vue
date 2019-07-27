@@ -1,5 +1,5 @@
 <template>
-  <v-app class="h">
+  <v-app id="appbg">
     <v-navigation-drawer temporary v-model="sideNav">
       <v-list>
         <v-list-tile
@@ -20,16 +20,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar
-      dark
-      class="red"
-      style="position: fixed;
-    z-index: 1;
-    margin-top: 0px;
-    padding-right: 0px;
-    padding-left: 0px;
-    transform: translateY(0px);"
-    >
+    <v-toolbar dark class="red">
       <v-toolbar-side-icon
         @click.stop="sideNav = !sideNav"
         class="hidden-sm-and-up "
@@ -51,9 +42,9 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    <main class="main">
-      <router-view></router-view>
-    </main>
+    <!-- <div class="container"> -->
+    <router-view></router-view>
+    <!-- </div> -->
   </v-app>
 </template>
 
@@ -96,29 +87,38 @@ export default {
 };
 </script>
 
-<style >
-.h {
-  position: absolute;
-  width: auto;
-}
-.main {
-  display: flex;
-  flex-direction:column;
-  position: absolute;
-  width: 260%;
-  top: 8%;
-  left: 20%;
-}
-body {
-  height: 100%;
-  width: 100%;
-  display: block;
-  position: relative;
-}
-* {
+<style>
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-/* @import './s\' */
+body {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #f8f8f8;
+  /* padding: 16px; */
+}
+#appbg{
+  
+  background: linear-gradient(to right bottom, rgba(126, 213, 111, 0.801), rgba(40, 180, 133, 0.801));
+  height: 100%;
+}
+.red {
+  position: fixed;
+  z-index: 1;
+}
+.container {
+  position: relative;
+  bottom: 8%;
+}
+.v-btn {
+  border-radius: 80px;
+}
+.v-card .v-sheet{
+  border-radius: 18px;
+}
 </style>

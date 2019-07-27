@@ -21,7 +21,7 @@
         sm6
         offset-sm3
       >
-        <v-card>
+        <v-card id="signcard">
           <v-card-text>
             <v-container>
               <form @submit.prevent="onSignIn">
@@ -164,9 +164,9 @@ export default {
 };
 </script>
 <style>
-#form {
+/* #form {
   position: relative;
-}
+} */
 .custom-loader {
   animation: loader 1s infinite;
   display: flex;
@@ -202,6 +202,10 @@ export default {
   to {
     transform: rotate(360deg);
   }
+}
+#signcard{
+  border-radius: 18px;
+  background-color: #23686F
 }
 </style>
 

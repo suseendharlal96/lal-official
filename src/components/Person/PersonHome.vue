@@ -10,10 +10,9 @@
       @updatePerson="updatePerson"
       @reset="resetPerson"
     ></person>
-    <b-button
-      @click="home"
-      class="home-btn"
-    >Back to Home</b-button>
+    <v-container>
+      <b-button @click="home" class="home-btn">Back to Home</b-button>
+    </v-container>
   </v-container>
 </template>
 
@@ -48,7 +47,7 @@ export default {
       axios
         .post("https://personlist-8be9e.firebaseio.com/persons.json", perData)
         .then(this.$toaster.success("Successfully created"))
-        .catch(err => console.log(err));  
+        .catch(err => console.log(err));
 
       //  this.PersonList.push(data);
     },
@@ -57,7 +56,6 @@ export default {
       this.PersonList[index].age = data.age;
       this.PersonList[index].email = data.email;
       this.PersonList[index].admin = data.admin;
-
     },
     resetPerson(data, index) {
       console.log(index);
