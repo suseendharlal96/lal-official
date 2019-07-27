@@ -39,7 +39,7 @@
         <!-- <div class="w3-container"> -->
         <h2>Person Table</h2>
 
-        <table class="w3-table-all w3-hoverable w3-centered">
+        <table class="w3-table-all w3-hoverable w3-centered fixedheader">
           <thead>
             <tr class="w3-red">
               <th>Name</th>
@@ -57,7 +57,7 @@
               class="w3-hover-yellow hover"
               @click="dispOnForm(index)"
             >
-              <td>{{ person.name | to - upperCase }}</td>
+              <td>{{ person.name | to-upperCase }}</td>
               <td>{{ person.age }}</td>
               <td>{{ person.email }}</td>
               <td>{{ person.admin }}</td>
@@ -197,6 +197,19 @@ export default {
 }
 #del {
   cursor: grab;
+}
+.w3-table-all .w3-hoverable .w3-centered .fixedheader thead tr{
+  display:block;
+}
+ tbody{
+  display:block;
+  overflow:auto;
+  height:200px;
+  width:100%;
+}
+.w3-table-all .w3-hoverable .w3-centered .fixedheader{
+  table-layout: fixed;
+    border-collapse: collapse;  
 }
 </style>
 

@@ -199,7 +199,7 @@ export default {
     );
 }
 a:link,a:visited{
-  color: brown;
+  color:tomato;
   text-decoration: none;
 }
 a:hover{

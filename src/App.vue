@@ -129,13 +129,19 @@ body {
 .footer {
   position: absolute;
   background: linear-gradient(to left , rgba(19, 18, 18, 0.76),rgba(73, 72, 72, 0.76));
-  height: 25px;
+  height: 38px;
   bottom: 0%;
   width: 100%;
   text-align: end;
   color: #728872;
+ 
 }
-
+.footer p{
+  font-size: 90%
+}
+html{
+  text-rendering: optimizeLegibility;
+}
 .container {
   position: relative;
   bottom: 8%;
