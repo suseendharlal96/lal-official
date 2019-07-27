@@ -10,8 +10,8 @@
         ></v-progress-circular>
       </div>
     </div>
-    <div v-if="!loading" class="row">
-      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+    <div v-if="!loading">
+      <v-container fluid grid-list-md>
         <v-text-field
           v-model="filterPerson"
           class="search"
@@ -89,8 +89,9 @@
           ></person-form>
         </div>
         <!-- </div> -->
-      </div>
+      </v-container>
     </div>
+    <!-- </div> -->
   </v-container>
 </template>
 
