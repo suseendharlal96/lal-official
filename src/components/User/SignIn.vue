@@ -1,26 +1,12 @@
 <template>
   <v-container>
-    <v-layout
-      row
-      v-if="error"
-    >
-      <v-flex
-        xs12
-        sm6
-        offset-sm3
-      >
-        <app-alert
-          @dismissed="onDismissed"
-          :text="error.message"
-        ></app-alert>
+    <v-layout row v-if="error">
+      <v-flex xs12 sm6 offset-sm3>
+        <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
       </v-flex>
     </v-layout>
     <v-layout row>
-      <v-flex
-        xs12
-        sm6
-        offset-sm3
-      >
+      <v-flex xs12 sm6 offset-sm3>
         <v-card id="signcard">
           <v-card-text>
             <v-container>
@@ -61,19 +47,20 @@
                       type="submit"
                       color="info"
                       @click="loader = 'loading'"
-                    >Sign in <template v-slot:loader>
+                      >Sign in
+                      <template v-slot:loader>
                         <span class="custom-loader">
                           <v-icon light>cached</v-icon>
                         </span>
-                      </template></v-btn>
+                      </template></v-btn
+                    >
                     <p v-html="text"></p>
                     <p>(OR)</p>
                     <v-icon class="fa-google"></v-icon>
                     <v-btn @click="googleSignIn()">Continue with google</v-btn>
-                    <v-btn
-                      color="info"
-                      @click="facebookLogin()"
-                    >Continue with facebook</v-btn>
+                    <v-btn color="info" @click="facebookLogin()"
+                      >Continue with facebook</v-btn
+                    >
                   </v-flex>
                 </v-layout>
               </form>
@@ -87,7 +74,7 @@
 
 <script>
 import * as firebase from "firebase";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -113,11 +100,11 @@ export default {
         ? "Passwords do not match"
         : true;
     },
-   ...mapGetters({
-     user : 'user',
-     error: 'error',
-     loading: 'loading'
-   })
+    ...mapGetters({
+      user: "user",
+      error: "error",
+      loading: "loading"
+    })
   },
   watch: {
     user(value) {
@@ -152,7 +139,7 @@ export default {
         .then(result => console.log(result))
         .catch(err => console.log(err));
     },
-    facebookLogin(){
+    facebookLogin() {
       const fb_provider = new firebase.auth.FacebookAuthProvider();
       firebase
         .auth()
@@ -203,9 +190,13 @@ export default {
     transform: rotate(360deg);
   }
 }
-#signcard{
+#signcard {
   border-radius: 18px;
-  background-color: #23686F
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(2, 29, 32, 0.87),
+      rgba(15, 181, 199, 0.87)
+    );
 }
 </style>
 

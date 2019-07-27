@@ -205,8 +205,4 @@ export default {
     transform: rotate(360deg);
   }
 }
-#signcard{
-  border-radius: 18px;
-  background-color: #23686F
-}
 </style>

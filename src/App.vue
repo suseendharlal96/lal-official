@@ -102,14 +102,22 @@ body {
   color: #f8f8f8;
   /* padding: 16px; */
 }
-#appbg{
-  
-  background: linear-gradient(to right bottom, rgba(126, 213, 111, 0.801), rgba(40, 180, 133, 0.801));
+#appbg {
+  background-image: linear-gradient(
+    to right bottom,
+    rgba(126, 213, 111, 0.801),
+    rgba(40, 180, 133, 0.801)
+  ),url(assets/img/nat-4.jpg);
   height: 100%;
 }
 .red {
   position: fixed;
   z-index: 1;
+  background: linear-gradient(
+    to right bottom,
+    rgba(165, 52, 17, 0.801),
+    rgba(226, 66, 3, 0.801)
+  );
 }
 .container {
   position: relative;
@@ -118,7 +126,7 @@ body {
 .v-btn {
   border-radius: 80px;
 }
-.v-card .v-sheet{
+.v-card .v-sheet {
   border-radius: 18px;
 }
 </style>

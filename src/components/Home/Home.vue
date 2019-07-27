@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <v-container>
 
     <h2>Vue-Js</h2>
     <h3>Just a simple application </h3>
-  </div>
+  </v-container>
 </template>
 
 <script>
