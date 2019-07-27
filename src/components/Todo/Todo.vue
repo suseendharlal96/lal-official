@@ -22,7 +22,7 @@
             v-model="addVal"
           ></v-text-field>
           <span>
-            <b-button variant="outline-success" @click.prevent="add(addVal)"
+            <b-button variant="outline-danger" @click.prevent="add(addVal)"
               >Add</b-button
             >
           </span>

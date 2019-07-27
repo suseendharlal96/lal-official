@@ -10,12 +10,8 @@
         ></v-progress-circular>
       </div>
     </div>
-    <div
-      v-if="!loading"
-      class="row"
-    >
+    <div v-if="!loading" class="row">
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-
         <v-text-field
           v-model="filterPerson"
           class="search"
@@ -25,70 +21,66 @@
         ></v-text-field>
         <p>Showing all names</p>
         <ul>
-          <li
-            v-for="(person, index) in filteredPersons"
-            :key="index"
-          >{{ person.name }}</li>
-        </ul><span>
+          <li v-for="(person, index) in filteredPersons" :key="index">
+            {{ person.name }}
+          </li>
+        </ul>
+        <span>
           <v-text-field
             type="number"
             v-model.number="delData"
             placeholder="enter age to del"
           ></v-text-field>
-          <b-button
-            variant="danger"
-            @click="deletePersonById(delData)"
-          >Del</b-button>
+          <b-button variant="danger" @click="deletePersonById(delData)"
+            >Del</b-button
+          >
         </span>
         <!-- <v-containe></v-containe> -->
-        <div class="w3-container">
-          <h2>Person Table</h2>
+        <!-- <div class="w3-container"> -->
+        <h2>Person Table</h2>
 
-          <table
-            class="w3-table-all w3-hoverable w3-centered"
-            
+        <table class="w3-table-all w3-hoverable w3-centered">
+          <thead>
+            <tr class="w3-red">
+              <th>Name</th>
+              <th>Age</th>
+              <th>Email</th>
+              <th>Admin</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody v-if="personList.length > 0">
+            <tr
+              v-for="(person, index) in personList"
+              :key="index"
+              class="w3-hover-yellow hover"
+              @click="dispOnForm(index)"
+            >
+              <td>{{ person.name | (to - upperCase) }}</td>
+              <td>{{ person.age }}</td>
+              <td>{{ person.email }}</td>
+              <td>{{ person.admin }}</td>
+              <td>
+                <b-button
+                  variant="outline-danger"
+                  id="del"
+                  @click="deletePerson(index)"
+                  >Del</b-button
+                >
+              </td>
+            </tr>
+          </tbody>
+          <tbody v-else>
+            <tr id="tableEmpty" style="font-size: xx-large">
+              Click create
+            </tr>
+          </tbody>
+          <b-button variant="outline-danger" @click="createPerson()"
+            >Create</b-button
           >
-            <thead>
-              <tr class="w3-red">
-                <th>Name</th>
-                <th>Age</th>
-                <th>Email</th>
-                <th>Admin</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody v-if="personList.length > 0">
-              <tr
-                v-for="(person, index) in personList"
-                :key="index"
-                class="w3-hover-yellow hover"
-                @click="dispOnForm(index)"
-              >
-                <td>{{ person.name | to-upperCase }}</td>
-                <td>{{ person.age }}</td>
-                <td>{{ person.email }}</td>
-                <td>{{ person.admin }}</td>
-                <td>
-                  <b-button
-                    variant="outline-danger"
-                    id="del"
-                    @click="deletePerson(index)"
-                  >Del</b-button>
-                </td>
-              </tr>
-            </tbody>
-            <tbody v-else>
-              <tr
-                id="tableEmpty"
-                style="font-size: xx-large"
-              >Click create</tr>
-            </tbody>
-            <b-button
-              variant="outline-success"
-              @click="createPerson()"
-            >Create</b-button>
-          </table>
+        </table>
+        <div>
           <person-form
             :rowData="rowData"
             @added="addPerson"
@@ -96,6 +88,7 @@
             @cancel="cancel"
           ></person-form>
         </div>
+        <!-- </div> -->
       </div>
     </div>
   </v-container>
