@@ -25,7 +25,12 @@
         @click.stop="sideNav = !sideNav"
         class="hidden-sm-and-up "
       ></v-toolbar-side-icon>
-      <v-toolbar-title>
+      <v-toolbar-title v-if="userIsAuthenticated">
+        <router-link to="/success" tag="span" style="cursor: pointer"
+          >Simple App</router-link
+        >
+      </v-toolbar-title>
+      <v-toolbar-title v-if="!userIsAuthenticated">
         <router-link to="/" tag="span" style="cursor: pointer"
           >Simple App</router-link
         >

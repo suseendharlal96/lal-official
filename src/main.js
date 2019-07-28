@@ -1,6 +1,5 @@
 // FROM VUE PACKAGE
 import Vue from 'vue';
-import { VuetifyIcon, VuetifyIcons } from 'vuetify';
 import * as firebase from 'firebase';
 import App from './App.vue';
 import VueRouter from 'vue-router';

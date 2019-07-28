@@ -56,7 +56,7 @@
             class="w3-hover-yellow hover"
             @click="dispOnForm(index)"
           >
-            <td>{{ person.name | (to - upperCase) }}</td>
+            <td>{{ person.name | to-upperCase }}</td>
             <td>{{ person.age }}</td>
             <td>{{ person.email }}</td>
             <td>{{ person.admin }}</td>
@@ -71,8 +71,10 @@
           </tr>
         </tbody>
         <tbody v-else>
-          <tr id="tableEmpty" style="font-size: xx-large">
-            Click create
+          <tr>
+            <td colspan="5">
+              No data to display.
+            </td>
           </tr>
         </tbody>
         <b-button variant="outline-danger" @click="createPerson()"

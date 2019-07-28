@@ -6,11 +6,23 @@ import Signup from '../components/User/Signup.vue';
 import SignIn from '../components/User/SignIn.vue';
 import SignHome from '../components/Home/SignHome.vue';
 import AuthGuard from './authguard';
+import { store } from '../store/index';
+
+let path = '';
+let component;
+
+if (store.getters.user !== null && store.getters.user !== undefined) {
+  path = '/success';
+  component = SignHome;
+} else {
+  path = '';
+  component = Home;
+}
 
 export const routes = [
   {
-    path: '',
-    component: Home
+    path: path,
+    component: component
   },
   {
     path: '/quote',
