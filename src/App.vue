@@ -144,7 +144,7 @@ html{
 }
 .container {
   position: relative;
-  bottom: 8%;
+  bottom: 7%;
 }
 .v-btn {
   border-radius: 80px;
