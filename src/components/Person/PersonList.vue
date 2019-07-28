@@ -11,87 +11,83 @@
       </div>
     </div>
     <div v-if="!loading">
-      <v-container fluid grid-list-md>
+      <v-text-field
+        v-model="filterPerson"
+        class="search"
+        placeholder="Search..."
+        prepend-inner-icon="search"
+        solo-inverted
+      ></v-text-field>
+      <p>Showing all names</p>
+      <ul>
+        <li v-for="(person, index) in filteredPersons" :key="index">
+          {{ person.name }}
+        </li>
+      </ul>
+      <span>
         <v-text-field
-          v-model="filterPerson"
-          class="search"
-          placeholder="Search..."
-          prepend-inner-icon="search"
-          solo-inverted
+          type="number"
+          v-model.number="delData"
+          placeholder="enter age to del"
         ></v-text-field>
-        <p>Showing all names</p>
-        <ul>
-          <li v-for="(person, index) in filteredPersons" :key="index">
-            {{ person.name }}
-          </li>
-        </ul>
-        <span>
-          <v-text-field
-            type="number"
-            v-model.number="delData"
-            placeholder="enter age to del"
-          ></v-text-field>
-          <b-button variant="danger" @click="deletePersonById(delData)"
-            >Del</b-button
-          >
-        </span>
-        <!-- <v-containe></v-containe> -->
-        <!-- <div class="w3-container"> -->
-        <h2>Person Table</h2>
+        <b-button variant="danger" @click="deletePersonById(delData)"
+          >Del</b-button
+        >
+      </span>
+      <!-- <v-containe></v-containe> -->
+      <!-- <div class="w3-container"> -->
+      <h2>Person Table</h2>
 
-        <table class="w3-table-all w3-hoverable w3-centered fixedheader">
-          <thead>
-            <tr class="w3-red">
-              <th>Name</th>
-              <th>Age</th>
-              <th>Email</th>
-              <th>Admin</th>
-              <th>Action</th>
-            </tr>
-          </thead>
+      <table class="w3-table-all w3-hoverable w3-centered fixedheader">
+        <thead>
+          <tr class="w3-red">
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Admin</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-          <tbody v-if="personList.length > 0">
-            <tr
-              v-for="(person, index) in personList"
-              :key="index"
-              class="w3-hover-yellow hover"
-              @click="dispOnForm(index)"
-            >
-              <td>{{ person.name | to-upperCase }}</td>
-              <td>{{ person.age }}</td>
-              <td>{{ person.email }}</td>
-              <td>{{ person.admin }}</td>
-              <td>
-                <b-button
-                  variant="outline-danger"
-                  id="del"
-                  @click="deletePerson(index)"
-                  >Del</b-button
-                >
-              </td>
-            </tr>
-          </tbody>
-          <tbody v-else>
-            <tr id="tableEmpty" style="font-size: xx-large">
-              Click create
-            </tr>
-          </tbody>
-          <b-button variant="outline-danger" @click="createPerson()"
-            >Create</b-button
+        <tbody v-if="personList.length > 0">
+          <tr
+            v-for="(person, index) in personList"
+            :key="index"
+            class="w3-hover-yellow hover"
+            @click="dispOnForm(index)"
           >
-        </table>
-        <div>
-          <person-form
-            :rowData="rowData"
-            @added="addPerson"
-            @update="updatePerson"
-            @cancel="cancel"
-          ></person-form>
-        </div>
-        <!-- </div> -->
-      </v-container>
+            <td>{{ person.name | (to - upperCase) }}</td>
+            <td>{{ person.age }}</td>
+            <td>{{ person.email }}</td>
+            <td>{{ person.admin }}</td>
+            <td>
+              <b-button
+                variant="outline-danger"
+                id="del"
+                @click="deletePerson(index)"
+                >Del</b-button
+              >
+            </td>
+          </tr>
+        </tbody>
+        <tbody v-else>
+          <tr id="tableEmpty" style="font-size: xx-large">
+            Click create
+          </tr>
+        </tbody>
+        <b-button variant="outline-danger" @click="createPerson()"
+          >Create</b-button
+        >
+      </table>
+      <div>
+        <person-form
+          :rowData="rowData"
+          @added="addPerson"
+          @update="updatePerson"
+          @cancel="cancel"
+        ></person-form>
+      </div>
     </div>
-    <!-- </div> -->
   </v-container>
 </template>
 
@@ -197,19 +193,6 @@ export default {
 }
 #del {
   cursor: grab;
-}
-.w3-table-all .w3-hoverable .w3-centered .fixedheader thead tr{
-  display:block;
-}
- tbody{
-  display:block;
-  overflow:auto;
-  height:200px;
-  width:100%;
-}
-.w3-table-all .w3-hoverable .w3-centered .fixedheader{
-  table-layout: fixed;
-    border-collapse: collapse;  
 }
 </style>
 
