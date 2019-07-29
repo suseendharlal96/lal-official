@@ -197,13 +197,27 @@ export default {
       rgba(2, 29, 32, 0.87),
       rgba(15, 181, 199, 0.87)
     );
+    /* animation: fadein 1s;  */
 }
 a:link,a:visited{
   color:tomato;
   text-decoration: none;
+  
 }
 a:hover{
   color: yellowgreen;
 }
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+
 </style>
 

@@ -80,6 +80,7 @@ export default {
           const person = res.data[key];
           console.log(person);
           this.PersonList.push(person);
+          console.log(this.PersonList)
           this.loading = false;
         })
       )

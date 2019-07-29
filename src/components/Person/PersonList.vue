@@ -18,12 +18,12 @@
         prepend-inner-icon="search"
         solo-inverted
       ></v-text-field>
-      <p>Showing all names</p>
+      <!-- <p>Showing all names</p>
       <ul>
         <li v-for="(person, index) in filteredPersons" :key="index">
           {{ person.name }}
         </li>
-      </ul>
+      </ul> -->
       <span>
         <v-text-field
           type="number"
@@ -49,14 +49,14 @@
           </tr>
         </thead>
 
-        <tbody v-if="personList.length > 0">
+        <tbody v-if="personList.length && filteredPersons.length > 0">
           <tr
-            v-for="(person, index) in personList"
+            v-for="(person, index) in filteredPersons"
             :key="index"
             class="w3-hover-yellow hover"
             @click="dispOnForm(index)"
           >
-            <td>{{ person.name | to-upperCase }}</td>
+            <td>{{ person.name | toUpperCase }}</td>
             <td>{{ person.age }}</td>
             <td>{{ person.email }}</td>
             <td>{{ person.admin }}</td>
@@ -100,7 +100,6 @@ import { PersonMixin } from "./PersonMixin.js";
 export default {
   props: ["personList", "loading"],
   mixins: [PersonMixin],
-
   data() {
     return {
       delData: "",
@@ -176,7 +175,7 @@ export default {
     };
   },
   filters: {
-    "to-upperCase"(value) {
+    toUpperCase(value) {
       // Or toUpperCase(value) -> Alternative
       return value.toUpperCase();
     }
@@ -197,8 +196,6 @@ export default {
   cursor: grab;
 }
 </style>
-
-
 
               // created() {
               //   eventBus.$on("added", list => {
