@@ -186,6 +186,24 @@ export default {
 };
 </script>
 <style>
+td{
+  animation: moveFromLeft 0.5s ease-out;
+}
+@keyframes moveFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px)
+    }
+
+    80% {
+        transform: translateX(20px)
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0px)
+    }
+}
 .search {
   border: "2px solid red";
 }

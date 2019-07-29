@@ -1,6 +1,5 @@
 <template>
-  <v-container>
-
+  <v-container id="myquote">
     <template v-if="showQuotes">
       <quote-header
         :quoteCount="quotes.length"
@@ -13,7 +12,9 @@
       ></app-quote-grid>
       <div class="row">
         <div class="col-sm-12 text-center">
-          <div class="alert alert-info">Info: Click on a Quote to delete it!</div>
+          <div class="alert alert-info">
+            Info: Click on a Quote to delete it!
+          </div>
         </div>
       </div>
     </template>
@@ -66,3 +67,9 @@ export default {
   }
 };
 </script>
+<style>
+#myquote {
+  position: relative;
+  bottom: 20%;
+}
+</style>

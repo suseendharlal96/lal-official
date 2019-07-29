@@ -179,7 +179,7 @@ html {
   border-radius: 18px;
 }
 div{
-animation: fadein 0.5s;
+animation: fadein 0.75s;
 }
 @keyframes moveFromBottom {
   0% {
