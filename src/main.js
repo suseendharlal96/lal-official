@@ -52,5 +52,6 @@ new Vue({
         this.$store.dispatch('autoSignIn', user);
       }
     });
+    // const db = firebase.firestore();
   }
 });

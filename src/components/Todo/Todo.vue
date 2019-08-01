@@ -182,8 +182,9 @@ export default {
     update(newVal, index) {
       console.log(newVal);
       if (newVal.length > 0) {
-        let updatedValue = newVal.toLowerCase().trim();
-        let updateIndex = this.todos.findIndex(u => u === updatedValue);
+        let updatedValue = newVal.toLowerCase().replace(/\s/g, '');
+        console.log(updatedValue);
+        let updateIndex = this.todos.findIndex(u => u.toLowerCase().replace(/\s/g, '').includes(updatedValue));
         console.log(updateIndex);
         let updatedItem = this.todos[index];
         let updateDropdownIndex = this.dropDownArr.findIndex(

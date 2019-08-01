@@ -131,7 +131,7 @@ export default {
         };
 
         this.$emit("update", newPerson, this.rowData.index);
-        this.$toaster.success("Successfully updated");
+        
       }
     },
     clearbox() {

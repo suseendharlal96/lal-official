@@ -44,6 +44,7 @@
                     <v-btn
                       :disabled="loading"
                       :loading="loading"
+                      class="ani-btn"
                       type="submit"
                       color="info"
                       @click="loader = 'loading'"
@@ -57,10 +58,13 @@
                     <p v-html="text"></p>
                     <p>(OR)</p>
                     <v-icon class="fa-google"></v-icon>
-                    <v-btn @click="googleSignIn()">Continue with google</v-btn>
-                    <v-btn color="info" @click="facebookLogin()"
+                    <v-btn class="ani-btn" @click="googleSignIn()"
+                      >Continue with google</v-btn
+                    >
+                    <v-btn class="ani-btn" color="info" @click="facebookLogin()"
                       >Continue with facebook</v-btn
                     >
+                    <div id="phone-container"></div>
                   </v-flex>
                 </v-layout>
               </form>
@@ -132,6 +136,16 @@ export default {
       this.$store.dispatch("clearError");
     },
     googleSignIn() {
+      // var ui = {
+      //   signInSuccessUrl: "https://person-vue.herokuapp.com/#/success",
+      //   signInOptions: [firebase.auth.PhoneAuthProvider.PROVIDER_ID],
+      //   recaptchaParameters: {
+      //     size: "invisible"
+      //   }
+      // };
+      // var phone = new firebase.auth.AuthUI(firebase.auth());
+      // phone.start("#phone-container", ui);
+
       const base_provider = new firebase.auth.GoogleAuthProvider();
       firebase
         .auth()
@@ -193,31 +207,36 @@ export default {
 #signcard {
   border-radius: 18px;
   background-image: linear-gradient(
-      to right bottom,
-      rgba(2, 29, 32, 0.87),
-      rgba(15, 181, 199, 0.87)
-    );
-    /* animation: fadein 1s;  */
+    to right bottom,
+    rgba(2, 29, 32, 0.87),
+    rgba(15, 181, 199, 0.87)
+  );
+  /* ),url(src/assets/imgnat-4.jpg); */
+
+  /* animation: fadein 1s;  */
 }
-a:link,a:visited{
-  color:tomato;
+a:link,
+a:visited {
+  color: tomato;
   text-decoration: none;
-  
+  animation: moveFromLeft 0.5s ease-out;
 }
-a:hover{
+a:hover {
   color: yellowgreen;
 }
-
-@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+.ani-btn {
+  animation: moveFromLeft 0.5s ease-out;
 }
+@keyframes moveFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
 
-@-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+  100% {
+    opacity: 1;
+    transform: translate(0px);
+  }
 }
-
-
 </style>
 

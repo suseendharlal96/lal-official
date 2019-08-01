@@ -24,15 +24,40 @@ export default {
   data() {
     return {
       PersonList: [],
-      loading: false
+      loading: false,
+      deleteId: null
     };
   },
   methods: {
     deletePerson(index) {
       this.PersonList.splice(index, 1);
+      // axios
+      //   .get("https://personlist-8be9e.firebaseio.com/persons.json")
+      //   .then(res => {
+      //     this.deleteId = Object.keys(res.data);
+      //     // let myGreeting = setTimeout(function() {
+      //     //   this.deleteId[0];
+      //     // }, 3000);
+      //     axios
+      //       .delete("https://personlist-8be9e.firebaseio.com/persons", {
+      //         params: { id: this.deleteId[1] }
+      //       })
+      //       .then(res => {
+      //         console.log(res);
+      //       })
+      //       .catch(err => {
+      //         console.log(err);
+      //       });
+      //     console.log(this.deleteId[0]);
+      //     // console.log(myGreeting);
+      //   });
+
+      // console.log(this.deleteId);
+      // // const tobedel = this.deleteId[index];
+      // // axios.delete(
+      // //   "https://personlist-8be9e.firebaseio.com/persons/" + tobedel
+      // // );
       this.$toaster.success("Successfully deleted");
-      if (this.PersonList.length === 0) {
-      }
     },
     createPerson(data) {
       const perData = {
@@ -56,6 +81,7 @@ export default {
       this.PersonList[index].age = data.age;
       this.PersonList[index].email = data.email;
       this.PersonList[index].admin = data.admin;
+      this.$toaster.success("Successfully updated");
     },
     resetPerson(data, index) {
       console.log(index);
@@ -80,7 +106,7 @@ export default {
           const person = res.data[key];
           console.log(person);
           this.PersonList.push(person);
-          console.log(this.PersonList)
+          console.log(this.PersonList);
           this.loading = false;
         })
       )
@@ -96,7 +122,7 @@ export default {
 };
 </script>
 <style>
-#persons{
+#persons {
   position: relative;
   bottom: 7.5%;
 }
