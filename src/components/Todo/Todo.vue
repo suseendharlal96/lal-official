@@ -34,10 +34,10 @@
               <!-- <optgroup label="Task name"> -->
               <option
                 class="form-control"
-                v-for="(drop, index) in dropDownArr"
+                v-for="(todo, index) in todos"
                 :key="index"
               >
-                {{ drop }}
+                {{ todo }}
               </option>
               <!-- </optgroup> -->
             </select>
@@ -131,7 +131,6 @@ export default {
         let newIndex = this.todos.findIndex(ele => ele === val.toLowerCase());
         if (newIndex === -1) {
           this.todos.push(val);
-          this.dropDownArr.push(val);
           // Firebase backend
           axios
             .post("https://todolist-7be14.firebaseio.com/tasks.json", newTodo)
@@ -151,13 +150,8 @@ export default {
         // if (index.length <= 2) {
         console.log("inside string 2");
         const delIndex = this.todos.findIndex(t => t === tobeDeleted);
-        const dropDownIndex = this.dropDownArr.findIndex(
-          d => d === tobeDeleted
-        );
-        console.log(dropDownIndex);
         console.log(delIndex);
         if (delIndex !== -1) {
-          this.dropDownArr.splice(dropDownIndex, 1);
           this.todos.splice(+delIndex, 1);
           this.val = "";
           this.$toaster.success("Successfully deleted");
@@ -167,11 +161,6 @@ export default {
       } else if (typeof tobeDeleted === "number") {
         console.log("inside num");
         console.log(tobeDeleted);
-        // const tobeDel = this.todos[index];
-        // const dropDownNumIndex = this.dropDownArr.findIndex(
-        //   d => d.id === tobeDel.id
-        // );
-        this.dropDownArr.splice(tobeDeleted, 1);
         this.todos.splice(tobeDeleted, 1);
         this.val = "";
         this.$toaster.success("Successfully deleted");
@@ -187,13 +176,8 @@ export default {
         let updateIndex = this.todos.findIndex(u => u.toLowerCase().replace(/\s/g, '').includes(updatedValue));
         console.log(updateIndex);
         let updatedItem = this.todos[index];
-        let updateDropdownIndex = this.dropDownArr.findIndex(
-          u => u === updatedItem
-        );
-        console.log(updateDropdownIndex);
         if (updateIndex === -1) {
           this.todos[index] = updatedValue;
-          this.dropDownArr[updateDropdownIndex] = updatedValue;
           this.readOnly = true;
           this.$toaster.info("Successfully updated");
           this.readOnly = false;
@@ -241,11 +225,6 @@ export default {
           console.log(id);
           const task = res.data[key];
           console.log(task);
-          const dropDownObj = {
-            name: task.val
-          };
-          this.dropDownArr.push(dropDownObj.name);
-          console.log(this.dropDownArr);
           this.todos.push(task.val);
           this.loading = false;
         })
