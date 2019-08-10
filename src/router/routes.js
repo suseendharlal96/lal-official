@@ -5,6 +5,8 @@ import Todo from '../components/Todo/Todo.vue';
 import Signup from '../components/User/Signup.vue';
 import SignIn from '../components/User/SignIn.vue';
 import SignHome from '../components/Home/SignHome.vue';
+import WeatherHome from '../components/WeatherHome/WeatherHome.vue';
+
 import AuthGuard from './authguard';
 import { store } from '../store/index';
 
@@ -37,6 +39,11 @@ export const routes = [
   {
     path: '/todo',
     component: Todo,
+    beforeEnter: AuthGuard
+  },
+  {
+    path: '/weather',
+    component: WeatherHome,
     beforeEnter: AuthGuard
   },
   {

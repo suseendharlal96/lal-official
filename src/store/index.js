@@ -4,6 +4,8 @@ import firebase from 'firebase';
 import axios from 'axios';
 import * as toaster from 'v-toaster';
 
+import service from '../service';
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -29,7 +31,10 @@ export const store = new Vuex.Store({
     personList: [{}],
     user: null,
     loading: false,
-    error: null
+    error: null,
+    isTabFlagCurrent: null,
+    locationSearch: null,
+    weatherCache: null
   },
   mutations: {
     // createMeetup (state, payload) {
@@ -53,7 +58,10 @@ export const store = new Vuex.Store({
       // state.personList.email = payload.email;
       // state.personList.admin = payload.admin;
       state.personList.push(payload);
-    }
+    },
+    setTabFlag: (state, payload) => (state.isTabFlagCurrent = payload),
+    setlocationSearch: (state, payload) => (state.locationSearch = payload),
+    setWeatherCache: (state, payload) => (state.weatherCache = payload)
   },
   actions: {
     signUserUp({ commit }, payload) {
@@ -119,6 +127,11 @@ export const store = new Vuex.Store({
         .post('https://personlist-8be9e.firebaseio.com/persons.json', payload)
         .then(toaster.success('Successfully created'))
         .catch(commit('setError', error));
+    },
+    async searchLocation({ commit }, payload) {
+      let wF = await service.getWeather(payload + '&days=7');
+      commit('setWeatherCache', wF);
+      console.log(wF);
     }
   },
   getters: {
@@ -133,6 +146,15 @@ export const store = new Vuex.Store({
     },
     persons(state) {
       return state.personList;
+    },
+    getTabFlag(state) {
+     return state.isTabFlagCurrent;
+    },
+    getlocationSearch(state) {
+     return state.locationSearch;
+    },
+    getWeatherCache(state) {
+     return state.weatherCache;
     }
   }
 });
