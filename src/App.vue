@@ -52,6 +52,7 @@
     <!-- </div> -->
     <footer class="footer">
       <p>Copyright © 2019 built by Suseendhar LaL</p>
+      <div id="google_translate_element"></div>
     </footer>
   </v-app>
 </template>
@@ -139,7 +140,7 @@ body {
   height: 100%;
 }
 .red {
-  position: fixed;
+  position: absolute;
   z-index: 1;
   background: linear-gradient(
     to right bottom,
