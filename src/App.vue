@@ -140,7 +140,7 @@ body {
   height: 100%;
 }
 .red {
-  position: absolute;
+  position: fixed;
   z-index: 1;
   background: linear-gradient(
     to right bottom,
