@@ -128,10 +128,22 @@ export const store = new Vuex.Store({
         .then(toaster.success('Successfully created'))
         .catch(commit('setError', error));
     },
-    async searchLocation({ commit }, payload) {
-      let wF = await service.getWeather(payload + '&days=7');
-      commit('setWeatherCache', wF);
-      console.log(wF);
+     searchLocation({ commit }, payload) {
+      commit('setLoading', true);
+       service
+        .getWeather(payload + '&days=7')
+        .then(res => {
+          commit('setLoading', false);
+          commit('setWeatherCache', res);
+          console.log(res)
+        })
+        .catch(err => {
+          commit('setLoading', false);
+          commit('setError', err);
+          console.log(err.message)
+        });
+
+      // console.log(wF);
     }
   },
   getters: {
@@ -148,13 +160,13 @@ export const store = new Vuex.Store({
       return state.personList;
     },
     getTabFlag(state) {
-     return state.isTabFlagCurrent;
+      return state.isTabFlagCurrent;
     },
     getlocationSearch(state) {
-     return state.locationSearch;
+      return state.locationSearch;
     },
     getWeatherCache(state) {
-     return state.weatherCache;
+      return state.weatherCache;
     }
   }
 });

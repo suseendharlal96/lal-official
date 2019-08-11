@@ -1,22 +1,15 @@
 <template>
   <v-container>
-    <div v-if="weather == null">
-      <div class="text-xs-center">
-        <v-progress-circular
-          :size="50"
-          :width="4"
-          indeterminate
-          color="primary"
-        ></v-progress-circular>
-      </div>
-    </div>
-    <div v-if="weather !== null">
-      <h2>{{ currentLocation | toUpperCase }}</h2>
-      <img class="homepageLogo" :src="weather.current.condition.icon" />
-      <Searchbar @searchValue="location" />
-      <DayForecastTab />
-      <Weathers />
-    </div>
+    <v-layout row v-if="error">
+      <v-flex xs12 sm6 offset-sm3>
+        <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+      </v-flex>
+    </v-layout>
+    <h2>{{ weather.location.name | toUpperCase }}</h2>
+    <img class="homepageLogo" :src="weather.current.condition.icon" />
+    <Searchbar />
+    <DayForecastTab />
+    <Weathers />
   </v-container>
 </template>
 
@@ -29,17 +22,14 @@ export default {
   data() {
     return {
       name: "home",
-      currentLocation: "Chennai"
     };
-  },
-  methods: {
-    location(location) {
-      this.currentLocation = location;
-    }
   },
   computed: {
     weather() {
       return this.$store.getters["getWeatherCache"];
+    },
+    error() {
+      return this.$store.getters.error;
     }
   },
   created() {

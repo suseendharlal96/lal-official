@@ -1,26 +1,12 @@
 <template>
   <v-container>
-    <v-layout
-      row
-      v-if="error"
-    >
-      <v-flex
-        xs12
-        sm6
-        offset-sm3
-      >
-        <app-alert
-          @dismissed="onDismissed"
-          :text="error.message"
-        ></app-alert>
+    <v-layout row v-if="error">
+      <v-flex xs12 sm6 offset-sm3>
+        <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
       </v-flex>
     </v-layout>
     <v-layout row>
-      <v-flex
-        xs12
-        sm6
-        offset-sm3
-      >
+      <v-flex xs12 sm6 offset-sm3>
         <v-card id="signcard">
           <v-card-text>
             <v-container>
@@ -73,19 +59,20 @@
                       type="submit"
                       color="info"
                       @click="loader = 'loading'"
-                    >Sign up <template v-slot:loader>
+                      >Sign up
+                      <template v-slot:loader>
                         <span class="custom-loader">
                           <v-icon light>cached</v-icon>
                         </span>
-                      </template></v-btn>
+                      </template></v-btn
+                    >
                     <p v-html="text"></p>
                     <p>(OR)</p>
                     <v-icon class="fa-google"></v-icon>
                     <v-btn @click="googleSignIn()">Continue with google</v-btn>
-                    <v-btn
-                      color="info"
-                      @click="facebookLogin()"
-                    >Continue with facebook</v-btn>
+                    <v-btn color="info" @click="facebookLogin()"
+                      >Continue with facebook</v-btn
+                    >
                   </v-flex>
                 </v-layout>
               </form>
@@ -127,7 +114,7 @@ export default {
         ? "Passwords do not match"
         : true;
     },
-    ...mapGetters(['user', 'loading', 'error']) // bundles all getters from store
+    ...mapGetters(["user", "loading", "error"]) // bundles all getters from store
   },
   watch: {
     user(value) {
@@ -208,16 +195,17 @@ export default {
 #signcard {
   border-radius: 18px;
   background-image: linear-gradient(
-      to right bottom,
-      rgba(2, 29, 32, 0.87),
-      rgba(15, 181, 199, 0.87)
-    );
+    to right bottom,
+    rgba(2, 29, 32, 0.87),
+    rgba(15, 181, 199, 0.87)
+  );
 }
-a:link,a:visited{
+a:link,
+a:visited {
   color: brown;
   text-decoration: none;
 }
-a:hover{
+a:hover {
   color: yellowgreen;
 }
 </style>

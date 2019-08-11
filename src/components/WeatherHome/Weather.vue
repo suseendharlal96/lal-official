@@ -3,8 +3,8 @@
     <v-flex xs12 sm12 md12 lg6 offset-lg3 offset-md1>
       <v-container class="areaInfo">
         <h4>Current Location: {{ weatherCache.location.name }}</h4>
-        <h5>{{ weatherCache.location.region }}</h5>
-        <h5>{{ weatherCache.location.country }}</h5>
+        <h5>Region: {{ weatherCache.location.region }}</h5>
+        <h5>Country: {{ weatherCache.location.country }}</h5>
       </v-container>
 
       <v-container class="currentCondition" v-if="isTabFlagCurrent">
