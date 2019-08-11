@@ -57,7 +57,7 @@ export default {
       this.selectedComponent = "appQuoteGrid";
     },
     home() {
-      this.$router.push("/");
+      this.$router.push("/success");
     }
   },
   components: {

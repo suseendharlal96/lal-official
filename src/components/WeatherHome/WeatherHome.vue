@@ -1,15 +1,32 @@
 <template>
   <v-container>
-    <v-layout row v-if="error">
-      <v-flex xs12 sm6 offset-sm3>
-        <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
-      </v-flex>
-    </v-layout>
-    <h2>{{ weather.location.name | toUpperCase }}</h2>
-    <img class="homepageLogo" :src="weather.current.condition.icon" />
-    <Searchbar />
-    <DayForecastTab />
-    <Weathers />
+    <div v-if="weather.location == null">
+      <div class="text-xs-center">
+        <v-progress-circular
+          :size="50"
+          :width="4"
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+      </div>
+    </div>
+    <div v-if="weather.location !== null">
+      <h2 style="color:red">{{ weather.location.name | toUpperCase }}</h2>
+      <img class="homepageLogo" :src="weather.current.condition.icon" />
+      <v-btn color="info" @click="getLocation()">
+        <v-icon left dark>home</v-icon>Get my location</v-btn>
+      <Searchbar />
+      <DayForecastTab />
+      <Weathers :weatherCache="weather" />
+      <!-- YOUTUBE -->
+      <!-- <iframe
+        width="420"
+        height="345"
+        src="https://www.youtube.com/embed/tgbNymZ7vqY"
+      >
+      </iframe> -->
+      <b-button @click="home" class="home-btn">Back to Home</b-button>
+    </div>
   </v-container>
 </template>
 
@@ -21,8 +38,23 @@ import DayForecastTab from "./DayForecastTab";
 export default {
   data() {
     return {
-      name: "home",
+      name: "home"
     };
+  },
+  methods: {
+    home() {
+      this.$router.push("/success");
+    },
+    getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.showPosition);
+      } else {
+        this.$toaster.error("Geolocation is not supported by this browser.");
+      }
+    },
+    showPosition(position) {
+      this.$store.dispatch("searchLocation", position.coords.latitude + "," + position.coords.longitude);
+    }
   },
   computed: {
     weather() {

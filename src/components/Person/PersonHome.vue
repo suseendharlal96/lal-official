@@ -92,7 +92,7 @@ export default {
     },
 
     home() {
-      this.$router.push("/");
+      this.$router.push("/success");
     }
   },
   created() {
