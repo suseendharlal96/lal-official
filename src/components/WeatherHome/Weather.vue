@@ -34,7 +34,8 @@ export default {
   data() {
     return {
       currentLocation: "Chennai",
-      weatherForecast: null
+      weatherForecast: null,
+      loading:false
     };
   },
   created() {

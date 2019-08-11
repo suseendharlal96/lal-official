@@ -1,10 +1,22 @@
 <template>
   <v-container>
-    <h2>{{ currentLocation | toUpperCase }}</h2>
-    <img class="homepageLogo" :src="weather.current.condition.icon" />
-    <Searchbar @searchValue="location" />
-    <DayForecastTab />
-    <Weathers />
+    <div v-if="weather == null">
+      <div class="text-xs-center">
+        <v-progress-circular
+          :size="50"
+          :width="4"
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+      </div>
+    </div>
+    <div v-if="weather !== null">
+      <h2>{{ currentLocation | toUpperCase }}</h2>
+      <img class="homepageLogo" :src="weather.current.condition.icon" />
+      <Searchbar @searchValue="location" />
+      <DayForecastTab />
+      <Weathers />
+    </div>
   </v-container>
 </template>
 

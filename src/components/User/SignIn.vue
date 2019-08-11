@@ -136,16 +136,6 @@ export default {
       this.$store.dispatch("clearError");
     },
     googleSignIn() {
-      // var ui = {
-      //   signInSuccessUrl: "https://person-vue.herokuapp.com/#/success",
-      //   signInOptions: [firebase.auth.PhoneAuthProvider.PROVIDER_ID],
-      //   recaptchaParameters: {
-      //     size: "invisible"
-      //   }
-      // };
-      // var phone = new firebase.auth.AuthUI(firebase.auth());
-      // phone.start("#phone-container", ui);
-
       const base_provider = new firebase.auth.GoogleAuthProvider();
       firebase
         .auth()
@@ -211,9 +201,6 @@ export default {
     rgba(2, 29, 32, 0.87),
     rgba(15, 181, 199, 0.87)
   );
-  /* ),url(src/assets/imgnat-4.jpg); */
-
-  /* animation: fadein 1s;  */
 }
 a:link,
 a:visited {
