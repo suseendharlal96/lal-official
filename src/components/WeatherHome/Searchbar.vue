@@ -31,6 +31,7 @@ export default {
   methods:{
     searchLocation(payload){
       this.$store.dispatch('searchLocation',payload);
+      this.$emit('searchValue', payload)
     }
   }
 }

@@ -35,6 +35,7 @@
           >Simple App</router-link
         >
       </v-toolbar-title>
+      <option value="google_translate_element"></option>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn flat v-for="item in menuItems" :key="item.title" :to="item.link">
@@ -52,7 +53,7 @@
     <!-- </div> -->
     <footer class="footer">
       <p>Copyright © 2019 built by Suseendhar LaL</p>
-      <div id="google_translate_element"></div>
+      <p id="google_translate_element"></p>
     </footer>
   </v-app>
 </template>
@@ -68,7 +69,7 @@ export default {
     onLogout() {
       this.$store.dispatch("logout");
       this.$router.push("/logout");
-    },
+    }
     // scrollFunction() {
     //   console.log('fsgdf')
     //   if (
@@ -92,7 +93,7 @@ export default {
           { icon: "person", title: "Person", link: "/person" },
           { icon: "face", title: "Quotes", link: "/quote" },
           { icon: "calendar_today", title: "Todo", link: "/todo" },
-          { icon: "cloud", title: "Weather", link: '/weather'}
+          { icon: "cloud", title: "Weather", link: "/weather" }
           // { icon: "lock", title: "Logout", link: "/logout" }
         ];
       }
@@ -104,7 +105,7 @@ export default {
         this.$store.getters.user !== undefined
       );
     }
-  },
+  }
   // created() {
   //   window.onscroll = () => {
   //     this.scrollFunction();
@@ -150,6 +151,9 @@ body {
   );
   opacity: 0.9;
 }
+#google_translate_element {
+  color: #ffff;
+}
 .footer {
   position: absolute;
   background: linear-gradient(
@@ -180,8 +184,8 @@ html {
 .v-card .v-sheet {
   border-radius: 18px;
 }
-div{
-animation: fadein 0.75s;
+div {
+  animation: fadein 0.75s;
 }
 @keyframes moveFromBottom {
   0% {
@@ -195,7 +199,11 @@ animation: fadein 0.75s;
   }
 }
 @keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>

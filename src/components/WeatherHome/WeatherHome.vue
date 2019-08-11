@@ -1,10 +1,8 @@
 <template>
   <v-container>
-    <img
-      class="homepageLogo"
-      src="https://www.iosicongallery.com/icons/weather-2017-06-19/512.png"
-    />
-    <Searchbar />
+    <h2>{{ currentLocation | toUpperCase }}</h2>
+    <img class="homepageLogo" :src="weather.current.condition.icon" />
+    <Searchbar @searchValue="location" />
     <DayForecastTab />
     <Weathers />
   </v-container>
@@ -16,13 +14,36 @@ import Searchbar from "./Searchbar";
 import DayForecastTab from "./DayForecastTab";
 
 export default {
-  name: "home",
+  data() {
+    return {
+      name: "home",
+      currentLocation: "Chennai"
+    };
+  },
+  methods: {
+    location(location) {
+      this.currentLocation = location;
+    }
+  },
+  computed: {
+    weather() {
+      return this.$store.getters["getWeatherCache"];
+    }
+  },
+  created() {
+    this.$store.dispatch("searchLocation", "Chennai");
+  },
+  filters: {
+    toUpperCase(value) {
+      // Or toUpperCase(value) -> Alternative
+      return value.toUpperCase();
+    }
+  },
   components: {
     Weathers,
     Searchbar,
     DayForecastTab
-  },
-  mounted() {}
+  }
 };
 </script>
 <style>

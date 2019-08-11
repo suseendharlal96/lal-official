@@ -61,6 +61,6 @@ export const routes = [
   },
   {
     path: '/logout',
-    component: Signup
+    component: SignIn
   }
 ];
