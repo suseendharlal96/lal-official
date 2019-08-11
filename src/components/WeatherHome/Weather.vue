@@ -1,6 +1,5 @@
 <template>
   <div v-if="weatherCache != null">
-    <v-flex xs12 sm12 md12 lg6 offset-lg3 offset-md1>
       <v-container class="areaInfo">
         <h4>Current Location: {{ weatherCache.location.name }}</h4>
         <h5>Region: {{ weatherCache.location.region }}</h5>
@@ -23,7 +22,6 @@
           </b-col>
         </b-row>
       </v-container>
-    </v-flex>
   </div>
 </template>
 

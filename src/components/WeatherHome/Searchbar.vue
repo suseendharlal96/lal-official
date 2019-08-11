@@ -2,7 +2,6 @@
   <div>
       <v-container>
         <v-layout >
-          <v-flex xs12 sm12 md12 lg6 offset-lg3 offset-md1>
             <v-text-field
             solo 
             label="Search by city name, US zip code, Canada postal code, UK postcode, ip, metar, etc." 
@@ -12,7 +11,6 @@
             @click:append="searchLocation(searchValue)"
             >
             </v-text-field>
-          </v-flex>
         </v-layout>
       </v-container>
   </div>
