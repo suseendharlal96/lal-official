@@ -5,7 +5,7 @@
           <v-flex xs12 sm12 md12 lg6 offset-lg3 offset-md1>
             <v-text-field
             solo 
-            label="Search Location" 
+            label="Search by city name, US zip code, Canada postal code, UK postcode, ip, metar, etc." 
             v-model="searchValue" 
             @keyup.enter.native="searchLocation(searchValue)"
             append-icon="search"
