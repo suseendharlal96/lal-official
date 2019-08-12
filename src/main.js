@@ -52,8 +52,13 @@ new Vue({
         this.$store.dispatch('autoSignIn', user);
       }
     });
-    // const db = firebase.firestore();
-      
-  
+    if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+      var email = window.localStorage.getItem('emailForSignIn');
+      if (!email) {
+        email = window.prompt('Please provide your email for confirmation');
+      } else {
+        this.$store.dispatch('autoSignIn', user);
+      }
+    }
   }
 });

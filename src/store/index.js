@@ -64,6 +64,24 @@ export const store = new Vuex.Store({
     setWeatherCache: (state, payload) => (state.weatherCache = payload)
   },
   actions: {
+    signUserUpEmail({ commit }, payload) {
+      commit('clearError');
+      commit('setLoading', true);
+      firebase
+        .auth()
+        .sendSignInLinkToEmail(payload.email, payload.actionCode)
+        .then(user => {
+          commit('setLoading', false);
+          window.localStorage.setItem('emailForSignIn', email);
+          // commit('setUser', newUser);
+        })
+        .catch(error => {
+          commit('setLoading', false);
+          commit('setError', error);
+
+          console.log(error);
+        });
+    },
     signUserUp({ commit }, payload) {
       commit('clearError');
       commit('setLoading', true);
@@ -128,19 +146,19 @@ export const store = new Vuex.Store({
         .then(toaster.success('Successfully created'))
         .catch(commit('setError', error));
     },
-     searchLocation({ commit }, payload) {
+    searchLocation({ commit }, payload) {
       commit('setLoading', true);
-       service
+      service
         .getWeather(payload + '&days=7')
         .then(res => {
           commit('setLoading', false);
           commit('setWeatherCache', res);
-          console.log(res)
+          console.log(res);
         })
         .catch(err => {
           commit('setLoading', false);
           commit('setError', err);
-          console.log(err.message)
+          console.log(err.message);
         });
 
       // console.log(wF);

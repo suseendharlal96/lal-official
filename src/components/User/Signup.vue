@@ -65,6 +65,10 @@
                           <v-icon light>cached</v-icon>
                         </span>
                       </template></v-btn
+                    ><v-btn
+                      color="info"
+                      @click="signupWithEmail()"
+                      >Sign up with verification</v-btn
                     >
                     <p v-html="text"></p>
                     <p>(OR)</p>
@@ -92,6 +96,10 @@ export default {
     return {
       email: "",
       valid: true,
+      actionCodeSettings: {
+        url: "https://person-vue.herokuapp.com/#/success",
+        handleCodeInApp: true
+      },
       show: false,
       password: "",
       confirmPassword: "",
@@ -124,6 +132,13 @@ export default {
     }
   },
   methods: {
+    signupWithEmail() {
+      this.$toaster.success('A confirmation mail has been sent your provided email-id');
+      this.$store.dispatch("signUserUpEmail", {
+        email: this.email,
+        actionCode: this.actionCodeSettings
+      });
+    },
     onSignup() {
       this.$store.dispatch("signUserUp", {
         email: this.email,
