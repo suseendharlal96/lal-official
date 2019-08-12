@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div v-if="weather.location == null">
+    <div v-if="weather === null || undefined">
       <div class="text-xs-center">
         <v-progress-circular
           :size="50"
@@ -10,7 +10,7 @@
         ></v-progress-circular>
       </div>
     </div>
-    <div v-if="weather.location !== null">
+    <div v-if="weather !== null || undefined">
       <h2 style="color:red">{{ weather.location.name | toUpperCase }}</h2>
       <img class="homepageLogo" :src="weather.current.condition.icon" />
       <v-btn color="info" @click="getLocation()">
