@@ -2,19 +2,24 @@
   <v-container>
     <div v-if="weather === null || undefined">
       <div class="text-xs-center">
-        <v-progress-circular
+        <img
+          src="https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif"
+          style="width: 20%;height: 20%;"
+        />
+        <!-- <v-progress-circular
           :size="50"
           :width="4"
           indeterminate
           color="primary"
-        ></v-progress-circular>
+        ></v-progress-circular> -->
       </div>
     </div>
     <div v-if="weather !== null || undefined">
       <h2 style="color:red">{{ weather.location.name | toUpperCase }}</h2>
       <img class="homepageLogo" :src="weather.current.condition.icon" />
       <v-btn color="info" @click="getLocation()">
-        <v-icon left dark>home</v-icon>Get my location</v-btn>
+        <v-icon left dark>home</v-icon>Get my location</v-btn
+      >
       <Searchbar />
       <DayForecastTab />
       <Weathers :weatherCache="weather" />
@@ -53,7 +58,10 @@ export default {
       }
     },
     showPosition(position) {
-      this.$store.dispatch("searchLocation", position.coords.latitude + "," + position.coords.longitude);
+      this.$store.dispatch(
+        "searchLocation",
+        position.coords.latitude + "," + position.coords.longitude
+      );
     }
   },
   computed: {

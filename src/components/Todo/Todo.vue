@@ -4,12 +4,16 @@
     <div>
       <div v-if="loading">
         <div class="text-xs-center">
-          <v-progress-circular
+          <!-- <v-progress-circular
             :size="50"
             :width="4"
             indeterminate
             color="red"
-          ></v-progress-circular>
+          ></v-progress-circular> -->
+          <img
+            src="https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif"
+            style="width: 20%;height: 20%;"
+          />
         </div>
       </div>
       <div v-if="!loading">
@@ -69,9 +73,9 @@
             </v-flex>
           </v-layout>
           <h4>Your mode of view(click to Toggle):</h4> -->
-          <b-button variant="outline-primary" @click="classicMode">Switch to {{
-            btnName
-          }}</b-button>
+          <b-button variant="outline-primary" @click="classicMode"
+            >Switch to {{ btnName }}</b-button
+          >
           <h3 class="br" v-if="todos.length > 0">
             You've got {{ todos.length }} thing(s) to-do
           </h3>
@@ -171,9 +175,14 @@ export default {
     update(newVal, index) {
       console.log(newVal);
       if (newVal.length > 0) {
-        let updatedValue = newVal.toLowerCase().replace(/\s/g, '');
+        let updatedValue = newVal.toLowerCase().replace(/\s/g, "");
         console.log(updatedValue);
-        let updateIndex = this.todos.findIndex(u => u.toLowerCase().replace(/\s/g, '').includes(updatedValue));
+        let updateIndex = this.todos.findIndex(u =>
+          u
+            .toLowerCase()
+            .replace(/\s/g, "")
+            .includes(updatedValue)
+        );
         console.log(updateIndex);
         let updatedItem = this.todos[index];
         if (updateIndex === -1) {
@@ -241,7 +250,7 @@ export default {
 };
 </script>
 <style>
-#todo{
+#todo {
   position: relative;
   bottom: 17%;
 }

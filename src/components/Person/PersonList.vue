@@ -2,14 +2,20 @@
   <v-container>
     <div v-if="loading">
       <div class="text-xs-center">
-        <v-progress-circular
+        <!-- <v-progress-circular
           :size="50"
           :width="4"
           indeterminate
           color="primary"
-        ></v-progress-circular>
+        ></v-progress-circular> -->
+        <img
+          src="https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif"
+          style="width: 20%;height: 20%;"/>
       </div>
     </div>
+    <!-- <div
+        style="background:url(https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif) no-repeat center center;width:20px;height:20px;"
+      ></div> -->
     <div v-if="!loading">
       <v-text-field
         v-model="filterPerson"
@@ -186,23 +192,23 @@ export default {
 };
 </script>
 <style>
-td{
+td {
   animation: moveFromLeft 0.5s ease-out;
 }
 @keyframes moveFromLeft {
-    0% {
-        opacity: 0;
-        transform: translateX(-100px)
-    }
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
 
-    80% {
-        transform: translateX(20px)
-    }
+  80% {
+    transform: translateX(20px);
+  }
 
-    100% {
-        opacity: 1;
-        transform: translate(0px)
-    }
+  100% {
+    opacity: 1;
+    transform: translate(0px);
+  }
 }
 .search {
   border: "2px solid red";
