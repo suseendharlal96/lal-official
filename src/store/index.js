@@ -130,6 +130,9 @@ export const store = new Vuex.Store({
       commit('setUser', null);
     },
     autoSignIn({ commit }, payload) {
+      commit('setUser', payload);
+    },
+    autoSignInEmail({ commit }, payload) {
       commit('setUser', { id: payload.uid });
     },
     createPerson({ commit }, payload) {
