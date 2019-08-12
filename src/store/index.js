@@ -44,9 +44,9 @@ export const store = new Vuex.Store({
     setUser(state, payload) {
       state.user = payload;
     },
-    setEmail(state, payload) {
-      state.email = payload;
-    },
+    // setEmail(state, payload) {
+    //   state.email = payload;
+    // },
     setLoading(state, payload) {
       state.loading = payload;
     },
@@ -68,24 +68,24 @@ export const store = new Vuex.Store({
     setWeatherCache: (state, payload) => (state.weatherCache = payload)
   },
   actions: {
-    signUserUpEmail({ commit }, payload) {
-      commit('clearError');
-      commit('setLoading', true);
-      firebase
-        .auth()
-        .sendSignInLinkToEmail(payload.email, payload.actionCode)
-        .then(user => {
-          commit('setLoading', false);
-          window.localStorage.setItem('emailForSignIn', email);
-          // commit('setUser', newUser);
-        })
-        .catch(error => {
-          commit('setLoading', false);
-          commit('setError', error);
+    // signUserUpEmail({ commit }, payload) {
+    //   commit('clearError');
+    //   commit('setLoading', true);
+    //   firebase
+    //     .auth()
+    //     .sendSignInLinkToEmail(payload.email, payload.actionCode)
+    //     .then(email => {
+    //       commit('setLoading', false);
+    //       window.localStorage.setItem('emailForSignIn', email);
+    //       commit('setEmail', email);
+    //     })
+    //     .catch(error => {
+    //       commit('setLoading', false);
+    //       commit('setError', error);
 
-          console.log(error);
-        });
-    },
+    //       console.log(error);
+    //     });
+    // },
     signUserUp({ commit }, payload) {
       commit('clearError');
       commit('setLoading', true);
@@ -175,9 +175,9 @@ export const store = new Vuex.Store({
     user(state) {
       return state.user;
     },
-    email(state) {
-      return state.email;
-    },
+    // email(state) {
+    //   return state.email;
+    // },
     loading(state) {
       return state.loading;
     },
