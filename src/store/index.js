@@ -30,6 +30,7 @@ export const store = new Vuex.Store({
     // ],
     personList: [{}],
     user: null,
+    email:null,
     loading: false,
     error: null,
     isTabFlagCurrent: null,
@@ -42,6 +43,9 @@ export const store = new Vuex.Store({
     // },
     setUser(state, payload) {
       state.user = payload;
+    },
+    setEmail(state, payload) {
+      state.email = payload;
     },
     setLoading(state, payload) {
       state.loading = payload;
@@ -130,7 +134,7 @@ export const store = new Vuex.Store({
       commit('setUser', null);
     },
     autoSignIn({ commit }, payload) {
-      commit('setUser', payload);
+      commit('setEmail', payload);
     },
     autoSignInEmail({ commit }, payload) {
       commit('setUser', { id: payload.uid });
@@ -170,6 +174,9 @@ export const store = new Vuex.Store({
   getters: {
     user(state) {
       return state.user;
+    },
+    email(state) {
+      return state.email;
     },
     loading(state) {
       return state.loading;

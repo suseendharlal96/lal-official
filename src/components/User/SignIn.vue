@@ -54,9 +54,7 @@
                           <v-icon light>cached</v-icon>
                         </span>
                       </template></v-btn
-                    ><v-btn
-                      color="info"
-                      @click="signupWithEmail()"
+                    ><v-btn color="info" @click="signupWithEmail()"
                       >Sign in with verification</v-btn
                     >
                     <p v-html="text"></p>
@@ -120,6 +118,11 @@ export default {
   },
   watch: {
     user(value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push("/success");
+      }
+    },
+    email(value) {
       if (value !== null && value !== undefined) {
         this.$router.push("/success");
       }
