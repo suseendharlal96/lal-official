@@ -65,7 +65,9 @@
                           <v-icon light>cached</v-icon>
                         </span>
                       </template></v-btn
-                    ><v-btn color="info" @click="signupWithEmail()"
+                    ><v-btn
+                      color="info"
+                      @click="signupWithEmail()"
                       >Sign up with verification</v-btn
                     >
                     <p v-html="text"></p>
@@ -127,18 +129,11 @@ export default {
       if (value !== null && value !== undefined) {
         this.$router.push("/success");
       }
-    },
-    email(value) {
-      if (value !== null && value !== undefined) {
-        this.$router.push("/success");
-      }
     }
   },
   methods: {
     signupWithEmail() {
-      this.$toaster.success(
-        "A confirmation mail has been sent your provided email-id"
-      );
+      this.$toaster.success('A confirmation mail has been sent your provided email-id');
       this.$store.dispatch("signUserUpEmail", {
         email: this.email,
         actionCode: this.actionCodeSettings
