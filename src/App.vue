@@ -35,7 +35,7 @@
           >Simple App</router-link
         >
       </v-toolbar-title>
-      <option value="google_translate_element"></option>
+      <p id="google_translate_element"></p>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn flat v-for="item in menuItems" :key="item.title" :to="item.link">
@@ -53,7 +53,7 @@
     <!-- </div> -->
     <footer class="footer">
       <p>Copyright © 2019 built with  <i class="fa fa-heart pulse"></i> by Suseendhar LaL</p>
-      <p id="google_translate_element"></p>
+      
     </footer>
   </v-app>
 </template>
@@ -123,7 +123,7 @@ export default {
   box-sizing: border-box;
 }
 body {
-  font-family: sans-serif;
+  font-family: Roboto, "Open Sans", sans-serif !important;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.7;
