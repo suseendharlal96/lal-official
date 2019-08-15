@@ -18,7 +18,7 @@
       display: none !important;
     }
 
-    #google_translate_element {
+    /* #google_translate_element {
       position: absolute;
       bottom: calc(53px + 16px);
       left: 20% !important;
@@ -63,12 +63,12 @@
       height: 32px !important;
       width: 32px !important;
       margin-right: 8px !important;
-      /* display: none; */
-    }
+      display: none;
+    }*/
 
     body {
       top: 0px !important;
-    }
+    } 
   </style>
 </head>
 
@@ -76,7 +76,7 @@
 
   <script type="text/javascript">
     function googleTranslateElementInit() {
-      new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false }, 'google_translate_element');
+      new google.translate.TranslateElement({ pageLanguage: 'en'}, 'google_translate_element');
     }
   </script>
 

@@ -35,7 +35,6 @@
           >Simple App</router-link
         >
       </v-toolbar-title>
-      <p id="google_translate_element"></p>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn flat v-for="item in menuItems" :key="item.title" :to="item.link">
@@ -53,7 +52,7 @@
     <!-- </div> -->
     <footer class="footer">
       <p>Copyright © 2019 built with  <i class="fa fa-heart pulse"></i> by Suseendhar LaL</p>
-      
+      <p id="google_translate_element"></p>
     </footer>
   </v-app>
 </template>
