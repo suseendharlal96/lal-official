@@ -68,7 +68,6 @@
                     >
                     <p v-html="text"></p>
                     <p>(OR)</p>
-                    <v-icon class="fa-google"></v-icon>
                     <v-btn @click="googleSignIn()">Continue with google</v-btn>
                     <v-btn color="info" @click="facebookLogin()"
                       >Continue with facebook</v-btn

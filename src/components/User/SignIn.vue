@@ -60,7 +60,6 @@
                     > -->
                     <p v-html="text"></p>
                     <p>(OR)</p>
-                    <v-icon class="fa-google"></v-icon>
                     <v-btn class="ani-btn" @click="googleSignIn()"
                       >Continue with google</v-btn
                     >

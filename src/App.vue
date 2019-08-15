@@ -52,7 +52,7 @@
     <router-view></router-view>
     <!-- </div> -->
     <footer class="footer">
-      <p>Copyright © 2019 built by Suseendhar LaL</p>
+      <p>Copyright © 2019 built with  <i class="fa fa-heart pulse"></i> by Suseendhar LaL</p>
       <p id="google_translate_element"></p>
     </footer>
   </v-app>
@@ -166,6 +166,18 @@ body {
   width: 100%;
   text-align: end;
   color: #728872;
+}
+ .fa {
+  color: #E90606;
+  margin: 0 3px;
+  font-size: 10px;
+  animation: pound 0.35s infinite alternate;
+}
+
+@keyframes pound {
+  to {
+    transform: scale(1.1);
+  }
 }
 .footer p {
   font-size: 90%;
