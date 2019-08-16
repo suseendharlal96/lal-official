@@ -1,5 +1,6 @@
 <template>
   <v-app id="appbg">
+    <div id="particles-js"></div>
     <v-navigation-drawer temporary v-model="sideNav">
       <v-list>
         <v-list-tile
@@ -130,7 +131,7 @@ body {
   /* padding: 16px; */
 }
 #appbg {
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
       to right bottom,
       rgba(126, 213, 111, 0.801),
       rgba(40, 180, 133, 0.801)
@@ -138,7 +139,7 @@ body {
     url(assets/img/nat-4.jpg);
   background-size: cover;
   background-position: top;
-  height: 100%;
+  height: 100%; */
 }
 .red {
   position: fixed;
