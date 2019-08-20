@@ -55,14 +55,9 @@ export default {
     },
     getLocation() {
       console.log(123)
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.showPosition);
-      } else {
-        this.$toaster.error("Geolocation is not supported by this browser.");
-      }
       axios
         .get(
-          "https://geo.ipify.org/api/v1?apiKey=at_pftjsvw5tqwPlnvgHrQ1w1AGRg86N&ipAddress=8.8.8.8"
+          "https://geo.ipify.org/api/v1?apiKey=at_pftjsvw5tqwPlnvgHrQ1w1AGRg86N"
         )
         .then(res => {
           console.log(res)
