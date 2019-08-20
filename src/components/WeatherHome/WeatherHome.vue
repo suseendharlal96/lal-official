@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import Weathers from "./Weather";
 import Searchbar from "./Searchbar";
 import DayForecastTab from "./DayForecastTab";
@@ -43,7 +45,8 @@ import DayForecastTab from "./DayForecastTab";
 export default {
   data() {
     return {
-      name: "home"
+      lat: "",
+      long: ""
     };
   },
   methods: {
@@ -51,17 +54,25 @@ export default {
       this.$router.push("/success");
     },
     getLocation() {
+      console.log(123)
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.showPosition);
       } else {
         this.$toaster.error("Geolocation is not supported by this browser.");
       }
+      axios
+        .get(
+          "https://geo.ipify.org/api/v1?apiKey=at_pftjsvw5tqwPlnvgHrQ1w1AGRg86N&ipAddress=8.8.8.8"
+        )
+        .then(res => {
+          console.log(res)
+          this.lat = res.data.location.city;
+          console.log(this.lat);
+        });
+        this.showPosition();
     },
-    showPosition(position) {
-      this.$store.dispatch(
-        "searchLocation",
-        position.coords.latitude + "," + position.coords.longitude
-      );
+    showPosition() {
+      this.$store.dispatch("searchLocation", this.lat);
     }
   },
   computed: {
