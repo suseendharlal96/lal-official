@@ -130,14 +130,6 @@ export default {
     //     this.$router.push("/success");
     //   }
     // },
-    loader() {
-      const l = this.loader;
-      this[l] = !this[l];
-
-      setTimeout(() => (this[l] = false), 3000);
-
-      this.loader = null;
-    }
   },
   methods: {
     // signupWithEmail() {
@@ -219,6 +211,7 @@ export default {
 }
 #signcard {
   border-radius: 18px;
+  opacity: 0.8;
   background-image: linear-gradient(
     to right bottom,
     rgba(2, 29, 32, 0.87),

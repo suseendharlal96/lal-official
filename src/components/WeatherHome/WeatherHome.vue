@@ -79,7 +79,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("searchLocation", "Chennai");
+    this.$store.dispatch("searchLocation", "chennai");
   },
   filters: {
     toUpperCase(value) {

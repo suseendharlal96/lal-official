@@ -102,26 +102,26 @@ export const store = new Vuex.Store({
         .catch(error => {
           commit('setLoading', false);
           commit('setError', error);
-
+          
           console.log(error);
         });
-    },
-    signUserIn({ commit }, payload) {
+      },
+      signUserIn({ commit }, payload) {
       commit('clearError');
       commit('setLoading', true);
-
+      
       firebase
-        .auth()
-        .signInWithEmailAndPassword(payload.email, payload.password)
-        .then(user => {
-          commit('setLoading', false);
-          const newUser = {
-            id: user.uid
-          };
-          commit('setUser', newUser);
-        })
-        .catch(error => {
-          commit('setLoading', false);
+      .auth()
+      .signInWithEmailAndPassword(payload.email, payload.password)
+      .then(user => {
+        commit('setLoading', false);
+        const newUser = {
+          id: user.uid
+        };
+        commit('setUser', newUser);
+      })
+      .catch(error => {
+        commit('setLoading', false);
           commit('setError', error);
           console.log(error);
         });
@@ -175,9 +175,9 @@ export const store = new Vuex.Store({
     user(state) {
       return state.user;
     },
-    // email(state) {
-    //   return state.email;
-    // },
+      // email(state) {
+      //   return state.email;
+      // },
     loading(state) {
       return state.loading;
     },

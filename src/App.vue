@@ -52,7 +52,10 @@
     <router-view></router-view>
     <!-- </div> -->
     <footer class="footer">
-      <p>Copyright © 2019 built with  <i class="fa fa-heart pulse"></i> by Suseendhar LaL</p>
+      <p>
+        Copyright © 2019 built with <i class="fa fa-heart pulse"></i> by
+        Suseendhar LaL
+      </p>
       <p id="google_translate_element"></p>
     </footer>
   </v-app>
@@ -67,8 +70,9 @@ export default {
   },
   methods: {
     onLogout() {
-      this.$store.dispatch("logout");
-      this.$router.push("/logout");
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/logout");
+      });
     }
     // scrollFunction() {
     //   console.log('fsgdf')
@@ -167,8 +171,8 @@ body {
   text-align: end;
   color: #728872;
 }
- .fa {
-  color: #E90606;
+.fa {
+  color: #e90606;
   margin: 0 3px;
   font-size: 10px;
   animation: pound 0.35s infinite alternate;
