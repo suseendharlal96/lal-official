@@ -40,9 +40,9 @@
       <b-row name>
         <b-col v-for="weather in weatherCache.forecast.forecastday" :key="weather.id">
           <img :src="weather.day.condition.icon" />
-          <p>Avg Temp: {{ weather.day.avgtemp_c }}°c</p>
-          <p>{{ weather.day.condition.text }}</p>
-          <p>{{ weather.date }}</p>
+          <p style="color:gold">Avg Temp: {{ weather.day.avgtemp_c }}°c</p>
+          <p style="color:white">{{ weather.day.condition.text }}</p>
+          <p style="color:gold">{{ weather.date }}</p>
         </b-col>
       </b-row>
     </v-container>
