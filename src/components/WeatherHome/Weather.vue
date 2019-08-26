@@ -38,11 +38,11 @@
 
     <v-container v-if="!isTabFlagCurrent">
       <b-row name>
-        <b-col v-for="day in weatherCache.forecast.forecastday" :key="day.id">
-          <img :src="day.day.condition.icon" />
-          <p>Avg Temp: {{ day.day.avgtemp_c }}°c</p>
-          <p>{{ day.day.condition.text }}</p>
-          <p>{{ day.date }}</p>
+        <b-col v-for="weather in weatherCache.forecast.forecastday" :key="weather.id">
+          <img :src="weather.day.condition.icon" />
+          <p>Avg Temp: {{ weather.day.avgtemp_c }}°c</p>
+          <p>{{ weather.day.condition.text }}</p>
+          <p>{{ weather.date }}</p>
         </b-col>
       </b-row>
     </v-container>
@@ -63,12 +63,8 @@ export default {
   },
   created() {
     this.$store.commit("setTabFlag", true);
-    // this.$store.dispatch("searchLocation", this.currentLocation);
   },
   computed: {
-    // weatherCache() {
-    //   return this.$store.getters["getWeatherCache"];
-    // },
     isTabFlagCurrent() {
       return this.$store.getters["getTabFlag"];
     }

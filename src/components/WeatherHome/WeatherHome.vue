@@ -61,7 +61,7 @@ export default {
         )
         .then(res => {
           console.log(res)
-          this.lat = res.data.location.city;
+          this.lat = res.data.ip;
           console.log(this.lat);
         });
         this.showPosition();
