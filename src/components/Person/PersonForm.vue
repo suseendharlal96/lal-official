@@ -262,13 +262,13 @@ export default {
   position: relative;
   /* left: 1%; */
   background: linear-gradient(
-      to right bottom,
-      rgb(88, 197, 74),
-      rgba(16, 187, 130, 0.801)
-    );
+    to right bottom,
+    rgb(88, 197, 74),
+    rgba(16, 187, 130, 0.801)
+  );
   background-size: cover;
   box-shadow: 2px 2px 20px 1px;
-  overflow: auto;
+  /* overflow: auto; */
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -278,6 +278,12 @@ export default {
 .modal-footer {
   padding: 10px;
   display: flex;
+  background: linear-gradient(
+    to right bottom,
+    rgba(221, 86, 23, 0.8),
+    rgba(103, 147, 206, 0.8)
+  );
+  background-size: cover;
 }
 
 .modal-header {
@@ -293,6 +299,7 @@ export default {
 
 .modal-body {
   position: relative;
+  overflow: auto;
   padding: 20px 10px;
 }
 .modal-fade-enter,
