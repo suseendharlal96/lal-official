@@ -50,14 +50,19 @@
       </v-layout>
       <v-layout row>
         <v-flex xs6>
-          <v-btn @click="onUpload">Upload!</v-btn>
-          <input
-            type="file"
-            style="display:none"
-            ref="imgFile"
-            accept="image/*"
-            @change="onFileChanged"
-          />
+          <div class="drop" @dragover="handleDragOver" @drop="onFileChanged">
+            <v-btn @click="onUpload">
+              <v-icon left light>cloud_upload</v-icon>Upload Image!</v-btn
+            >
+            <input
+              type="file"
+              style="display:none"
+              ref="imgFile"
+              accept="image/*"
+              @change="onFileChanged"
+            />
+            <div><small>You can drop image here</small></div>
+          </div>
         </v-flex>
       </v-layout>
       <v-layout row>
@@ -166,8 +171,11 @@ export default {
       this.$refs.imgFile.click();
     },
     onFileChanged(event) {
+      event.stopPropagation();
+      event.preventDefault();
       // console.log(1);
-      const selectedImg = event.target.files;
+      // const selectedImg = event.target.files;
+      const selectedImg = event.target.files || event.dataTransfer.files;
       let fileName = selectedImg[0].name;
       // console.log(fileName);
       if (fileName.lastIndexOf(".") <= 0) {
@@ -183,6 +191,11 @@ export default {
       // console.log(this.image); // Actual image
       this.$toaster.success("Image uploaded!");
     },
+    handleDragOver(evt) {
+      evt.stopPropagation();
+      evt.preventDefault();
+      evt.dataTransfer.dropEffect = "copy";
+    },
     clearbox() {
       //  this.$emit('cancel', this.rowData, this.rowData.index);
     }
@@ -194,6 +207,13 @@ export default {
 </script>
 
 <style>
+.drop {
+  width: 100%;
+  border: 1px dashed yellow;
+  padding: 15px;
+  text-align: center;
+  margin: 10px;
+}
 /* .form-group.invalid input {
   border: "1px solid red";
   background-color: "salmon";
