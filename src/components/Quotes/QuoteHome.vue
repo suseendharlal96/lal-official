@@ -36,15 +36,15 @@ export default {
   },
   methods: {
     newQuote(quote) {
-      console.log(quote);
+      // console.log(quote);
       if (quote !== null || quote !== undefined) {
         if (this.quotes.length >= this.maxQuotes) {
           return alert("Please delete Quotes first!");
         }
         this.quotes.push(quote);
         let quoteIndex = this.quotes.findIndex(q => q.name === quote);
-        console.log(this.quotes);
-        console.log(this.quoteIndex);
+        // console.log(this.quotes);
+        // console.log(this.quoteIndex);
       } else {
         this.$toaster.error("creation failed");
       }

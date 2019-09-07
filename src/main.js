@@ -43,7 +43,7 @@ new Vue({
       authDomain: 'personlist-8be9e.firebaseapp.com',
       databaseURL: 'https://personlist-8be9e.firebaseio.com',
       projectId: 'personlist-8be9e',
-      storageBucket: 'personlist-8be9e.appspot.com',
+      storageBucket: 'gs://personlist-8be9e.appspot.com',
       messagingSenderId: '146959222232',
       appId: '1:146959222232:web:1905680734b9ec51'
     });

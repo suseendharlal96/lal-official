@@ -18,14 +18,18 @@
 
 <script>
 import axios from "axios";
+import firebase, { firestore } from "firebase";
 
+import { store } from "../../store/index";
 import Person from "./PersonList";
 export default {
   data() {
     return {
       PersonList: [],
       loading: false,
-      deleteId: null
+      deleteId: null,
+      id: "",
+      image: null
     };
   },
   methods: {
@@ -60,19 +64,43 @@ export default {
       this.$toaster.success("Successfully deleted");
     },
     createPerson(data) {
+      this.PersonList.push(data);
+      // console.log(data);
+      // const filename = data.img.name;
+      // const imgextension = filename.slice(filename.lastIndexOf("."));
+      // firebase
+      //   .storage()
+      //   .ref("persons/" + filename)
+      //   .put(data.img)
+      //   .then(fileData => {
+      //     console.log(fileData);
+      //     let fullPath = fileData.metaData.fullPath;
+      //     return firebase
+      //       .storage()
+      //       .ref(fullPath)
+      //       .getDownloadURL();
+      //   })
+      //   .then(url => {
+      //     console.log(url);
+      //     this.image = url;
+      //   });
+
       const perData = {
         name: data.name,
         age: data.age,
         email: data.email,
-        admin: data.admin
+        admin: data.admin,
+        img: data.img
       };
-      const index = this.PersonList.length - 1;
+      // firebase.storage.ref("persons/" + this.id + "." + imgextension);
+
+      // const index = this.PersonList.length - 1;
       // const persons = [...this.PersonList];
-      this.PersonList.push(data);
-      axios
-        .post("https://personlist-8be9e.firebaseio.com/persons.json", perData)
-        .then(this.$toaster.success("Successfully created"))
-        .catch(err => console.log(err));
+      this.$store.dispatch("createPerson", perData);
+      // axios
+      //   .post("https://personlist-8be9e.firebaseio.com/persons.json", perData)
+      //   .then(this.PersonList.push(data))
+      //   .catch(err => console.log(err));
 
       //  this.PersonList.push(data);
     },
@@ -84,7 +112,7 @@ export default {
       this.$toaster.success("Successfully updated");
     },
     resetPerson(data, index) {
-      console.log(index);
+      // console.log(index);
       this.PersonList[index].name = data.name;
       this.PersonList[index].age = data.age;
       this.PersonList[index].email = data.email;
@@ -101,17 +129,20 @@ export default {
       .get("https://personlist-8be9e.firebaseio.com/persons.json")
       .then(res =>
         Object.keys(res.data).map(key => {
-          const id = key;
-          console.log(id);
+          this.id = key;
+          // console.log(this.id);
           const person = res.data[key];
-          console.log(person);
-          this.PersonList.push(person);
-          console.log(this.PersonList);
+          // console.log(person);
+          if (res.data !== undefined || null) {
+            this.PersonList.push(person);
+          }
+
+          // console.log(this.PersonList);
           this.loading = false;
         })
       )
       .catch(err => {
-        this.loading = true;
+        this.loading = false;
         console.log(err);
       });
     // this.persons = { ...this.PersonList };

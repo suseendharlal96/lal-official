@@ -10,12 +10,10 @@
         ></v-progress-circular> -->
         <img
           src="https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif"
-          style="width: 20%;height: 20%;"/>
+          style="width: 20%;height: 20%;"
+        />
       </div>
     </div>
-    <!-- <div
-        style="background:url(https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif) no-repeat center center;width:20px;height:20px;"
-      ></div> -->
     <div v-if="!loading">
       <v-text-field
         v-model="filterPerson"
@@ -24,12 +22,6 @@
         prepend-inner-icon="search"
         solo-inverted
       ></v-text-field>
-      <!-- <p>Showing all names</p>
-      <ul>
-        <li v-for="(person, index) in filteredPersons" :key="index">
-          {{ person.name }}
-        </li>
-      </ul> -->
       <span>
         <v-text-field
           type="number"
@@ -40,10 +32,7 @@
           >Del</b-button
         >
       </span>
-      <!-- <v-containe></v-containe> -->
-      <!-- <div class="w3-container"> -->
       <h2>Person Table</h2>
-
       <table class="w3-table-all w3-hoverable w3-centered fixedheader">
         <thead>
           <tr class="w3-red">
@@ -51,11 +40,12 @@
             <th>Age</th>
             <th>Email</th>
             <th>Admin</th>
+            <th>Contact Pic</th>
             <th>Action</th>
           </tr>
         </thead>
 
-        <tbody v-if="personList.length && filteredPersons.length > 0">
+        <tbody v-if="personList.length && filteredPersons.length > 0 && personList !== undefined && personList !== null">
           <tr
             v-for="(person, index) in filteredPersons"
             :key="index"
@@ -66,6 +56,11 @@
             <td>{{ person.age }}</td>
             <td>{{ person.email }}</td>
             <td>{{ person.admin }}</td>
+            <td>
+              <img
+                :src="person.imgUrl" height="50"
+              />
+            </td>
             <td>
               <b-button
                 variant="outline-danger"
@@ -78,7 +73,7 @@
         </tbody>
         <tbody v-else>
           <tr>
-            <td colspan="5">
+            <td colspan="6">
               No data to display.
             </td>
           </tr>
@@ -108,6 +103,7 @@ export default {
   mixins: [PersonMixin],
   data() {
     return {
+      imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Paris_-_Blick_vom_großen_Triumphbogen.jpg',
       delData: "",
       rowData: "",
       val: "",
@@ -121,17 +117,17 @@ export default {
   },
   methods: {
     deletePerson(index) {
-      console.log(index);
+      // console.log(index);
       this.dispOnForm(index);
       this.$emit("personDelete", index);
       this.createPerson();
     },
     deletePersonById(age) {
-      console.log(typeof age);
-      console.log(age.to);
+      // console.log(typeof age);
+      // console.log(age.to);
       if (age.toString().length > 0) {
         let p = this.personList.findIndex(person => person.age === age);
-        console.log(p);
+        // console.log(p);
         if (p !== -1) {
           this.$emit("personDelete", p);
           this.createPerson();
@@ -148,10 +144,12 @@ export default {
         age: "",
         email: "",
         admin: "",
+        imageUrl: "",
         toCreate: true
       };
     },
     addPerson(list) {
+      // console.log(list);
       this.$emit("createperson", list);
     },
     updatePerson(updatedList, index) {
@@ -166,6 +164,7 @@ export default {
         age: this.personList[i].age,
         email: this.personList[i].email,
         admin: this.personList[i].admin,
+        imgUrl: this.personList[i].imgUrl,
         toCreate: false,
         index: i
       };

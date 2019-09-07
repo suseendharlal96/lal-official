@@ -4,12 +4,6 @@
     <div>
       <div v-if="loading">
         <div class="text-xs-center">
-          <!-- <v-progress-circular
-            :size="50"
-            :width="4"
-            indeterminate
-            color="red"
-          ></v-progress-circular> -->
           <img
             src="https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif"
             style="width: 20%;height: 20%;"
@@ -70,9 +64,8 @@
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <img :src="imgUrl" height="150" />
-            </v-flex>
-          </v-layout>
-          <h4>Your mode of view(click to Toggle):</h4> -->
+            </v-flex> 
+          </v-layout> -->
           <b-button variant="outline-primary" @click="classicMode"
             >Switch to {{ btnName }}</b-button
           >
@@ -131,7 +124,7 @@ export default {
         let newTodo = {
           val: val.toLowerCase()
         };
-        console.log(newTodo);
+        // console.log(newTodo);
         let newIndex = this.todos.findIndex(ele => ele === val.toLowerCase());
         if (newIndex === -1) {
           this.todos.push(val);
@@ -139,7 +132,7 @@ export default {
           axios
             .post("https://todolist-7be14.firebaseio.com/tasks.json", newTodo)
             .then(this.$toaster.success("Successfully added"))
-            .catch(err => console.log(err));
+            // .catch(err => console.log(err));
 
           this.val = "";
         } else {
@@ -152,9 +145,9 @@ export default {
     del(tobeDeleted) {
       if (typeof tobeDeleted === "string" && tobeDeleted.length !== 0) {
         // if (index.length <= 2) {
-        console.log("inside string 2");
+        // console.log("inside string 2");
         const delIndex = this.todos.findIndex(t => t === tobeDeleted);
-        console.log(delIndex);
+        // console.log(delIndex);
         if (delIndex !== -1) {
           this.todos.splice(+delIndex, 1);
           this.val = "";
@@ -163,8 +156,8 @@ export default {
           this.$toaster.error("failed deletion");
         }
       } else if (typeof tobeDeleted === "number") {
-        console.log("inside num");
-        console.log(tobeDeleted);
+        // console.log("inside num");
+        // console.log(tobeDeleted);
         this.todos.splice(tobeDeleted, 1);
         this.val = "";
         this.$toaster.success("Successfully deleted");
@@ -173,17 +166,17 @@ export default {
       }
     },
     update(newVal, index) {
-      console.log(newVal);
+      // console.log(newVal);
       if (newVal.length > 0) {
         let updatedValue = newVal.toLowerCase().replace(/\s/g, "");
-        console.log(updatedValue);
+        // console.log(updatedValue);
         let updateIndex = this.todos.findIndex(u =>
           u
             .toLowerCase()
             .replace(/\s/g, "")
             .includes(updatedValue)
         );
-        console.log(updateIndex);
+        // console.log(updateIndex);
         let updatedItem = this.todos[index];
         if (updateIndex === -1) {
           this.todos[index] = updatedValue;
@@ -231,16 +224,16 @@ export default {
       .then(res =>
         Object.keys(res.data).map(key => {
           const id = key;
-          console.log(id);
+          // console.log(id);
           const task = res.data[key];
-          console.log(task);
+          // console.log(task);
           this.todos.push(task.val);
           this.loading = false;
         })
       )
       .catch(err => {
         this.loading = true;
-        console.log(err);
+        // console.log(err);
       });
   },
   components: {

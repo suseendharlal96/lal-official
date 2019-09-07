@@ -29,7 +29,7 @@ export default {
   methods:{
     searchLocation(payload){
       // this.$emit('searchValue', payload)
-      console.log(typeof payload);
+      // console.log(typeof payload);
       this.$store.dispatch('searchLocation',payload);
     }
   }
