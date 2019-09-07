@@ -1,93 +1,124 @@
 <template>
-  <v-container>
-    <v-form v-model="valid">
-      <v-layout row>
-        <v-flex xs6>
-          <v-text-field
-            label="Name"
-            id="name"
-            :rules="nameRules"
-            :counter="15"
-            v-model.lazy.trim="rowData.name"
-          ></v-text-field>
-        </v-flex>
-      </v-layout>
-      <v-spacer></v-spacer>
-      <v-layout row>
-        <v-flex xs6>
-          <v-text-field
-            type="number"
-            label="Age"
-            id="age"
-            v-model.number="rowData.age"
-          ></v-text-field>
-        </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex xs6>
-          <v-text-field
-            id="email"
-            label="Email"
-            :rules="emailRules"
-            :counter="40"
-            v-model.trim="rowData.email"
-          ></v-text-field>
-        </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex xs6>
-          <img :src="rowData.imgUrl" height="150" />
-        </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex xs3>
-          <v-overflow-btn
-            :items="adminOptions"
-            label="Admin"
-            v-model.trim="rowData.admin"
-          ></v-overflow-btn>
-        </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex xs6>
-          <div class="drop" @dragover="handleDragOver" @drop="onFileChanged">
-            <v-btn @click="onUpload">
-              <v-icon left light>cloud_upload</v-icon>Upload Image!</v-btn
-            >
-            <input
-              type="file"
-              style="display:none"
-              ref="imgFile"
-              accept="image/*"
-              @change="onFileChanged"
-            />
-            <div><small>You can drop image here</small></div>
-          </div>
-        </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex xs12>
-          <v-btn
-            depressed
-            color="primary"
-            @click="
-              addPerson(
-                rowData.name,
-                rowData.age,
-                rowData.email,
-                rowData.admin,
-                rowData.imgUrl,
-                image
-              )
-            "
-            >Save</v-btn
-          >
+  <!-- <v-container> -->
+  <transition name="modal-fade">
+    <div class="modal-backdrop">
+      <div
+        class="modal"
+        role="dialog"
+        aria-labelledby="modalTitle"
+        aria-describedby="modalDescription"
+      >
+        <header class="modal-header" id="modalTitle">
+          <slot name="header">
+            Person Form!
 
-          <v-btn depressed color="error" @click="clearbox">Cancel</v-btn>
-        </v-flex>
-      </v-layout>
-    </v-form>
-  </v-container>
+            <button
+              type="button"
+              class="btn-close"
+              @click="clearbox"
+              aria-label="Close modal"
+            >
+              x
+            </button>
+          </slot>
+        </header>
+        <section class="modal-body" id="modalDescription">
+          <v-form v-model="valid">
+            <v-layout row>
+              <v-flex xs6>
+                <v-text-field
+                  label="Name"
+                  id="name"
+                  :rules="nameRules"
+                  :counter="15"
+                  v-model.lazy.trim="rowData.name"
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+            <v-spacer></v-spacer>
+            <v-layout row>
+              <v-flex xs6>
+                <v-text-field
+                  type="number"
+                  label="Age"
+                  id="age"
+                  v-model.number="rowData.age"
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+            <v-layout row>
+              <v-flex xs6>
+                <v-text-field
+                  id="email"
+                  label="Email"
+                  :rules="emailRules"
+                  :counter="40"
+                  v-model.trim="rowData.email"
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+            <v-layout row>
+              <v-flex xs6>
+                <img :src="rowData.imgUrl" height="150" />
+              </v-flex>
+            </v-layout>
+            <v-layout row>
+              <v-flex xs3>
+                <v-overflow-btn
+                  :items="adminOptions"
+                  label="Admin"
+                  v-model.trim="rowData.admin"
+                ></v-overflow-btn>
+              </v-flex>
+            </v-layout>
+            <v-layout row>
+              <v-flex xs6>
+                <div
+                  class="drop"
+                  @dragover="handleDragOver"
+                  @drop="onFileChanged"
+                >
+                  <v-btn @click="onUpload">
+                    <v-icon left light>cloud_upload</v-icon>Upload Image!</v-btn
+                  >
+                  <input
+                    type="file"
+                    style="display:none"
+                    ref="imgFile"
+                    accept="image/*"
+                    @change="onFileChanged"
+                  />
+                  <div><small>You can drop image here</small></div>
+                </div>
+              </v-flex>
+            </v-layout>
+            <v-layout row>
+              <v-flex xs12>
+                <v-btn
+                  depressed
+                  color="primary"
+                  @click="
+                    addPerson(
+                      rowData.name,
+                      rowData.age,
+                      rowData.email,
+                      rowData.admin,
+                      rowData.imgUrl,
+                      image
+                    )
+                  "
+                  >Save</v-btn
+                >
+
+                <v-btn depressed color="error" @click="clearbox">Cancel</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-form>
+        </section>
+      </div>
+    </div>
+  </transition>
+  <!-- </v-container> -->
 </template>
 
 <script>
@@ -196,8 +227,8 @@ export default {
       evt.preventDefault();
       evt.dataTransfer.dropEffect = "copy";
     },
-    clearbox() {
-      //  this.$emit('cancel', this.rowData, this.rowData.index);
+    clearbox(event) {
+      this.$emit("clear");
     }
   },
   created() {
@@ -214,6 +245,76 @@ export default {
   text-align: center;
   margin: 10px;
 }
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  position: relative;
+  /* left: 1%; */
+  background: linear-gradient(
+      to right bottom,
+      rgb(88, 197, 74),
+      rgba(16, 187, 130, 0.801)
+    );
+  background-size: cover;
+  box-shadow: 2px 2px 20px 1px;
+  overflow: auto;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header,
+.modal-footer {
+  padding: 10px;
+  display: flex;
+}
+
+.modal-header {
+  border-bottom: 1px solid #eeeeee;
+  color: blue;
+  justify-content: space-between;
+}
+
+/* .modal-footer {
+    border-top: 1px solid #eeeeee;
+    justify-content: flex-end;
+  } */
+
+.modal-body {
+  position: relative;
+  padding: 20px 10px;
+}
+.modal-fade-enter,
+.modal-fade-leave-active {
+  opacity: 0;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.btn-close {
+  border: none;
+  font-size: 20px;
+  padding: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: red;
+  background: transparent;
+}
+
 /* .form-group.invalid input {
   border: "1px solid red";
   background-color: "salmon";

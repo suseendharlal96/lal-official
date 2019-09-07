@@ -78,13 +78,15 @@
             </td>
           </tr>
         </tbody>
-        <b-button variant="outline-danger" @click="createPerson()"
+        <b-button variant="primary" @click="createPerson()"
           >Create</b-button
         >
       </table>
       <div>
         <person-form
+        v-show="isFormVisible"
           :rowData="rowData"
+          @clear="closeModal"
           @added="addPerson"
           @update="updatePerson"
           @cancel="cancel"
@@ -107,6 +109,7 @@ export default {
       delData: "",
       rowData: "",
       val: "",
+      isFormVisible: false,
       formData: {
         name: "",
         age: "",
@@ -139,6 +142,7 @@ export default {
       }
     },
     createPerson() {
+
       this.rowData = {
         name: "",
         age: "",
@@ -147,10 +151,13 @@ export default {
         imageUrl: "",
         toCreate: true
       };
+      this.isFormVisible = true;
+
     },
     addPerson(list) {
       // console.log(list);
       this.$emit("createperson", list);
+      this.isFormVisible = false;
     },
     updatePerson(updatedList, index) {
       this.$emit("updatePerson", updatedList, index);
@@ -168,7 +175,12 @@ export default {
         toCreate: false,
         index: i
       };
+      this.isFormVisible = true;
+    },
+    closeModal(){
+      this.isFormVisible = false;
     }
+
   },
   mounted() {
     this.rowData = {

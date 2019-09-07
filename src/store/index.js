@@ -75,7 +75,7 @@ export const store = new Vuex.Store({
           commit('setLoading', false);
           commit('setError', error);
 
-          // console.log(error);
+          console.log(error);
         });
     },
 
@@ -96,7 +96,7 @@ export const store = new Vuex.Store({
         .catch(error => {
           commit('setLoading', false);
           commit('setError', error);
-          // console.log(error);
+          console.log(error);
         });
     },
     clearError({ commit }) {
@@ -115,7 +115,7 @@ export const store = new Vuex.Store({
 
     // CREATE NEW USER
     createPerson({ commit }, payload) {
-      // console.log(payload);
+      console.log(payload);
       const newPerson = {
         name: payload.name,
         age: payload.age,
@@ -133,7 +133,7 @@ export const store = new Vuex.Store({
           return data.key;
         })
         .then(key => {
-          // console.log(key);
+          console.log(key);
           const imgname = payload.img.name;
            ext = imgname.slice(imgname.lastIndexOf('.'));
           return firebase
@@ -142,12 +142,12 @@ export const store = new Vuex.Store({
             .put(payload.img);
         })
         .catch(err => {
-          // console.log(err);
+          console.log(err);
         })
         .then(fileData => {
-          // console.log(fileData);
-          // console.log(key);
-          // console.log(ext);
+          console.log(fileData);
+          console.log(key);
+          console.log(ext);
 
           return firebase
             .storage()
@@ -155,12 +155,12 @@ export const store = new Vuex.Store({
             .getDownloadURL();
         })
         .catch(err => {
-          // console.log(err);
+          console.log(err);
         })
         .then(url => {
-          // console.log(url);
+          console.log(url);
           let imgUrl = url;
-          // console.log(key);
+          console.log(key);
           return firebase
             .database()
             .ref('persons')
@@ -168,9 +168,11 @@ export const store = new Vuex.Store({
             .update({ imgUrl: imgUrl });
         })
         .catch(err => {
-          // console.log(err);
+          console.log(err);
         });
     },
+
+    // SEARCH LOCATION
     searchLocation({ commit }, payload) {
       commit('setLoading', true);
       service
@@ -178,12 +180,12 @@ export const store = new Vuex.Store({
         .then(res => {
           commit('setLoading', false);
           commit('setWeatherCache', res);
-          // console.log(res);
+          console.log(res);
         })
         .catch(err => {
           commit('setLoading', false);
           commit('setError', err);
-          // console.log(err.message);
+          console.log(err.message);
         });
 
       // console.log(wF);
