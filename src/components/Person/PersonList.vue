@@ -149,7 +149,8 @@ export default {
           // console.log(p);
           if (p !== -1) {
             this.$emit("personDelete", p);
-            this.createPerson();
+            this.delData = "";
+            // this.createPerson();
           } else {
             this.$toaster.error("person doesn't exist");
           }
