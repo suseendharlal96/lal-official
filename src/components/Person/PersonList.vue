@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container id="person">
     <div v-if="loading">
       <div class="text-xs-center">
         <!-- <v-progress-circular
@@ -140,6 +140,9 @@ export default {
       // console.log(typeof age);
       // console.log(age.to);
       this.authorized = this.$store.getters["getAuthorizedUser"];
+      if(this.authorized === null || this.authorized === undefined){
+        this.authorized = localStorage.getItem('user');
+      }
       if (
         this.authorized.id === "keDYEODC78TpkTM8NWFyElC0sR32" ||
         this.authorized.id === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"

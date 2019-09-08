@@ -28,12 +28,12 @@
         >(Last updated: {{ weatherCache.current.last_updated }})</span
       > -->
       <h3 style="color:brown">{{ weatherCache.current.condition.text }}</h3>
-       <iframe
+       <!-- <iframe
         width="500"
         height="345"
         src="https://www.youtube.com/embed/8ZjpI6fgYSY"
       >
-      </iframe>
+      </iframe> -->
     </v-container>
 
     <v-container v-if="!isTabFlagCurrent">

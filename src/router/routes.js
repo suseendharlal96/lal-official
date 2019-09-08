@@ -6,6 +6,7 @@ import Signup from '../components/User/Signup.vue';
 import SignIn from '../components/User/SignIn.vue';
 import SignHome from '../components/Home/SignHome.vue';
 import WeatherHome from '../components/WeatherHome/WeatherHome.vue';
+import MainPage from '../components/MainPage/MainPage.vue';
 
 import AuthGuard from './authguard';
 import { store } from '../store/index';
@@ -29,6 +30,11 @@ export const routes = [
   {
     path: '/quote',
     component: Quote,
+    beforeEnter: AuthGuard
+  },
+  {
+    path: '/all',
+    component: MainPage,
     beforeEnter: AuthGuard
   },
   {

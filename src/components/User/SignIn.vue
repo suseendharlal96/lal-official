@@ -121,6 +121,8 @@ export default {
     user(value) {
       if (value !== null && value !== undefined) {
         this.$store.dispatch("authorizeUser", value);
+        localStorage.setItem("user", value.id);
+        localStorage.setItem("email", this.email);
         console.log(value.id);
         console.log(typeof value.id);
         this.$router.push("/success");

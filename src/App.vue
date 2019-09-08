@@ -30,7 +30,12 @@
         <router-link to="/success" tag="span" style="cursor: pointer"
           >Simple App</router-link
         >
-        <p style="color:yellow">Welcome {{ getWelcomeUser }} !</p>
+        <p style="color:yellow" v-if="getWelcomeUser">
+          Welcome {{ getWelcomeUser }} !
+        </p>
+        <template v-else>
+          <p style="color:yellow">Welcome {{ user }} !</p>
+        </template>
       </v-toolbar-title>
       <v-toolbar-title v-if="!userIsAuthenticated">
         <router-link to="/" tag="span" style="cursor: pointer"
@@ -99,9 +104,9 @@ export default {
       if (this.userIsAuthenticated) {
         menuItems = [
           { icon: "person", title: "Person", link: "/person" },
-          { icon: "face", title: "Quotes", link: "/quote" },
           { icon: "calendar_today", title: "Todo", link: "/todo" },
-          { icon: "cloud", title: "Weather", link: "/weather" }
+          { icon: "cloud", title: "Weather", link: "/weather" },
+          { icon: "view_list", title: "AllInOne", link: "/all" }
         ];
       }
       return menuItems;
@@ -118,21 +123,10 @@ export default {
     getWelcomeUser() {
       return this.$store.getters["getWelcomeUser"];
     }
-    // },
-    // watch: {
-    //   getWelcomeUser(value) {
-    //     this.$store.getters['getWelcomeUser'];
-    //     console.log(value);
-    //     if (value !== null && value !== undefined) {
-    //       this.user = value;
-    //     }
-    //   }
+  },
+  created() {
+    this.user = localStorage.getItem("email");
   }
-  // created() {
-  //   window.onscroll = () => {
-  //     this.scrollFunction();
-  //   };
-  // }
 };
 </script>
 
