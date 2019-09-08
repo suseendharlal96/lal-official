@@ -151,7 +151,10 @@ export default {
       firebase
         .auth()
         .signInWithPopup(base_provider)
-        .then(result => console.log(result))
+        .then(result => {
+          console.log(result);
+          this.$store.dispatch("welcomeUser", result.user.displayName);
+        })
         .catch(err => console.log(err));
     },
     facebookLogin() {

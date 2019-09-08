@@ -140,7 +140,10 @@ export default {
       // console.log(typeof age);
       // console.log(age.to);
       this.authorized = this.$store.getters["getAuthorizedUser"];
-      if (this.authorized.id === "keDYEODC78TpkTM8NWFyElC0sR32") {
+      if (
+        this.authorized.id === "keDYEODC78TpkTM8NWFyElC0sR32" ||
+        this.authorized.id === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"
+      ) {
         if (age.toString().length > 0) {
           let p = this.personList.findIndex(person => person.age === age);
           // console.log(p);

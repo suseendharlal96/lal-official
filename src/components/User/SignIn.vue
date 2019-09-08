@@ -120,12 +120,12 @@ export default {
   watch: {
     user(value) {
       if (value !== null && value !== undefined) {
-        this.$store.dispatch('authorizeUser', value);
+        this.$store.dispatch("authorizeUser", value);
         console.log(value.id);
         console.log(typeof value.id);
         this.$router.push("/success");
       }
-    },
+    }
     // email(value) {
     //   if (value !== null && value !== undefined) {
     //     console.log(value);
@@ -148,7 +148,7 @@ export default {
         email: this.email,
         password: this.password
       });
-       this.$store.dispatch("welcomeUser", this.email);
+      this.$store.dispatch("welcomeUser", this.email);
     },
     onDismissed() {
       this.$store.dispatch("clearError");
@@ -158,7 +158,10 @@ export default {
       firebase
         .auth()
         .signInWithPopup(base_provider)
-        .then(result => console.log(result))
+        .then(result => {
+          console.log(result);
+          this.$store.dispatch("welcomeUser", result.user.displayName);
+        })
         .catch(err => console.log(err));
     },
     facebookLogin() {

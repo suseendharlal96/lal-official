@@ -164,7 +164,10 @@ export default {
     addPerson(name, age, email, admin, imgUrl, image) {
       // console.log(name);
       this.authorized = this.$store.getters["getAuthorizedUser"];
-      if (this.authorized.id === "keDYEODC78TpkTM8NWFyElC0sR32") {
+      if (
+        this.authorized.id === "keDYEODC78TpkTM8NWFyElC0sR32" ||
+        this.authorized.id === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"
+      ) {
         if (this.rowData.toCreate) {
           // console.log("create");
           const newPerson = {
@@ -320,7 +323,6 @@ export default {
   color: red;
   background: transparent;
 }
-
 
 /* .form-group.invalid input {
   border: "1px solid red";
