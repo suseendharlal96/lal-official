@@ -321,30 +321,6 @@ export default {
   background: transparent;
 }
 
-::-webkit-scrollbar {
-  width: 15px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 10px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    to bottom,
-    rgba(231, 29, 11, 0.801),
-    rgba(224, 210, 13, 0.801)
-  );
-  border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #b30000;
-}
 
 /* .form-group.invalid input {
   border: "1px solid red";

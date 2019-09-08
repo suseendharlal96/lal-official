@@ -115,18 +115,18 @@ export default {
     // ...mapGetters({
     //   getWelcomeUser: "getWelcomeUser"
     // })
-     getWelcomeUser() {
-     return this.$store.getters['getWelcomeUser'];
-     }
-  // },
-  // watch: {
-  //   getWelcomeUser(value) {
-  //     this.$store.getters['getWelcomeUser'];
-  //     console.log(value);
-  //     if (value !== null && value !== undefined) {
-  //       this.user = value;
-  //     }
-  //   }
+    getWelcomeUser() {
+      return this.$store.getters["getWelcomeUser"];
+    }
+    // },
+    // watch: {
+    //   getWelcomeUser(value) {
+    //     this.$store.getters['getWelcomeUser'];
+    //     console.log(value);
+    //     if (value !== null && value !== undefined) {
+    //       this.user = value;
+    //     }
+    //   }
   }
   // created() {
   //   window.onscroll = () => {
@@ -153,6 +153,7 @@ body {
   /* padding: 16px; */
 }
 #appbg {
+  /* overflow: auto; */
   /* background-image: linear-gradient(
       to right bottom,
       rgba(126, 213, 111, 0.801),
@@ -176,6 +177,32 @@ body {
 #google_translate_element {
   color: #ffff;
 }
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to bottom,
+    rgba(231, 29, 11, 0.801),
+    rgba(224, 210, 13, 0.801)
+  );
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000;
+}
+
 .footer {
   position: absolute;
   background: linear-gradient(
