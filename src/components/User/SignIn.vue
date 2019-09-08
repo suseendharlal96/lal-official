@@ -120,7 +120,7 @@ export default {
   watch: {
     user(value) {
       if (value !== null && value !== undefined) {
-        this.$store.dispatch("authorizeUser", value);
+        this.$store.dispatch("authorizeUser", value.id);
         localStorage.setItem("user", value.id);
         localStorage.setItem("email", this.email);
         console.log(value.id);

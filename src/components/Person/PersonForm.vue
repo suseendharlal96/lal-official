@@ -164,6 +164,9 @@ export default {
     addPerson(name, age, email, admin, imgUrl, image) {
       // console.log(name);
       this.authorized = this.$store.getters["getAuthorizedUser"];
+      if(this.authorized === null){
+        this.authorized = localStorage.getItem('user');
+      }
       if (
         this.authorized.id === "keDYEODC78TpkTM8NWFyElC0sR32" ||
         this.authorized.id === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"
