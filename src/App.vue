@@ -30,6 +30,7 @@
         <router-link to="/success" tag="span" style="cursor: pointer"
           >Simple App</router-link
         >
+        <p style="color:yellow">Welcome {{ getWelcomeUser }} !</p>
       </v-toolbar-title>
       <v-toolbar-title v-if="!userIsAuthenticated">
         <router-link to="/" tag="span" style="cursor: pointer"
@@ -62,10 +63,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
-      sideNav: false
+      sideNav: false,
+      user: ""
     };
   },
   methods: {
@@ -107,7 +111,22 @@ export default {
         this.$store.getters.user !== null &&
         this.$store.getters.user !== undefined
       );
-    }
+    },
+    // ...mapGetters({
+    //   getWelcomeUser: "getWelcomeUser"
+    // })
+     getWelcomeUser() {
+     return this.$store.getters['getWelcomeUser'];
+     }
+  // },
+  // watch: {
+  //   getWelcomeUser(value) {
+  //     this.$store.getters['getWelcomeUser'];
+  //     console.log(value);
+  //     if (value !== null && value !== undefined) {
+  //       this.user = value;
+  //     }
+  //   }
   }
   // created() {
   //   window.onscroll = () => {

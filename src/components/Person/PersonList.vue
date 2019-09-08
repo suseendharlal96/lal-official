@@ -41,11 +41,18 @@
             <th>Email</th>
             <th>Admin</th>
             <th>Contact Pic</th>
-            <th>Action</th>
+            <!-- <th>Action</th> -->
           </tr>
         </thead>
 
-        <tbody v-if="personList.length && filteredPersons.length > 0 && personList !== undefined && personList !== null">
+        <tbody
+          v-if="
+            personList.length &&
+              filteredPersons.length > 0 &&
+              personList !== undefined &&
+              personList !== null
+          "
+        >
           <tr
             v-for="(person, index) in filteredPersons"
             :key="index"
@@ -57,18 +64,16 @@
             <td>{{ person.email }}</td>
             <td>{{ person.admin }}</td>
             <td>
-              <img
-                :src="person.imgUrl" height="50"
-              />
+              <img :src="person.imgUrl" height="50" />
             </td>
-            <td>
+            <!-- <td>
               <b-button
                 variant="outline-danger"
                 id="del"
                 @click="deletePerson(index)"
                 >Del</b-button
               >
-            </td>
+            </td> -->
           </tr>
         </tbody>
         <tbody v-else>
@@ -78,13 +83,11 @@
             </td>
           </tr>
         </tbody>
-        <b-button variant="primary" @click="createPerson()"
-          >Create</b-button
-        >
+        <b-button variant="primary" @click="createPerson()">Create</b-button>
       </table>
       <div>
         <person-form
-        v-show="isFormVisible"
+          v-show="isFormVisible"
           :rowData="rowData"
           @clear="closeModal"
           @added="addPerson"
@@ -105,9 +108,11 @@ export default {
   mixins: [PersonMixin],
   data() {
     return {
-      imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Paris_-_Blick_vom_großen_Triumphbogen.jpg',
+      imgUrl:
+        "https://upload.wikimedia.org/wikipedia/commons/7/7a/Paris_-_Blick_vom_großen_Triumphbogen.jpg",
       delData: "",
       rowData: "",
+      authorized: "",
       val: "",
       isFormVisible: false,
       formData: {
@@ -121,28 +126,38 @@ export default {
   methods: {
     deletePerson(index) {
       // console.log(index);
-      this.dispOnForm(index);
-      this.$emit("personDelete", index);
-      this.createPerson();
+      this.authorized = this.$store.getters["getAuthorizedUser"];
+      if (this.authorized.id === "keDYEODC78TpkTM8NWFyElC0sR32") {
+        this.dispOnForm(index);
+        this.$emit("personDelete", index);
+        this.createPerson();
+      } else {
+        this.$toaster.error("You are not authorized to make changes");
+      }
+      this.isFormVisible = false;
     },
     deletePersonById(age) {
       // console.log(typeof age);
       // console.log(age.to);
-      if (age.toString().length > 0) {
-        let p = this.personList.findIndex(person => person.age === age);
-        // console.log(p);
-        if (p !== -1) {
-          this.$emit("personDelete", p);
-          this.createPerson();
+      this.authorized = this.$store.getters["getAuthorizedUser"];
+      if (this.authorized.id === "keDYEODC78TpkTM8NWFyElC0sR32") {
+        if (age.toString().length > 0) {
+          let p = this.personList.findIndex(person => person.age === age);
+          // console.log(p);
+          if (p !== -1) {
+            this.$emit("personDelete", p);
+            this.createPerson();
+          } else {
+            this.$toaster.error("person doesn't exist");
+          }
         } else {
-          this.$toaster.error("person doesn't exist");
+          this.$toaster.warning("unable to delete");
         }
       } else {
-        this.$toaster.warning("unable to delete");
+        this.$toaster.error("You are not authorized to make changes!");
       }
     },
     createPerson() {
-
       this.rowData = {
         name: "",
         age: "",
@@ -152,7 +167,6 @@ export default {
         toCreate: true
       };
       this.isFormVisible = true;
-
     },
     addPerson(list) {
       // console.log(list);
@@ -177,10 +191,9 @@ export default {
       };
       this.isFormVisible = true;
     },
-    closeModal(){
+    closeModal() {
       this.isFormVisible = false;
     }
-
   },
   mounted() {
     this.rowData = {

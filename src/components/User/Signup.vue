@@ -28,6 +28,12 @@
                   <v-flex xs12>
                     <v-text-field
                       v-model="password"
+                      onselectstart="return false"
+                      onpaste="return false;"
+                      onCopy="return false"
+                      onCut="return false"
+                      onDrag="return false"
+                      onDrop="return false"
                       :append-icon="show ? 'visibility' : 'visibility_off'"
                       :rules="[rules.required, rules.min]"
                       :type="show ? 'text' : 'password'"
@@ -43,6 +49,12 @@
                   <v-flex xs12>
                     <v-text-field
                       name="confirmPassword"
+                      onselectstart="return false"
+                      onpaste="return false;"
+                      onCopy="return false"
+                      onCut="return false"
+                      onDrag="return false"
+                      onDrop="return false"
                       label="Confirm Password"
                       id="confirmPassword"
                       v-model="confirmPassword"
@@ -118,6 +130,7 @@ export default {
   watch: {
     user(value) {
       if (value !== null && value !== undefined) {
+        this.$store.dispatch("authorizeUser", value);
         this.$router.push("/success");
       }
     }
@@ -128,6 +141,7 @@ export default {
         email: this.email,
         password: this.password
       });
+      this.$store.dispatch("welcomeUser", this.email);
     },
     onDismissed() {
       this.$store.dispatch("clearError");

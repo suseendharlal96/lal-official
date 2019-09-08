@@ -9,6 +9,8 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     user: null,
+    authorizeduser: null,
+    welcomeUser: null,
     email: null,
     loading: false,
     error: null,
@@ -20,6 +22,12 @@ export const store = new Vuex.Store({
   mutations: {
     setUser(state, payload) {
       state.user = payload;
+    },
+    setAuthorizedUser(state, payload) {
+      state.authorizeduser = payload;
+    },
+    setWelcome(state, payload){
+      state.welcomeUser = payload;
     },
     setCreatedPersonKey(state, payload) {
       state.createdPersonKey = payload;
@@ -135,7 +143,7 @@ export const store = new Vuex.Store({
         .then(key => {
           console.log(key);
           const imgname = payload.img.name;
-           ext = imgname.slice(imgname.lastIndexOf('.'));
+          ext = imgname.slice(imgname.lastIndexOf('.'));
           return firebase
             .storage()
             .ref('persons/' + key + ext)
@@ -170,6 +178,18 @@ export const store = new Vuex.Store({
         .catch(err => {
           console.log(err);
         });
+    },
+
+    // AUTHORIZE USER
+
+    authorizeUser({ commit }, payload) {
+      commit('setAuthorizedUser', payload);
+    },
+
+    // WELCOME USER
+
+    welcomeUser({commit}, payload) {
+      commit('setWelcome', payload);
     },
 
     // SEARCH LOCATION
@@ -215,6 +235,12 @@ export const store = new Vuex.Store({
     },
     getWeatherCache(state) {
       return state.weatherCache;
+    },
+    getAuthorizedUser(state) {
+      return state.authorizeduser;
+    },
+    getWelcomeUser(state) {
+      return state.welcomeUser;
     }
   }
 });

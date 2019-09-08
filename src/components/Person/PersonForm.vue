@@ -129,6 +129,7 @@ export default {
   data() {
     return {
       adminOptions: ["true", "false"],
+      authorized: "",
       valid: false,
       nameRules: [
         v => !!v || "Name is required",
@@ -162,39 +163,44 @@ export default {
   methods: {
     addPerson(name, age, email, admin, imgUrl, image) {
       // console.log(name);
-      if (this.rowData.toCreate) {
-        // console.log("create");
-        const newPerson = {
-          name: this.rowData.name,
-          age: this.rowData.age,
-          email: this.rowData.email,
-          admin: this.rowData.admin,
-          imgUrl: this.rowData.imgUrl,
-          img: this.image
-        };
-        this.$emit("added", newPerson);
-        this.rowData.name = "";
-        this.rowData.email = "";
-        this.rowData.age = "";
-        this.rowData.admin = "";
-        this.rowData.imgUrl = "";
-        this.rowData.toCreate = false;
-        // } else {
-        //   this.$toaster.error("creation failed");
-        // }
-      } else {
-        // console.log("update");
-        // console.log(this.rowData.index);
-        let newPerson;
-        newPerson = {
-          name: name,
-          age: age,
-          email: email,
-          admin: admin,
-          image: this.image
-        };
+      this.authorized = this.$store.getters["getAuthorizedUser"];
+      if (this.authorized.id === "keDYEODC78TpkTM8NWFyElC0sR32") {
+        if (this.rowData.toCreate) {
+          // console.log("create");
+          const newPerson = {
+            name: this.rowData.name,
+            age: this.rowData.age,
+            email: this.rowData.email,
+            admin: this.rowData.admin,
+            imgUrl: this.rowData.imgUrl,
+            img: this.image
+          };
+          this.$emit("added", newPerson);
+          this.rowData.name = "";
+          this.rowData.email = "";
+          this.rowData.age = "";
+          this.rowData.admin = "";
+          this.rowData.imgUrl = "";
+          this.rowData.toCreate = false;
+          // } else {
+          //   this.$toaster.error("creation failed");
+          // }
+        } else {
+          // console.log("update");
+          // console.log(this.rowData.index);
+          let newPerson;
+          newPerson = {
+            name: name,
+            age: age,
+            email: email,
+            admin: admin,
+            image: this.image
+          };
 
-        this.$emit("update", newPerson, this.rowData.index);
+          this.$emit("update", newPerson, this.rowData.index);
+        }
+      } else {
+        this.$toaster.error("You are not authorized to make changes!");
       }
     },
     onUpload() {
@@ -260,7 +266,6 @@ export default {
 
 .modal {
   position: relative;
-  /* left: 1%; */
   background: linear-gradient(
     to right bottom,
     rgb(88, 197, 74),
@@ -268,7 +273,6 @@ export default {
   );
   background-size: cover;
   box-shadow: 2px 2px 20px 1px;
-  /* overflow: auto; */
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -289,13 +293,8 @@ export default {
 .modal-header {
   border-bottom: 1px solid #eeeeee;
   color: blue;
-  justify-content: space-between;
+  justify-content: safe;
 }
-
-/* .modal-footer {
-    border-top: 1px solid #eeeeee;
-    justify-content: flex-end;
-  } */
 
 .modal-body {
   position: relative;
@@ -320,6 +319,31 @@ export default {
   font-weight: bold;
   color: red;
   background: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to bottom,
+    rgba(231, 29, 11, 0.801),
+    rgba(224, 210, 13, 0.801)
+  );
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000;
 }
 
 /* .form-group.invalid input {

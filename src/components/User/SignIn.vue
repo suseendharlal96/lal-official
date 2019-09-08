@@ -120,7 +120,9 @@ export default {
   watch: {
     user(value) {
       if (value !== null && value !== undefined) {
-        console.log(value);
+        this.$store.dispatch('authorizeUser', value);
+        console.log(value.id);
+        console.log(typeof value.id);
         this.$router.push("/success");
       }
     },
@@ -146,6 +148,7 @@ export default {
         email: this.email,
         password: this.password
       });
+       this.$store.dispatch("welcomeUser", this.email);
     },
     onDismissed() {
       this.$store.dispatch("clearError");
