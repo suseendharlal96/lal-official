@@ -168,8 +168,8 @@ export default {
         this.authorized = localStorage.getItem('user');
       }
       if (
-        this.authorized.id === "keDYEODC78TpkTM8NWFyElC0sR32" ||
-        this.authorized.id === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"
+        this.authorized === "keDYEODC78TpkTM8NWFyElC0sR32" ||
+        this.authorized === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"
       ) {
         if (this.rowData.toCreate) {
           // console.log("create");
