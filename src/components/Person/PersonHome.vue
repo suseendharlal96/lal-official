@@ -19,9 +19,9 @@
 <script>
 import axios from "axios";
 import firebase, { firestore } from "firebase";
-
 import { store } from "../../store/index";
 import Person from "./PersonList";
+
 export default {
   data() {
     return {
