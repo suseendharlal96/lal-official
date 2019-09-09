@@ -1,6 +1,6 @@
 <template>
   <v-app id="appbg">
-    <!-- <div id="particles-js"></div> -->
+    <div id="particles-js"></div>
     <v-navigation-drawer temporary v-model="sideNav">
       <v-list>
         <v-list-tile
