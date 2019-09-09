@@ -181,6 +181,7 @@ export default {
       this.isFormVisible = false;
     },
     updatePerson(updatedList, index) {
+      // console.log(updatedList);
       this.$emit("updatePerson", updatedList, index);
     },
     cancel(value, index) {

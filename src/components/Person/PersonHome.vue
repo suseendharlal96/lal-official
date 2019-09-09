@@ -105,10 +105,12 @@ export default {
       //  this.PersonList.push(data);
     },
     updatePerson(data, index) {
+      // console.log(data);
       this.PersonList[index].name = data.name;
       this.PersonList[index].age = data.age;
       this.PersonList[index].email = data.email;
       this.PersonList[index].admin = data.admin;
+      this.PersonList[index].imgUrl = data.imgUrl;
       this.$toaster.success("Successfully updated");
     },
     resetPerson(data, index) {
@@ -137,7 +139,7 @@ export default {
             this.PersonList.push(person);
           }
 
-          // console.log(this.PersonList);
+          console.log(this.PersonList);
           this.loading = false;
         })
       )

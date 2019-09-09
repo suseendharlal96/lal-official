@@ -182,14 +182,15 @@ export default {
             img: this.image
           };
           this.$emit("added", newPerson);
-          this.rowData.name = "";
-          this.rowData.email = "";
-          this.rowData.age = "";
-          this.rowData.admin = "";
-          this.rowData.imgUrl = "";
+          this.clearbox();
+          // this.rowData.name = "";
+          // this.rowData.email = "";
+          // this.rowData.age = "";
+          // this.rowData.admin = "";
+          // this.rowData.imgUrl = "";
           this.rowData.toCreate = false;
           // } else {
-          //   this.$toaster.error("creation failed");
+            //   this.$toaster.error("creation failed");
           // }
         } else {
           // console.log("update");
@@ -200,10 +201,11 @@ export default {
             age: age,
             email: email,
             admin: admin,
-            image: this.image
+            imgUrl: this.rowData.imgUrl,
           };
 
           this.$emit("update", newPerson, this.rowData.index);
+          this.clearbox();
         }
       } else {
         this.$toaster.error("You are not authorized to make changes!");
