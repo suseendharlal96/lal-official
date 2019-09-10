@@ -131,8 +131,8 @@ export default {
           // Firebase backend
           axios
             .post("https://todolist-7be14.firebaseio.com/tasks.json", newTodo)
-            .then(this.$toaster.success("Successfully added"))
-            // .catch(err => console.log(err));
+            .then(this.$toaster.success("Successfully added"));
+          // .catch(err => console.log(err));
 
           this.val = "";
         } else {
@@ -218,23 +218,29 @@ export default {
     }
   },
   mounted() {
-    this.loading = true;
-    axios
-      .get("https://todolist-7be14.firebaseio.com/tasks.json")
-      .then(res =>
-        Object.keys(res.data).map(key => {
-          const id = key;
-          // console.log(id);
-          const task = res.data[key];
-          // console.log(task);
-          this.todos.push(task.val);
-          this.loading = false;
-        })
-      )
-      .catch(err => {
-        this.loading = true;
-        // console.log(err);
+    if (localStorage.getItem("user")) {
+      this.loading = true;
+      axios
+        .get("https://todolist-7be14.firebaseio.com/tasks.json")
+        .then(res =>
+          Object.keys(res.data).map(key => {
+            const id = key;
+            // console.log(id);
+            const task = res.data[key];
+            // console.log(task);
+            this.todos.push(task.val);
+            this.loading = false;
+          })
+        )
+        .catch(err => {
+          this.loading = true;
+          // console.log(err);
+        });
+    } else {
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/logout");
       });
+    }
   },
   components: {
     "classic-todo": Classic,

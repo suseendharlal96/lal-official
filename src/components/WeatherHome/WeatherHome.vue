@@ -1,5 +1,5 @@
 <template>
-  <v-container >
+  <v-container>
     <div v-if="weather === null || undefined">
       <div class="text-xs-center">
         <img
@@ -54,17 +54,17 @@ export default {
       this.$router.push("/success");
     },
     getLocation() {
-      console.log(123)
+      console.log(123);
       axios
         .get(
           "https://geo.ipify.org/api/v1?apiKey=at_pftjsvw5tqwPlnvgHrQ1w1AGRg86N"
         )
         .then(res => {
-          console.log(res)
+          console.log(res);
           this.lat = res.data.ip;
           console.log(this.lat);
         });
-        this.showPosition();
+      this.showPosition();
     },
     showPosition() {
       this.$store.dispatch("searchLocation", this.lat);
@@ -79,7 +79,13 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("searchLocation", "chennai");
+    if (localStorage.getItem("user")) {
+      this.$store.dispatch("searchLocation", "chennai");
+    } else {
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/logout");
+      });
+    }
   },
   filters: {
     toUpperCase(value) {

@@ -130,7 +130,8 @@ export default {
   watch: {
     user(value) {
       if (value !== null && value !== undefined) {
-        this.$store.dispatch("authorizeUser", value);
+        this.$store.dispatch("authorizeUser", value.id);
+        localStorage.setItem("user", value.id);
         this.$router.push("/success");
       }
     }
@@ -142,6 +143,7 @@ export default {
         password: this.password
       });
       this.$store.dispatch("welcomeUser", this.email);
+      localStorage.setItem("email", this.email);
     },
     onDismissed() {
       this.$store.dispatch("clearError");

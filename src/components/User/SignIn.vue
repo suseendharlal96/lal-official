@@ -122,7 +122,6 @@ export default {
       if (value !== null && value !== undefined) {
         this.$store.dispatch("authorizeUser", value.id);
         localStorage.setItem("user", value.id);
-        localStorage.setItem("email", this.email);
         console.log(value.id);
         console.log(typeof value.id);
         this.$router.push("/success");
@@ -137,7 +136,7 @@ export default {
   },
   methods: {
     // signupWithEmail() {
-    //   this.$toaster.success(
+      //   this.$toaster.success(
     //     "A confirmation mail has been sent your provided email-id"
     //   );
     //   this.$store.dispatch("signUserUpEmail", {
@@ -151,6 +150,7 @@ export default {
         password: this.password
       });
       this.$store.dispatch("welcomeUser", this.email);
+      localStorage.setItem("email", this.email);
     },
     onDismissed() {
       this.$store.dispatch("clearError");

@@ -126,27 +126,35 @@ export default {
     }
   },
   created() {
-    this.loading = true;
-    axios
-      .get("https://personlist-8be9e.firebaseio.com/persons.json")
-      .then(res =>
-        Object.keys(res.data).map(key => {
-          this.id = key;
-          // console.log(this.id);
-          const person = res.data[key];
-          // console.log(person);
-          if (res.data !== undefined || null) {
-            this.PersonList.push(person);
-          }
+    if (
+      localStorage.getItem("user")
+    ) {
+      this.loading = true;
+      axios
+        .get("https://personlist-8be9e.firebaseio.com/persons.json")
+        .then(res =>
+          Object.keys(res.data).map(key => {
+            this.id = key;
+            // console.log(this.id);
+            const person = res.data[key];
+            // console.log(person);
+            if (res.data !== undefined || null) {
+              this.PersonList.push(person);
+            }
 
-          console.log(this.PersonList);
+            console.log(this.PersonList);
+            this.loading = false;
+          })
+        )
+        .catch(err => {
           this.loading = false;
-        })
-      )
-      .catch(err => {
-        this.loading = false;
-        console.log(err);
+          console.log(err);
+        });
+    } else {
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/logout");
       });
+    }
     // this.persons = { ...this.PersonList };
   },
   components: {

@@ -30,12 +30,12 @@
         <router-link to="/success" tag="span" style="cursor: pointer"
           >Simple App</router-link
         >
-        <p style="color:yellow" v-if="getWelcomeUser">
-          Welcome {{ getWelcomeUser }} !
+        <p style="color:yellow" v-if="getWelcomeUser !== null">
+          Welcome {{ welcomeMail }} !
         </p>
-        <template v-else>
+        <!-- <template v-else>
           <p style="color:yellow">Welcome {{ user }} !</p>
-        </template>
+        </template> -->
       </v-toolbar-title>
       <v-toolbar-title v-if="!userIsAuthenticated">
         <router-link to="/" tag="span" style="cursor: pointer"
@@ -74,11 +74,12 @@ export default {
   data() {
     return {
       sideNav: false,
-      user: ""
+      welcomeMail: ""
     };
   },
   methods: {
     onLogout() {
+      localStorage.clear();
       this.$store.dispatch("logout").then(() => {
         this.$router.push("/logout");
       });
@@ -114,18 +115,24 @@ export default {
     userIsAuthenticated() {
       return (
         this.$store.getters.user !== null &&
-        this.$store.getters.user !== undefined
+        this.$store.getters.user !== undefined &&
+        localStorage.getItem("user")
       );
-    },
+    }
     // ...mapGetters({
     //   getWelcomeUser: "getWelcomeUser"
     // })
+  },
+  watch: {
     getWelcomeUser() {
-      return this.$store.getters["getWelcomeUser"];
+      if (localStorage.getItem("user")) {
+        return this.$store.getters["getWelcomeUser"];
+      }
+      // return localStorage.getItem("email");
     }
   },
   created() {
-    this.user = localStorage.getItem("email");
+    this.welcomeMail = localStorage.getItem("email");
   }
 };
 </script>
