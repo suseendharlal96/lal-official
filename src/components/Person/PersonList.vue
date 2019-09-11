@@ -2,16 +2,16 @@
   <v-container id="person">
     <div v-if="loading">
       <div class="text-xs-center">
-        <!-- <v-progress-circular
+        <v-progress-circular
           :size="50"
           :width="4"
           indeterminate
-          color="primary"
-        ></v-progress-circular> -->
-        <img
+          color="red"
+        ></v-progress-circular>
+        <!-- <img
           src="https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif"
           style="width: 20%;height: 20%;"
-        />
+        /> -->
       </div>
     </div>
     <div v-if="!loading">
@@ -94,6 +94,7 @@
           @update="updatePerson"
           @cancel="cancel"
         ></person-form>
+        <modal v-show="openModal" :msg="msg" @confirm="confirmDel"></modal>
       </div>
     </div>
   </v-container>
@@ -103,6 +104,7 @@
 import { eventBus } from "../../main";
 import Form from "./PersonForm";
 import { PersonMixin } from "./PersonMixin.js";
+import Modal from "../Modal/Modal";
 export default {
   props: ["personList", "loading"],
   mixins: [PersonMixin],
@@ -112,9 +114,12 @@ export default {
         "https://upload.wikimedia.org/wikipedia/commons/7/7a/Paris_-_Blick_vom_großen_Triumphbogen.jpg",
       delData: "",
       rowData: "",
+      msg: "delete",
       authorized: "",
       val: "",
+      delIndex: '',
       isFormVisible: false,
+      openModal: false,
       formData: {
         name: "",
         age: "",
@@ -140,8 +145,8 @@ export default {
       // console.log(typeof age);
       // console.log(age.to);
       this.authorized = this.$store.getters["getAuthorizedUser"];
-      if(this.authorized === null){
-        this.authorized = localStorage.getItem('user');
+      if (this.authorized === null) {
+        this.authorized = localStorage.getItem("user");
       }
       if (
         this.authorized === "keDYEODC78TpkTM8NWFyElC0sR32" ||
@@ -151,8 +156,8 @@ export default {
           let p = this.personList.findIndex(person => person.age === age);
           // console.log(p);
           if (p !== -1) {
-            this.$emit("personDelete", p);
-            this.delData = "";
+            this.delIndex = p;
+            this.openModal = true;
             // this.createPerson();
           } else {
             this.$toaster.error("person doesn't exist");
@@ -163,6 +168,13 @@ export default {
       } else {
         this.$toaster.error("You are not authorized to make changes!");
       }
+    },
+    confirmDel(val) {
+      if (val) {
+        this.$emit("personDelete", this.delIndex);
+      }
+        this.delData = "";
+        this.openModal = false;
     },
     createPerson() {
       this.rowData = {
@@ -188,16 +200,27 @@ export default {
       this.$emit("reset", value, index);
     },
     dispOnForm(i) {
-      this.rowData = {
-        name: this.personList[i].name,
-        age: this.personList[i].age,
-        email: this.personList[i].email,
-        admin: this.personList[i].admin,
-        imgUrl: this.personList[i].imgUrl,
-        toCreate: false,
-        index: i
-      };
-      this.isFormVisible = true;
+      this.authorized = this.$store.getters["getAuthorizedUser"];
+      if (this.authorized === null) {
+        this.authorized = localStorage.getItem("user");
+      }
+      if (
+        this.authorized === "keDYEODC78TpkTM8NWFyElC0sR32" ||
+        this.authorized === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"
+      ) {
+        this.rowData = {
+          name: this.personList[i].name,
+          age: this.personList[i].age,
+          email: this.personList[i].email,
+          admin: this.personList[i].admin,
+          imgUrl: this.personList[i].imgUrl,
+          toCreate: false,
+          index: i
+        };
+        this.isFormVisible = true;
+      } else {
+        this.$toaster.error("You are not authorized to make changes!");
+      }
     },
     closeModal() {
       this.isFormVisible = false;
@@ -219,7 +242,8 @@ export default {
     }
   },
   components: {
-    "person-form": Form
+    "person-form": Form,
+    modal: Modal
   }
 };
 </script>

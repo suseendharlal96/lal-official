@@ -4,10 +4,16 @@
     <div>
       <div v-if="loading">
         <div class="text-xs-center">
-          <img
+          <!-- <img
             src="https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif"
             style="width: 20%;height: 20%;"
-          />
+          /> -->
+          <v-progress-circular
+            :size="50"
+            :width="4"
+            indeterminate
+            color="red"
+          ></v-progress-circular>
         </div>
       </div>
       <div v-if="!loading">

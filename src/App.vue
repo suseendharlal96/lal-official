@@ -30,12 +30,7 @@
         <router-link to="/success" tag="span" style="cursor: pointer"
           >Simple App</router-link
         >
-        <p style="color:yellow" v-if="getWelcomeUser !== null">
-          Welcome {{ welcomeMail }} !
-        </p>
-        <!-- <template v-else>
-          <p style="color:yellow">Welcome {{ user }} !</p>
-        </template> -->
+        <p style="color:yellow">Welcome {{ welcomeMail }} !</p>
       </v-toolbar-title>
       <v-toolbar-title v-if="!userIsAuthenticated">
         <router-link to="/" tag="span" style="cursor: pointer"
@@ -54,9 +49,7 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    <!-- <div class="container"> -->
     <router-view></router-view>
-    <!-- </div> -->
     <footer class="footer">
       <p>
         Copyright © 2019 built with <i class="fa fa-heart pulse"></i> by
@@ -64,25 +57,38 @@
       </p>
       <p id="google_translate_element"></p>
     </footer>
+    <div>
+      <modal v-show="openModal" :msg="msg" @confirm="confirmLogout"></modal>
+    </div>
   </v-app>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 
+import Modal from "./components/Modal/Modal";
+
 export default {
   data() {
     return {
       sideNav: false,
-      welcomeMail: ""
+      welcomeMail: "",
+      msg: "logout",
+      openModal: false
     };
   },
   methods: {
     onLogout() {
-      localStorage.clear();
-      this.$store.dispatch("logout").then(() => {
-        this.$router.push("/logout");
-      });
+      this.openModal = true;
+    },
+    confirmLogout(val) {
+      if (val) {
+        localStorage.clear();
+        this.$store.dispatch("logout").then(() => {
+          this.$router.push("/logout");
+        });
+      }
+      this.openModal = false;
     }
     // scrollFunction() {
     //   console.log('fsgdf')
@@ -115,24 +121,18 @@ export default {
     userIsAuthenticated() {
       return (
         this.$store.getters.user !== null &&
-        this.$store.getters.user !== undefined &&
-        localStorage.getItem("user")
+        this.$store.getters.user !== undefined
       );
-    }
-    // ...mapGetters({
-    //   getWelcomeUser: "getWelcomeUser"
-    // })
-  },
-  watch: {
+    },
     getWelcomeUser() {
-      if (localStorage.getItem("user")) {
-        return this.$store.getters["getWelcomeUser"];
-      }
-      // return localStorage.getItem("email");
+      this.welcomeMail = this.$store.getters["getWelcomeUser"];
     }
   },
-  created() {
+  mounted() {
     this.welcomeMail = localStorage.getItem("email");
+  },
+  components: {
+    modal: Modal
   }
 };
 </script>

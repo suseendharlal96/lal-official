@@ -2,16 +2,16 @@
   <v-container>
     <div v-if="weather === null || undefined">
       <div class="text-xs-center">
-        <img
+        <!-- <img
           src="https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif"
           style="width: 20%;height: 20%;"
-        />
-        <!-- <v-progress-circular
+        /> -->
+        <v-progress-circular
           :size="50"
           :width="4"
           indeterminate
-          color="primary"
-        ></v-progress-circular> -->
+          color="red"
+        ></v-progress-circular>
       </div>
     </div>
     <div id="weather" v-if="weather !== null || undefined">
