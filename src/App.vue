@@ -128,7 +128,15 @@ export default {
       this.welcomeMail = this.$store.getters["getWelcomeUser"];
     }
   },
-  mounted() {
+  watch: {
+    getEmail() {
+      this.welcomeMail = this.$store.getters["getWelcomeUser"];
+      if (this.welcomeMail) {
+        this.welcomeMail = localStorage.getItem("email");
+      }
+    }
+  },
+  created() {
     this.welcomeMail = localStorage.getItem("email");
   },
   components: {

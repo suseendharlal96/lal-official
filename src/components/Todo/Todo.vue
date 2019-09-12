@@ -24,6 +24,7 @@
             placeholder="add something..."
             required
             v-model="addVal"
+            @keyup.enter="add(addVal)"
           ></v-text-field>
           <span>
             <b-button variant="outline-danger" @click.prevent="add(addVal)"
@@ -137,10 +138,10 @@ export default {
           // Firebase backend
           axios
             .post("https://todolist-7be14.firebaseio.com/tasks.json", newTodo)
-            .then(this.$toaster.success("Successfully added"));
-          // .catch(err => console.log(err));
+            .then(this.$toaster.success("Successfully added"))
+            .catch(err => console.log(err));
 
-          this.val = "";
+          this.addVal = "";
         } else {
           this.$toaster.error("Task already exists");
         }
@@ -183,10 +184,8 @@ export default {
             .includes(updatedValue)
         );
         // console.log(updateIndex);
-        let updatedItem = this.todos[index];
         if (updateIndex === -1) {
           this.todos[index] = updatedValue;
-          this.readOnly = true;
           this.$toaster.info("Successfully updated");
           this.readOnly = false;
         } else {

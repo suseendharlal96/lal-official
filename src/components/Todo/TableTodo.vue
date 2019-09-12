@@ -97,7 +97,6 @@ export default {
     return {
       updateVal: "",
       updateIndex: -1
-      // editMode: false
     };
   },
   methods: {

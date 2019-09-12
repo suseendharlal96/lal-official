@@ -46,6 +46,15 @@
                 ></v-text-field>
               </v-flex>
             </v-layout>
+            <!-- <v-layout row>
+              <v-flex xs6>
+                <v-text-field
+                  id="dob"
+                  @focus="showDatepicker"
+                  v-model="rowData.dob"
+                ></v-text-field>
+              </v-flex>
+            </v-layout> -->
             <v-layout row>
               <v-flex xs6>
                 <v-text-field
@@ -164,8 +173,8 @@ export default {
     addPerson(name, age, email, admin, imgUrl, image) {
       // console.log(name);
       this.authorized = this.$store.getters["getAuthorizedUser"];
-      if(this.authorized === null){
-        this.authorized = localStorage.getItem('user');
+      if (this.authorized === null) {
+        this.authorized = localStorage.getItem("user");
       }
       if (
         this.authorized === "keDYEODC78TpkTM8NWFyElC0sR32" ||
@@ -190,7 +199,7 @@ export default {
           // this.rowData.imgUrl = "";
           this.rowData.toCreate = false;
           // } else {
-            //   this.$toaster.error("creation failed");
+          //   this.$toaster.error("creation failed");
           // }
         } else {
           // console.log("update");
@@ -201,7 +210,7 @@ export default {
             age: age,
             email: email,
             admin: admin,
-            imgUrl: this.rowData.imgUrl,
+            imgUrl: this.rowData.imgUrl
           };
 
           this.$emit("update", newPerson, this.rowData.index);
@@ -210,6 +219,9 @@ export default {
       } else {
         this.$toaster.error("You are not authorized to make changes!");
       }
+    },
+    showDatepicker() {
+      console.log("df");
     },
     onUpload() {
       // console.log(2);

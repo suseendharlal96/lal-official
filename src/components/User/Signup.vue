@@ -138,12 +138,16 @@ export default {
   },
   methods: {
     onSignup() {
-      this.$store.dispatch("signUserUp", {
-        email: this.email,
-        password: this.password
-      });
-      this.$store.dispatch("welcomeUser", this.email);
-      localStorage.setItem("email", this.email);
+      if (this.confirmPassword) {
+        this.$store.dispatch("signUserUp", {
+          email: this.email,
+          password: this.password
+        });
+        this.$store.dispatch("welcomeUser", this.email);
+        localStorage.setItem("email", this.email);
+      } else {
+        this.$toaster.warning('Confirm your Password!');
+      }
     },
     onDismissed() {
       this.$store.dispatch("clearError");
@@ -156,6 +160,7 @@ export default {
         .then(result => {
           console.log(result);
           this.$store.dispatch("welcomeUser", result.user.displayName);
+          localStorage.setItem('email', result.user.displayName);
         })
         .catch(err => console.log(err));
     },

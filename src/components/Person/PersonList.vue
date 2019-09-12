@@ -27,6 +27,7 @@
           type="number"
           v-model.number="delData"
           placeholder="enter age to del"
+          @keyup.enter="deletePersonById(delData)"
         ></v-text-field>
         <b-button variant="danger" @click="deletePersonById(delData)"
           >Del</b-button
@@ -38,6 +39,7 @@
           <tr class="w3-red">
             <th>Name</th>
             <th>Age</th>
+            <!-- <th>Dob</th> -->
             <th>Email</th>
             <th>Admin</th>
             <th>Contact Pic</th>

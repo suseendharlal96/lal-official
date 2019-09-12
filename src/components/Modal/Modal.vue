@@ -10,13 +10,13 @@
         <section class="modal2-body" id="modal2Description">
           <v-layout row class="ques">
             <v-flex xs6>
-              <h2>Are u sure want to {{ msg }} ?</h2>
+              <h2 style="color:blue">Are u sure want to {{ msg }} ?</h2>
             </v-flex>
           </v-layout>
           <v-layout row class="buttons">
             <v-flex xs6>
-              <v-btn @click="confirm(true)">Yes</v-btn>
-              <v-btn @click="confirm(false)">No</v-btn>
+              <v-btn color="primary" @click="confirm(true)">Yes</v-btn>
+              <v-btn color="error" @click="confirm(false)">No</v-btn>
             </v-flex>
           </v-layout>
         </section>
@@ -58,8 +58,8 @@ export default {
   background-size: cover;
   box-shadow: 2px 2px 20px 1px;
   border-radius: 10px;
-  width: 50%;
-  height: 50%;
+  width: 35%;
+  height: 40%;
   display: flex;
   flex-direction: column;
 }
