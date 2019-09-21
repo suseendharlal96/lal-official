@@ -131,9 +131,6 @@ export default {
   watch: {
     getEmail() {
       this.welcomeMail = this.$store.getters["getWelcomeUser"];
-      if (this.welcomeMail) {
-        this.welcomeMail = localStorage.getItem("email");
-      }
     }
   },
   created() {
