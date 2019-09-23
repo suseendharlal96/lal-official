@@ -40,8 +40,11 @@ export default {
       document.getElementById("myBar").style.width = scrolled + "%";
     }
   },
-  mounted() {
-    Vue.prototype.scroll = window.onscroll(this.myFunction);
+  created() {
+    window.addEventListener("scroll", this.myFunction);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.myFunction);
   }
 };
 </script>
@@ -56,6 +59,8 @@ export default {
   width: 100%;
   height: 8px;
   background: #ccc;
+  position: absolute;
+  top: 20px;  
 }
 
 .progress-bar {

@@ -125,16 +125,21 @@ export default {
       );
     },
     getWelcomeUser() {
-      this.welcomeMail = this.$store.getters["getWelcomeUser"];
-    }
-  },
-  watch: {
-    getEmail() {
-      this.welcomeMail = this.$store.getters["getWelcomeUser"];
+      this.welcomeMail = localStorage.getItem("email");
+      console.log(this.welcomeMail.length);
+      if (this.welcomeMail.length === 0) {
+        this.welcomeMail = this.$store.getters["getWelcomeUser"];
+      }
     }
   },
   created() {
     this.welcomeMail = localStorage.getItem("email");
+    if (this.welcomeMail.length === 0) {
+      this.welcomeMail = this.$store.getters["getWelcomeUser"];
+    }
+  },
+  destroyed() {
+    localStorage.getItem("email");
   },
   components: {
     modal: Modal
