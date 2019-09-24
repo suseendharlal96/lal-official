@@ -67,6 +67,7 @@
 import { mapGetters } from "vuex";
 
 import Modal from "./components/Modal/Modal";
+import service from "./service";
 
 export default {
   data() {
@@ -125,18 +126,19 @@ export default {
       );
     },
     getWelcomeUser() {
-      this.welcomeMail = localStorage.getItem("email");
-      console.log(this.welcomeMail.length);
-      if (this.welcomeMail.length === 0) {
-        this.welcomeMail = this.$store.getters["getWelcomeUser"];
-      }
+      this.welcomeMail = service.getEmail();
+    }
+  },
+  watch: {
+    getEmail() {
+      this.welcomeMail = service.getEmail();
+      console.log(this.welcomeMail);
     }
   },
   created() {
-    this.welcomeMail = localStorage.getItem("email");
-    if (this.welcomeMail.length === 0) {
-      this.welcomeMail = this.$store.getters["getWelcomeUser"];
-    }
+      this.welcomeMail = service.getEmail();
+    //   this.welcomeMail = service.getEmail();
+    // this.welcomeMail = localStorage.getItem('email');
   },
   destroyed() {
     localStorage.getItem("email");
@@ -161,6 +163,7 @@ body {
   font-size: 16px;
   line-height: 1.7;
   color: #f8f8f8;
+
   /* padding: 16px; */
 }
 #appbg {

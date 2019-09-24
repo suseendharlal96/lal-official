@@ -81,6 +81,7 @@
 <script>
 import * as firebase from "firebase";
 import { mapGetters } from "vuex";
+import service from '../../service';
 export default {
   data() {
     return {
@@ -151,6 +152,7 @@ export default {
       });
       this.$store.dispatch("welcomeUser", this.email);
       localStorage.setItem("email", this.email);
+      service.setEmail(this.email);
     },
     onDismissed() {
       this.$store.dispatch("clearError");
@@ -163,6 +165,7 @@ export default {
         .then(result => {
           console.log(result);
           this.$store.dispatch("welcomeUser", result.user.displayName);
+          service.setEmail(result.user.displayName);
         })
         .catch(err => console.log(err));
     },

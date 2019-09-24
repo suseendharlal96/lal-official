@@ -3,18 +3,19 @@
     <h2>To-do List</h2>
     <div>
       <div v-if="loading">
-        <div class="text-xs-center">
-          <!-- <img
+        <!-- <div class="text-xs-center"> -->
+        <!-- <img
             src="https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif"
             style="width: 20%;height: 20%;"
           /> -->
-          <v-progress-circular
+        <!-- <v-progress-circular
             :size="50"
             :width="4"
             indeterminate
             color="red"
           ></v-progress-circular>
-        </div>
+        </div> -->
+        <person-loader></person-loader>
       </div>
       <div v-if="!loading">
         <v-container fluid grid-list-md>
@@ -110,6 +111,7 @@ import axios from "axios";
 
 import Classic from "./ClassicTodo";
 import Table from "./TableTodo";
+import PersonLoader from "../loader/person-loader";
 export default {
   data() {
     return {
@@ -249,7 +251,8 @@ export default {
   },
   components: {
     "classic-todo": Classic,
-    "table-todo": Table
+    "table-todo": Table,
+    "person-loader": PersonLoader
   }
 };
 </script>

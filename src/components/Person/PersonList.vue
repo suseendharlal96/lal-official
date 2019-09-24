@@ -2,12 +2,14 @@
   <v-container id="person">
     <div v-if="loading">
       <div class="text-xs-center">
-        <v-progress-circular
+        <person-loader></person-loader>
+        <!-- <v-progress-circular
           :size="50"
           :width="4"
           indeterminate
           color="red"
         ></v-progress-circular>
+      </div> -->
         <!-- <img
           src="https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif"
           style="width: 20%;height: 20%;"
@@ -107,6 +109,7 @@ import { eventBus } from "../../main";
 import Form from "./PersonForm";
 import { PersonMixin } from "./PersonMixin.js";
 import Modal from "../Modal/Modal";
+import PersonLoader from "../loader/person-loader";
 export default {
   props: ["personList", "loading"],
   mixins: [PersonMixin],
@@ -119,7 +122,7 @@ export default {
       msg: "delete",
       authorized: "",
       val: "",
-      delIndex: '',
+      delIndex: "",
       isFormVisible: false,
       openModal: false,
       formData: {
@@ -175,8 +178,8 @@ export default {
       if (val) {
         this.$emit("personDelete", this.delIndex);
       }
-        this.delData = "";
-        this.openModal = false;
+      this.delData = "";
+      this.openModal = false;
     },
     createPerson() {
       this.rowData = {
@@ -245,7 +248,8 @@ export default {
   },
   components: {
     "person-form": Form,
-    modal: Modal
+    modal: Modal,
+    "person-loader": PersonLoader
   }
 };
 </script>
