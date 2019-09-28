@@ -163,7 +163,7 @@ export default {
       ) {
         if (age.toString().length > 0) {
           let p = this.personList.findIndex(person => person.age === age);
-          // console.log(p);
+          console.log(p);
           if (p !== -1) {
             if (this.$route.path === "/all") {
               this.$router.push({
@@ -223,7 +223,7 @@ export default {
       this.$emit("reset", value, index);
     },
     dispOnForm(i) {
-      console.log(this.$route.path);
+      // console.log(this.$route.path);
       this.authorized = this.$store.getters["getAuthorizedUser"];
       if (this.authorized === null) {
         this.authorized = localStorage.getItem("user");

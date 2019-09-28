@@ -10,7 +10,6 @@ export const store = new Vuex.Store({
   state: {
     user: null,
     authorizeduser: null,
-    welcomeUser: null,
     email: null,
     loading: false,
     error: null,
@@ -25,9 +24,6 @@ export const store = new Vuex.Store({
     },
     setAuthorizedUser(state, payload) {
       state.authorizeduser = payload;
-    },
-    setWelcome(state, payload){
-      state.welcomeUser = payload;
     },
     setCreatedPersonKey(state, payload) {
       state.createdPersonKey = payload;
@@ -74,6 +70,7 @@ export const store = new Vuex.Store({
         .createUserWithEmailAndPassword(payload.email, payload.password)
         .then(user => {
           commit('setLoading', false);
+          console.log(user);
           const newUser = {
             id: user.uid
           };
@@ -82,19 +79,20 @@ export const store = new Vuex.Store({
         .catch(error => {
           commit('setLoading', false);
           commit('setError', error);
-
+          
           console.log(error);
         });
-    },
-
-    // SIGNIN
-    signUserIn({ commit }, payload) {
-      commit('clearError');
-      commit('setLoading', true);
-      firebase
+      },
+      
+      // SIGNIN
+      signUserIn({ commit }, payload) {
+        commit('clearError');
+        commit('setLoading', true);
+        firebase
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
         .then(user => {
+          console.log(user);
           commit('setLoading', false);
           const newUser = {
             id: user.uid
@@ -186,12 +184,6 @@ export const store = new Vuex.Store({
       commit('setAuthorizedUser', payload);
     },
 
-    // WELCOME USER
-
-    welcomeUser({commit}, payload) {
-      commit('setWelcome', payload);
-    },
-
     // SEARCH LOCATION
     searchLocation({ commit }, payload) {
       commit('setLoading', true);
@@ -238,9 +230,6 @@ export const store = new Vuex.Store({
     },
     getAuthorizedUser(state) {
       return state.authorizeduser;
-    },
-    getWelcomeUser(state) {
-      return state.welcomeUser;
     }
   }
 });

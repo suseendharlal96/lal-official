@@ -220,9 +220,9 @@ export default {
         this.$toaster.error("You are not authorized to make changes!");
       }
     },
-    showDatepicker() {
-      console.log("df");
-    },
+    // showDatepicker() {
+    //   console.log("df");
+    // },
     onUpload() {
       // console.log(2);
       this.$refs.imgFile.click();

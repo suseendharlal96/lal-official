@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     deletePerson(index) {
+      console.log(index);
       this.PersonList.splice(index, 1);
       // axios
       //   .get("https://personlist-8be9e.firebaseio.com/persons.json")
