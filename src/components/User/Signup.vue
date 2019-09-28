@@ -143,7 +143,6 @@ export default {
           email: this.email,
           password: this.password
         });
-        this.$store.dispatch("welcomeUser", this.email);
         localStorage.setItem("email", this.email);
       } else {
         this.$toaster.warning('Confirm your Password!');
@@ -159,8 +158,6 @@ export default {
         .signInWithPopup(base_provider)
         .then(result => {
           console.log(result);
-          this.$store.dispatch("welcomeUser", result.user.displayName);
-          localStorage.setItem('email', result.user.displayName);
         })
         .catch(err => console.log(err));
     },

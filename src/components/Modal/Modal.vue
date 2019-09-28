@@ -78,9 +78,4 @@ export default {
 .modal2-fade-leave-active {
   transition: opacity 0.5s ease;
 }
-.ques {
-}
-
-.buttons {
-}
 </style>

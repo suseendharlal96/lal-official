@@ -124,21 +124,15 @@ export default {
         this.$store.getters.user !== null &&
         this.$store.getters.user !== undefined
       );
-    },
-    getWelcomeUser() {
-      this.welcomeMail = service.getEmail();
     }
   },
   watch: {
-    getEmail() {
-      this.welcomeMail = service.getEmail();
-      console.log(this.welcomeMail);
+    $route() {
+      this.welcomeMail = localStorage.getItem("email");
     }
   },
   created() {
-      this.welcomeMail = service.getEmail();
-    //   this.welcomeMail = service.getEmail();
-    // this.welcomeMail = localStorage.getItem('email');
+    this.welcomeMail = localStorage.getItem("email");
   },
   destroyed() {
     localStorage.getItem("email");
@@ -193,7 +187,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 10px;
 }
 
 /* Track */
@@ -215,6 +209,7 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #b30000;
+  cursor: pointer;
 }
 
 .footer {

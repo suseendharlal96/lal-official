@@ -5,7 +5,7 @@
         <div class="progress-bar" id="myBar"></div>
       </div>
     </div>
-    <person class="space"></person>
+    <person id="space"></person>
     <quote></quote>
     <todo></todo>
     <weather></weather>
@@ -49,7 +49,7 @@ export default {
 };
 </script>
 <style>
-.space {
+#space {
   margin-bottom: 40%;
 }
 .all {

@@ -1,31 +1,39 @@
+import AuthGuard from './authguard';
 import Home from '../components/Home/Home.vue';
-import Person from '../components/Person/PersonHome.vue';
-import Quote from '../components/Quotes/QuoteHome.vue';
-import Todo from '../components/Todo/Todo.vue';
 import Signup from '../components/User/Signup.vue';
 import SignIn from '../components/User/SignIn.vue';
 import SignHome from '../components/Home/SignHome.vue';
-import WeatherHome from '../components/WeatherHome/WeatherHome.vue';
-import MainPage from '../components/MainPage/MainPage.vue';
 
-import AuthGuard from './authguard';
-import { store } from '../store/index';
-
-let path = '';
-let component;
-
-if (store.getters.user !== null && store.getters.user !== undefined) {
-  path = '/success';
-  component = SignHome;
-} else {
-  path = '';
-  component = Home;
-}
+const Person = resolve => {
+  require.ensure(['../components/Person/PersonHome.vue'], () => {
+      resolve(require('../components/Person/PersonHome.vue'));
+  });
+};
+const WeatherHome = resolve => {
+  require.ensure(['../components/WeatherHome/WeatherHome.vue'], () => {
+      resolve(require('../components/WeatherHome/WeatherHome.vue'));
+  });
+};
+const Todo = resolve => {
+  require.ensure(['../components/Todo/Todo.vue'], () => {
+      resolve(require('../components/Todo/Todo.vue'));
+  });
+};
+const MainPage = resolve => {
+  require.ensure(['../components/MainPage/MainPage.vue'], () => {
+      resolve(require('../components/MainPage/MainPage.vue'));
+  });
+};
+const Quote = resolve => {
+  require.ensure(['../components/Quotes/QuoteHome.vue'], () => {
+      resolve(require('../components/Quotes/QuoteHome.vue'));
+  });
+};
 
 export const routes = [
   {
-    path: path,
-    component: component
+    path: '',
+    component: Home
   },
   {
     path: '/quote',
@@ -35,12 +43,50 @@ export const routes = [
   {
     path: '/all',
     component: MainPage,
-    beforeEnter: AuthGuard
+    beforeEnter: AuthGuard,
+    children: [
+      {
+        path: 'person/update/:id',
+        component: MainPage,
+        name: 'allperson',
+        beforeEnter: AuthGuard
+      },
+      {
+        path: 'person/create',
+        component: MainPage,
+        name: 'createperson',
+        beforeEnter: AuthGuard
+      },
+      {
+        path: 'person/delete',
+        component: MainPage,
+        name: 'delete',
+        beforeEnter: AuthGuard
+      }
+    ]
   },
   {
     path: '/person',
     component: Person,
-    beforeEnter: AuthGuard
+    beforeEnter: AuthGuard,
+    children: [
+      {
+        path: 'update/:id',
+        component: Person,
+        beforeEnter: AuthGuard,
+        name: 'update'
+      },
+      {
+        path: 'create',
+        component: Person,
+        beforeEnter: AuthGuard
+      },
+      {
+        path: 'delete',
+        component: Person,
+        beforeEnter: AuthGuard
+      }
+    ]
   },
   {
     path: '/todo',
@@ -68,5 +114,10 @@ export const routes = [
   {
     path: '/logout',
     component: SignIn
+  },
+  {
+    path: '*',
+    redirect: '/success',
+    beforeEnter: AuthGuard
   }
 ];

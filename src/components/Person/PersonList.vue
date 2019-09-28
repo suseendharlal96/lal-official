@@ -39,6 +39,7 @@
       <table class="w3-table-all w3-hoverable w3-centered fixedheader">
         <thead>
           <tr class="w3-red">
+            <th>Id</th>
             <th>Name</th>
             <th>Age</th>
             <!-- <th>Dob</th> -->
@@ -63,6 +64,7 @@
             class="w3-hover-yellow hover"
             @click="dispOnForm(index)"
           >
+            <td>{{ index + 1 }}.</td>
             <td>{{ person.name | toUpperCase }}</td>
             <td>{{ person.age }}</td>
             <td>{{ person.email }}</td>
@@ -122,6 +124,8 @@ export default {
       msg: "delete",
       authorized: "",
       val: "",
+      index: "",
+      byUrl: false,
       delIndex: "",
       isFormVisible: false,
       openModal: false,
@@ -161,9 +165,15 @@ export default {
           let p = this.personList.findIndex(person => person.age === age);
           // console.log(p);
           if (p !== -1) {
+            if (this.$route.path === "/all") {
+              this.$router.push({
+                name: "delete"
+              });
+            } else {
+              this.$router.push({ path: "delete", append: true });
+            }
             this.delIndex = p;
             this.openModal = true;
-            // this.createPerson();
           } else {
             this.$toaster.error("person doesn't exist");
           }
@@ -179,6 +189,7 @@ export default {
         this.$emit("personDelete", this.delIndex);
       }
       this.delData = "";
+      this.$router.back();
       this.openModal = false;
     },
     createPerson() {
@@ -191,6 +202,13 @@ export default {
         toCreate: true
       };
       this.isFormVisible = true;
+      if (this.$route.path === "/all") {
+        this.$router.push({
+          name: "createperson"
+        });
+      } else {
+        this.$router.push({ path: "create", append: true });
+      }
     },
     addPerson(list) {
       // console.log(list);
@@ -205,6 +223,7 @@ export default {
       this.$emit("reset", value, index);
     },
     dispOnForm(i) {
+      console.log(this.$route.path);
       this.authorized = this.$store.getters["getAuthorizedUser"];
       if (this.authorized === null) {
         this.authorized = localStorage.getItem("user");
@@ -213,6 +232,14 @@ export default {
         this.authorized === "keDYEODC78TpkTM8NWFyElC0sR32" ||
         this.authorized === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"
       ) {
+        if (this.$route.path === "/all") {
+          this.$router.push({
+            name: "allperson",
+            params: { id: i + 1 }
+          });
+        } else {
+          this.$router.push({ name: "update", params: { id: i + 1 } });
+        }
         this.rowData = {
           name: this.personList[i].name,
           age: this.personList[i].age,
@@ -229,6 +256,7 @@ export default {
     },
     closeModal() {
       this.isFormVisible = false;
+      this.$router.back();
     }
   },
   mounted() {
@@ -240,6 +268,25 @@ export default {
       toCreate: true
     };
   },
+  // watch: {
+  //   $route(to, from) {
+  //     console.log(12);
+  //     console.log(this.$route.params);
+  //     const id = this.$route.params.id - 1;
+  //     console.log(id);
+  //     // this.dispOnForm(id);
+  //     this.rowData = {
+  //       name: this.personList[id].name,
+  //       age: this.personList[id].age,
+  //       email: this.personList[id].email,
+  //       admin: this.personList[id].admin,
+  //       imgUrl: this.personList[id].imgUrl,
+  //       toCreate: false,
+  //       index: id
+  //     };
+  //     this.isFormVisible = true;
+  //   }
+  // },
   filters: {
     toUpperCase(value) {
       // Or toUpperCase(value) -> Alternative

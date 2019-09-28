@@ -29,7 +29,8 @@ Vue.use(BootstrapVue);
 Vue.component('app-alert', Alert);
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history' // to load route without hash(#) (default: hash)
 });
 
 new Vue({
