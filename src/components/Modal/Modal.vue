@@ -10,7 +10,7 @@
         <section class="modal2-body" id="modal2Description">
           <v-layout row class="ques">
             <v-flex xs6>
-              <h2 style="color:blue">Are u sure want to {{ msg }} ?</h2>
+              <h2 style="color:blue">Are you sure want to {{ msg }} ?</h2>
             </v-flex>
           </v-layout>
           <v-layout row class="buttons">

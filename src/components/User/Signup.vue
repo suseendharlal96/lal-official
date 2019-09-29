@@ -157,6 +157,7 @@ export default {
         .auth()
         .signInWithPopup(base_provider)
         .then(result => {
+          localStorage.setItem('email',result.user.displayName);
           console.log(result);
         })
         .catch(err => console.log(err));
