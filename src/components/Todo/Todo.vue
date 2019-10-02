@@ -74,7 +74,7 @@
               <img :src="imgUrl" height="150" />
             </v-flex> 
           </v-layout> -->
-          <b-button variant="outline-primary" @click="classicMode"
+          <b-button variant="primary" @click="classicMode"
             >Switch to {{ btnName }}</b-button
           >
           <h3 class="br" v-if="todos.length > 0">

@@ -58,7 +58,9 @@
                     <!-- <v-btn color="info" @click="signupWithEmail()"
                       >Sign in with verification</v-btn
                     > -->
-                    <p v-html="text"></p>
+                    <p>
+                      <router-link to="/signup" v-html="text"></router-link>
+                    </p>
                     <p>(OR)</p>
                     <v-btn class="ani-btn" @click="googleSignIn()"
                       >Continue with google</v-btn
@@ -93,8 +95,8 @@ export default {
       //   handleCodeInApp: true
       // },
       show: false,
-      // text: "<a href='http://localhost:8080/#/signup'>New user?</a>",
-      text: "<a href='https://person-vue.herokuapp.com/#/signup'>New user?</a>",
+      text: "<a>New user?</a>",
+      // text: "<a href='https://person-vue.herokuapp.com/signup'>New user?</a>",
       rules: {
         required: value => !!value || "Required.",
         min: v => v.length >= 8 || "Min 8 characters"
@@ -136,7 +138,7 @@ export default {
   },
   methods: {
     // signupWithEmail() {
-      //   this.$toaster.success(
+    //   this.$toaster.success(
     //     "A confirmation mail has been sent your provided email-id"
     //   );
     //   this.$store.dispatch("signUserUpEmail", {
@@ -161,7 +163,7 @@ export default {
         .signInWithPopup(base_provider)
         .then(result => {
           console.log(result);
-          localStorage.setItem('email',result.user.displayName);
+          localStorage.setItem("email", result.user.displayName);
         })
         .catch(err => console.log(err));
     },

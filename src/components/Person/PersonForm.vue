@@ -9,18 +9,15 @@
         aria-describedby="modalDescription"
       >
         <header class="modal-header" id="modalTitle">
-          <slot name="header">
-            Person Form!
-
-            <button
-              type="button"
-              class="btn-close"
-              @click="clearbox"
-              aria-label="Close modal"
-            >
-              x
-            </button>
-          </slot>
+          Person Form!
+          <button
+            type="button"
+            class="btn-close"
+            @click="clearbox"
+            aria-label="Close modal"
+          >
+            X
+          </button>
         </header>
         <section class="modal-body" id="modalDescription">
           <v-form v-model="valid">
@@ -32,6 +29,7 @@
                   :rules="nameRules"
                   :counter="15"
                   v-model.lazy.trim="rowData.name"
+                  required
                 ></v-text-field>
               </v-flex>
             </v-layout>
@@ -43,6 +41,7 @@
                   label="Age"
                   id="age"
                   v-model.number="rowData.age"
+                  required
                 ></v-text-field>
               </v-flex>
             </v-layout>
@@ -63,6 +62,7 @@
                   :rules="emailRules"
                   :counter="40"
                   v-model.trim="rowData.email"
+                  required
                 ></v-text-field>
               </v-flex>
             </v-layout>
@@ -171,53 +171,60 @@ export default {
   // },
   methods: {
     addPerson(name, age, email, admin, imgUrl, image) {
-      // console.log(name);
-      this.authorized = this.$store.getters["getAuthorizedUser"];
-      if (this.authorized === null) {
-        this.authorized = localStorage.getItem("user");
-      }
-      if (
-        this.authorized === "keDYEODC78TpkTM8NWFyElC0sR32" ||
-        this.authorized === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"
-      ) {
-        if (this.rowData.toCreate) {
-          // console.log("create");
-          const newPerson = {
-            name: this.rowData.name,
-            age: this.rowData.age,
-            email: this.rowData.email,
-            admin: this.rowData.admin,
-            imgUrl: this.rowData.imgUrl,
-            img: this.image
-          };
-          this.$emit("added", newPerson);
-          this.clearbox();
-          // this.rowData.name = "";
-          // this.rowData.email = "";
-          // this.rowData.age = "";
-          // this.rowData.admin = "";
-          // this.rowData.imgUrl = "";
-          this.rowData.toCreate = false;
-          // } else {
-          //   this.$toaster.error("creation failed");
-          // }
-        } else {
-          // console.log("update");
-          // console.log(this.rowData.index);
-          let newPerson;
-          newPerson = {
-            name: name,
-            age: age,
-            email: email,
-            admin: admin,
-            imgUrl: this.rowData.imgUrl
-          };
+      console.log(typeof name);
+      console.log(typeof age);
+      console.log(typeof email);
+      console.log(typeof admin);
+      if (name.length && age.length && email.length && admin.length !== 0) {
+        this.authorized = this.$store.getters["getAuthorizedUser"];
+        if (this.authorized === null) {
+          this.authorized = localStorage.getItem("user");
+        }
+        if (
+          this.authorized === "keDYEODC78TpkTM8NWFyElC0sR32" ||
+          this.authorized === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"
+        ) {
+          if (this.rowData.toCreate) {
+            // console.log("create");
+            const newPerson = {
+              name: this.rowData.name,
+              age: this.rowData.age,
+              email: this.rowData.email,
+              admin: this.rowData.admin,
+              imgUrl: this.rowData.imgUrl,
+              img: this.image
+            };
+            this.$emit("added", newPerson);
+            this.clearbox();
+            // this.rowData.name = "";
+            // this.rowData.email = "";
+            // this.rowData.age = "";
+            // this.rowData.admin = "";
+            // this.rowData.imgUrl = "";
+            this.rowData.toCreate = false;
+            // } else {
+            //   this.$toaster.error("creation failed");
+            // }
+          } else {
+            // console.log("update");
+            // console.log(this.rowData.index);
+            let newPerson;
+            newPerson = {
+              name: name,
+              age: age,
+              email: email,
+              admin: admin,
+              imgUrl: this.rowData.imgUrl
+            };
 
-          this.$emit("update", newPerson, this.rowData.index);
-          this.clearbox();
+            this.$emit("update", newPerson, this.rowData.index);
+            this.clearbox();
+          }
+        } else {
+          this.$toaster.error("You are not authorized to make changes!");
         }
       } else {
-        this.$toaster.error("You are not authorized to make changes!");
+        this.$toaster.error("Please fill the mandatory fields");
       }
     },
     // showDatepicker() {

@@ -192,12 +192,11 @@ export const store = new Vuex.Store({
         .then(res => {
           commit('setLoading', false);
           commit('setWeatherCache', res);
-          console.log(res);
+          console.log(res.error.message);
         })
         .catch(err => {
           commit('setLoading', false);
-          commit('setError', err);
-          console.log(err.message);
+          console.log(err);
         });
 
       // console.log(wF);

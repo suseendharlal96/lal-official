@@ -78,7 +78,9 @@
                         </span>
                       </template></v-btn
                     >
-                    <p v-html="text"></p>
+                    <p>
+                      <router-link to="/signin" v-html="text"></router-link>
+                    </p>
                     <p>(OR)</p>
                     <v-btn @click="googleSignIn()">Continue with google</v-btn>
                     <v-btn color="info" @click="facebookLogin()"
@@ -145,7 +147,7 @@ export default {
         });
         localStorage.setItem("email", this.email);
       } else {
-        this.$toaster.warning('Confirm your Password!');
+        this.$toaster.warning("Confirm your Password!");
       }
     },
     onDismissed() {
@@ -157,7 +159,7 @@ export default {
         .auth()
         .signInWithPopup(base_provider)
         .then(result => {
-          localStorage.setItem('email',result.user.displayName);
+          localStorage.setItem("email", result.user.displayName);
           console.log(result);
         })
         .catch(err => console.log(err));
