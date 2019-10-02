@@ -60,15 +60,15 @@ export default {
       this.$router.push("/success");
     },
     getLocation() {
-      console.log(123);
+      // console.log(123);
       axios
         .get(
           "https://geo.ipify.org/api/v1?apiKey=at_pftjsvw5tqwPlnvgHrQ1w1AGRg86N"
         )
         .then(res => {
-          console.log(res);
+          // console.log(res);
           this.lat = res.data.ip;
-          console.log(this.lat);
+          // console.log(this.lat);
         });
       this.showPosition();
     },

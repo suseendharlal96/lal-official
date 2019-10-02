@@ -171,19 +171,15 @@ export default {
   // },
   methods: {
     addPerson(name, age, email, admin, imgUrl, image) {
-      console.log(typeof name);
-      console.log(typeof age);
-      console.log(typeof email);
-      console.log(typeof admin);
-      if (name.length && age.length && email.length && admin.length !== 0) {
-        this.authorized = this.$store.getters["getAuthorizedUser"];
-        if (this.authorized === null) {
-          this.authorized = localStorage.getItem("user");
-        }
-        if (
-          this.authorized === "keDYEODC78TpkTM8NWFyElC0sR32" ||
-          this.authorized === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"
-        ) {
+      this.authorized = this.$store.getters["getAuthorizedUser"];
+      if (this.authorized === null) {
+        this.authorized = localStorage.getItem("user");
+      }
+      if (
+        this.authorized === "keDYEODC78TpkTM8NWFyElC0sR32" ||
+        this.authorized === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"
+      ) {
+        if (name.length && email.length && admin.length !== 0) {
           if (this.rowData.toCreate) {
             // console.log("create");
             const newPerson = {
@@ -221,10 +217,10 @@ export default {
             this.clearbox();
           }
         } else {
-          this.$toaster.error("You are not authorized to make changes!");
+          this.$toaster.error("Please fill the mandatory fields");
         }
       } else {
-        this.$toaster.error("Please fill the mandatory fields");
+        this.$toaster.error("You are not authorized to make changes!");
       }
     },
     // showDatepicker() {

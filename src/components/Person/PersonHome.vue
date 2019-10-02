@@ -66,26 +66,6 @@ export default {
     },
     createPerson(data) {
       this.PersonList.push(data);
-      // console.log(data);
-      // const filename = data.img.name;
-      // const imgextension = filename.slice(filename.lastIndexOf("."));
-      // firebase
-      //   .storage()
-      //   .ref("persons/" + filename)
-      //   .put(data.img)
-      //   .then(fileData => {
-      //     console.log(fileData);
-      //     let fullPath = fileData.metaData.fullPath;
-      //     return firebase
-      //       .storage()
-      //       .ref(fullPath)
-      //       .getDownloadURL();
-      //   })
-      //   .then(url => {
-      //     console.log(url);
-      //     this.image = url;
-      //   });
-
       const perData = {
         name: data.name,
         age: data.age,
@@ -93,17 +73,7 @@ export default {
         admin: data.admin,
         img: data.img
       };
-      // firebase.storage.ref("persons/" + this.id + "." + imgextension);
-
-      // const index = this.PersonList.length - 1;
-      // const persons = [...this.PersonList];
       this.$store.dispatch("createPerson", perData);
-      // axios
-      //   .post("https://personlist-8be9e.firebaseio.com/persons.json", perData)
-      //   .then(this.PersonList.push(data))
-      //   .catch(err => console.log(err));
-
-      //  this.PersonList.push(data);
     },
     updatePerson(data, index) {
       // console.log(data);
@@ -142,8 +112,6 @@ export default {
             if (res.data !== undefined || null) {
               this.PersonList.push(person);
             }
-
-            console.log(this.PersonList);
             this.loading = false;
           })
         )
@@ -156,7 +124,6 @@ export default {
         this.$router.push("/logout");
       });
     }
-    // this.persons = { ...this.PersonList };
   },
   components: {
     person: Person

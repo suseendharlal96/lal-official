@@ -70,7 +70,7 @@ export const store = new Vuex.Store({
         .createUserWithEmailAndPassword(payload.email, payload.password)
         .then(user => {
           commit('setLoading', false);
-          console.log(user);
+          // console.log(user);
           const newUser = {
             id: user.uid
           };
@@ -92,7 +92,7 @@ export const store = new Vuex.Store({
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
         .then(user => {
-          console.log(user);
+          // console.log(user);
           commit('setLoading', false);
           const newUser = {
             id: user.uid
@@ -121,7 +121,7 @@ export const store = new Vuex.Store({
 
     // CREATE NEW USER
     createPerson({ commit }, payload) {
-      console.log(payload);
+      // console.log(payload);
       const newPerson = {
         name: payload.name,
         age: payload.age,
@@ -139,7 +139,7 @@ export const store = new Vuex.Store({
           return data.key;
         })
         .then(key => {
-          console.log(key);
+          // console.log(key);
           const imgname = payload.img.name;
           ext = imgname.slice(imgname.lastIndexOf('.'));
           return firebase
@@ -152,8 +152,8 @@ export const store = new Vuex.Store({
         })
         .then(fileData => {
           console.log(fileData);
-          console.log(key);
-          console.log(ext);
+          // console.log(key);
+          // console.log(ext);
 
           return firebase
             .storage()
@@ -164,9 +164,9 @@ export const store = new Vuex.Store({
           console.log(err);
         })
         .then(url => {
-          console.log(url);
+          // console.log(url);
           let imgUrl = url;
-          console.log(key);
+          // console.log(key);
           return firebase
             .database()
             .ref('persons')
@@ -192,7 +192,7 @@ export const store = new Vuex.Store({
         .then(res => {
           commit('setLoading', false);
           commit('setWeatherCache', res);
-          console.log(res.error.message);
+          // console.log(res.error.message);
         })
         .catch(err => {
           commit('setLoading', false);

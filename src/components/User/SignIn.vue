@@ -124,8 +124,6 @@ export default {
       if (value !== null && value !== undefined) {
         this.$store.dispatch("authorizeUser", value.id);
         localStorage.setItem("user", value.id);
-        console.log(value.id);
-        console.log(typeof value.id);
         this.$router.push("/success");
       }
     }
@@ -162,7 +160,6 @@ export default {
         .auth()
         .signInWithPopup(base_provider)
         .then(result => {
-          console.log(result);
           localStorage.setItem("email", result.user.displayName);
         })
         .catch(err => console.log(err));

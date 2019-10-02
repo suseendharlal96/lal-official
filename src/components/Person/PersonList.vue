@@ -163,7 +163,7 @@ export default {
       ) {
         if (age.toString().length > 0) {
           let p = this.personList.findIndex(person => person.age === age);
-          console.log(p);
+          // console.log(p);
           if (p !== -1) {
             if (this.$route.path === "/all") {
               this.$router.push({
@@ -224,35 +224,25 @@ export default {
     },
     dispOnForm(i) {
       // console.log(this.$route.path);
-      this.authorized = this.$store.getters["getAuthorizedUser"];
-      if (this.authorized === null) {
-        this.authorized = localStorage.getItem("user");
-      }
-      if (
-        this.authorized === "keDYEODC78TpkTM8NWFyElC0sR32" ||
-        this.authorized === "TWqhG3hdMcVRy9NWj2VFBPQk9p22"
-      ) {
-        if (this.$route.path === "/all") {
-          this.$router.push({
-            name: "allperson",
-            params: { id: i + 1 }
-          });
-        } else {
-          this.$router.push({ name: "update", params: { id: i + 1 } });
-        }
-        this.rowData = {
-          name: this.personList[i].name,
-          age: this.personList[i].age,
-          email: this.personList[i].email,
-          admin: this.personList[i].admin,
-          imgUrl: this.personList[i].imgUrl,
-          toCreate: false,
-          index: i
-        };
-        this.isFormVisible = true;
+
+      if (this.$route.path === "/all") {
+        this.$router.push({
+          name: "allperson",
+          params: { id: i + 1 }
+        });
       } else {
-        this.$toaster.error("You are not authorized to make changes!");
+        this.$router.push({ name: "update", params: { id: i + 1 } });
       }
+      this.rowData = {
+        name: this.personList[i].name,
+        age: this.personList[i].age,
+        email: this.personList[i].email,
+        admin: this.personList[i].admin,
+        imgUrl: this.personList[i].imgUrl,
+        toCreate: false,
+        index: i
+      };
+      this.isFormVisible = true;
     },
     closeModal() {
       this.isFormVisible = false;

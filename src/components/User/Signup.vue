@@ -160,7 +160,7 @@ export default {
         .signInWithPopup(base_provider)
         .then(result => {
           localStorage.setItem("email", result.user.displayName);
-          console.log(result);
+          // console.log(result);
         })
         .catch(err => console.log(err));
     },
