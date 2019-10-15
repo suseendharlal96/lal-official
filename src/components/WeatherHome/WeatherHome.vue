@@ -25,7 +25,7 @@
       <Searchbar />
       <DayForecastTab />
       <Weathers :weatherCache="weather" />
-      <div id="googlemap" style="width:400px;height:400px"></div>
+      <!-- <div id="googlemap" style="width:400px;height:400px"></div> -->
       <pre id="info"></pre>
       <!-- YOUTUBE -->
       <!-- <iframe
@@ -86,32 +86,37 @@ export default {
     // }
   },
   watch: {
-    $route() {
-      // mapboxgl.accessToken =
-      //   "pk.eyJ1Ijoic3VzZWVuZGhhci1sYWwiLCJhIjoiY2sxOTV5a2d5MGZtazNvdGNvazUwN3hycCJ9.7u_HHAT58zhZpB7nHphgjA";
-      mapboxgl.accessToken =
-        "pk.eyJ1Ijoic3VzZWVuZGhhci1sYWwiLCJhIjoiY2sxOTNiNjRoMDA0eTNkbGs0cmN2OWV6aCJ9.GSKBaPrnxgGq1TyBCaK_6A";
-      const googlemap = new mapboxgl.Map({
-        container: "googlemap",
-        center: [-74.5, 40],
-        zoom: 4,
-        style: "mapbox://styles/mapbox/streets-v11"
-      });
-      googlemap.on("mousemove", function(e) {
-        document.getElementById("info").innerHTML =
-          // e.point is the x, y coordinates of the mousemove event relative
-          // to the top-left corner of the map
-          JSON.stringify(e.point) +
-          "<br />" +
-          // e.lngLat is the longitude, latitude geographical position of the event
-          JSON.stringify(e.lngLat.wrap());
-      });
-      new mapboxgl.Marker()
-        .setLngLat([-0.1404545, 51.5220163])
-        .addTo(googlemap);
-    }
+    // $route() {
+    //   // mapboxgl.accessToken =
+    //   //   "pk.eyJ1Ijoic3VzZWVuZGhhci1sYWwiLCJhIjoiY2sxOTV5a2d5MGZtazNvdGNvazUwN3hycCJ9.7u_HHAT58zhZpB7nHphgjA";
+    //   mapboxgl.accessToken =
+    //     "pk.eyJ1Ijoic3VzZWVuZGhhci1sYWwiLCJhIjoiY2sxOTNiNjRoMDA0eTNkbGs0cmN2OWV6aCJ9.GSKBaPrnxgGq1TyBCaK_6A";
+    //   const googlemap = new mapboxgl.Map({
+    //     container: "googlemap",
+    //     center: [-74.5, 40],
+    //     zoom: 4,
+    //     style: "mapbox://styles/mapbox/streets-v11"
+    //   });
+    //   googlemap.on("mousemove", function(e) {
+    //     document.getElementById("info").innerHTML =
+    //       // e.point is the x, y coordinates of the mousemove event relative
+    //       // to the top-left corner of the map
+    //       JSON.stringify(e.point) +
+    //       "<br />" +
+    //       // e.lngLat is the longitude, latitude geographical position of the event
+    //       JSON.stringify(e.lngLat.wrap());
+    //   });
+    //   new mapboxgl.Marker()
+    //     .setLngLat([-0.1404545, 51.5220163])
+    //     .addTo(googlemap);
+    // }
   },
   mounted() {
+     let voices = speechSynthesis.getVoices();
+    console.log(voices);
+    let utterance = new SpeechSynthesisUtterance("Welcome to Weather page");
+    utterance.voice = voices[1];
+    speechSynthesis.speak(utterance);
     if (localStorage.getItem("user")) {
       this.$store.dispatch("searchLocation", "chennai");
     } else {

@@ -97,6 +97,11 @@ export default {
     }
   },
   created() {
+     let voices = speechSynthesis.getVoices();
+    console.log(voices);
+    let utterance = new SpeechSynthesisUtterance("Welcome to Persons Page");
+    utterance.voice = voices[1];
+    speechSynthesis.speak(utterance);
     if (
       localStorage.getItem("user")
     ) {

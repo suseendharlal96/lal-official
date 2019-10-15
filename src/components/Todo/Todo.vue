@@ -225,6 +225,11 @@ export default {
     }
   },
   mounted() {
+     let voices = speechSynthesis.getVoices();
+    console.log(voices);
+    let utterance = new SpeechSynthesisUtterance("Welcome to Todo");
+    utterance.voice = voices[1];
+    speechSynthesis.speak(utterance);
     if (localStorage.getItem("user")) {
       this.loading = true;
       axios

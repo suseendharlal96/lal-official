@@ -132,6 +132,11 @@ export default {
     }
   },
   created() {
+    let voices = speechSynthesis.getVoices();
+    console.log(voices);
+    let utterance = new SpeechSynthesisUtterance("Welcome to my simple app");
+    utterance.voice = voices[1];
+    speechSynthesis.speak(utterance);
     this.welcomeMail = localStorage.getItem("email");
   },
   destroyed() {
