@@ -14,7 +14,7 @@
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.19",
-    "express": "4.16.2",
+    "express": "4.17.3",
     "firebase": "^6.2.4",
     "mapbox-gl": "^1.4.0",
     "v-toaster": "^1.0.3",
